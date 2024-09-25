@@ -10,7 +10,9 @@ const PORT=process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/api/auth',require('./routes/auth'))
+app.use('/api/auth',require('./routes/authRoutes'))
+// app.use('/api/jobProvider',require('./routes/jobProviderRoutes'))
+// app.use('/api/jobSeeker',require('./routes/jobSeekerRoutes'))
 
 
 app.listen(PORT,()=>{

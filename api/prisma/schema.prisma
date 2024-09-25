@@ -13,33 +13,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
+model User {
   id                            Int      @id @default(autoincrement())
   email                         String   @unique
   username                      String   @unique
   password_hash                 String
-  role                          Role     @relation(fields:[roleId],references:[id])
+  role                          Role     @relation(fields: [roleId], references: [id])
   roleId                        Int
   profile_picture_url           String?  // Optional profile picture URL
-  last_login                    DateTime?
-  jobSeekerProfile              JobSeekerProfile? @relation("JobSeekerProfile", fields: [user_id], references: [seeker_id])
-  jobProviderProfile            JobProviderProfile? @relation("JobProviderProfile", fields: [user_id], references: [provider_id])
+  jobSeekerProfile              JobSeekerProfile?
+  jobProviderProfile            JobProviderProfile?
   notifications                 Notification[]
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
 }
 
 model Role {
- id                             Int      @id @default(autoincrement())
- name                           String   @unique
- createdAt                      DateTime @default(now())
- updatedAt                      DateTime @updatedAt
- users                          User[]
+  id                             Int      @id @default(autoincrement())
+  name                           String   @unique
+  createdAt                      DateTime @default(now())
+  updatedAt                      DateTime @updatedAt
+  users                          User[]
 }
 
 model JobSeekerProfile {
-  seeker_id                     Int       @id @default(autoincrement())
-  user                          User      @relation(fields: [seeker_id], references: [user_id])
+  id                            Int       @id @default(autoincrement())
+  userId                        Int       @unique
+  user                          User      @relation(fields: [userId], references: [id])
   first_name                    String
   last_name                     String
   phone_number                  String
@@ -48,82 +48,77 @@ model JobSeekerProfile {
   experience                    Json      // Array of job experiences with start/end dates
   education                     Json      // Array of educational qualifications
   location                      String
-  preferred_job_types  J        Json      // Array of preferred job types
-  notifications_enabled         Boolean  @default(true)
+  preferred_job_types           Json      // Array of preferred job types
+  notifications_enabled         Boolean   @default(true)
   created_at                    DateTime  @default(now())
   updated_at                    DateTime  @updatedAt
+  jobApplications               JobApplication[] // Add this relation
 }
 
 model JobProviderProfile {
-  provider_id                   Int      @id @default(autoincrement())
-  user                          User     @relation(fields: [provider_id], references: [user_id])
+  id                            Int      @id @default(autoincrement())
+  userId                        Int      @unique  // Make this field unique for the one-to-one relation
+  user                          User     @relation(fields: [userId], references: [id])
   company_name                  String
   company_description           String
   website                       String
   email                         String
   phone                         String
   location                      String
-  industry                      Industry // Enum (Industry can be a separate enum or model)
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
   jobListings                   JobListing[]
-  reviews                       CompanyReview[]
 }
-
 model JobListing {
-  job_id                        Int      @id @default(autoincrement())
-  provider                      JobProviderProfile @relation(fields: [provider_id], references: [provider_id])
-  provider_id                   Int
-  title                         String
-  description                   String
-  requirements                  Json     // Array or JSON of job requirements
-  preferred_skills              Json     // Array of preferred skills
-  location                      String
-  salary_range                  String
-  job_type                      JobType  // Enum: 'full-time', 'part-time', 'contract', 'internship'
-  posted_at                     DateTime @default(now())
-  expires_at                    DateTime?
-  status                        JobStatus @default('active') // Enum: 'active', 'closed', 'paused'
-  applications_count            Int      @default(0)
-  created_at                    DateTime  @default(now())
-  updated_at                    DateTime  @updatedAt
-  jobApplications               JobApplication[]
+  id                        Int      @id @default(autoincrement())
+  provider_id               Int
+  provider                  JobProviderProfile @relation(fields: [provider_id], references: [id])
+  title                     String
+  description               String
+  requirements              Json     // Array or JSON of job requirements
+  preferred_skills          Json     // Array of preferred skills
+  location                  String
+  salary_range              String
+  posted_at                 DateTime @default(now())
+  expires_at                DateTime
+  applications_count        Int      @default(0)
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+  jobApplications           JobApplication[]
+  categories                JobCategory[]  // Add this opposite relation
 }
 
 model JobApplication {
-  application_id                Int      @id @default(autoincrement())
-  job                           JobListing @relation(fields: [job_id], references: [job_id])
-  job_id                        Int
-  seeker                        JobSeekerProfile @relation(fields: [seeker_id], references: [seeker_id])
-  seeker_id                     Int
-  applied_at                    DateTime @default(now())
-  status                        ApplicationStatus @default('submitted') // Enum: 'submitted', 'under_review', 'interview', 'rejected', 'hired', 'withdrawn'
-  cover_letter_url              String?
-  portfolio_url                 String?
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  job_id            Int
+  job               JobListing @relation(fields: [job_id], references: [id]) // Correct reference to id
+  seeker_id         Int
+  seeker            JobSeekerProfile @relation(fields: [seeker_id], references: [id]) // Correct reference to id
+  applied_at        DateTime @default(now())
+  cover_letter_url  String?
+  portfolio_url     String?
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
 }
 
-model JobAlert {
-  alert_id                      Int      @id @default(autoincrement())
-  seeker                        JobSeekerProfile @relation(fields: [seeker_id], references: [seeker_id])
-  seeker_id                     Int
-  keywords                      Json     // Array of keywords for job search
-  location                      String
-  frequency                     AlertFrequency // Enum: 'immediate', 'daily', 'weekly'
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
+model JobCategory {
+  id            Int              @id @default(autoincrement())
+  name          String           @unique
+  description   String?
+  listings      JobListing[]
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 }
 
 
 model Notification {
-  notification_id               Int      @id @default(autoincrement())
-  user                          User     @relation(fields: [user_id], references: [user_id])
-  user_id                       Int
-  message                       String
-  is_read                       Boolean  @default(false)
-  created_at                    DateTime @default(now())
-  type                          NotificationType // Enum: 'job_alert', 'application_status', 'general'
+  id    Int      @id @default(autoincrement())
+  user_id            Int      // Foreign key to reference User's id
+  user               User     @relation(fields: [user_id], references: [id]) // Correct field reference
+  message            String
+  read            Boolean  @default(false)
+  created_at         DateTime @default(now())
+ 
 }
 
 
