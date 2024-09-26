@@ -1,3 +1,6 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 //create profile
 const createProfile = async (req, res) => {
     const {
