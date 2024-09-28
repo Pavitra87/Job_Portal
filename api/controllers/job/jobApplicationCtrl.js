@@ -20,5 +20,33 @@ const createJobApplication = async (req, res) => {
   }
 };
 
+//getjobapplication job seeker only
+const getJobApplication = async (req, res) => {
+  //job seeker only
+  const { id } = req.params;
 
-module.exports={createJobApplication}
+  try {
+    const getjobapplication = await prisma.jobApplication.findUnique({
+      where: { id: Number(id) },
+    });
+    res.status(200).json({ getjobapplication });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+//get allgobapplication for job providers
+const getJobApplications = async (req, res) => {
+  try {
+    const getjobapplications = await prisma.jobApplication.findMany();
+    res.status(200).json({ getjobapplications });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  createJobApplication,
+  getJobApplication,
+  getJobApplications,
+};

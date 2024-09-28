@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 //Authentication Middleware to Check User Token( Authentication Middleware (JWT))
 const authenticateToken = async (req, res, next) => {
-  const token = req.header("Authorization")?.split(" ")[1];
+  const token = req.header("Authorization")?.split(' ')[1];
 
   if (!token) {
     return res.status(403).send("Token is required");

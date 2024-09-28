@@ -21,8 +21,8 @@ model User {
   role                          Role     @relation(fields: [roleId], references: [id])
   roleId                        Int
   profile_picture_url           String?  // Optional profile picture URL
-  jobSeekerProfile              JobSeekerProfile?
-  jobProviderProfile            JobProviderProfile?
+  jobSeekerProfile              JobSeekerProfile[]
+  jobProviderProfile            JobProviderProfile[]
   notifications                 Notification[]
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
@@ -57,8 +57,8 @@ model JobSeekerProfile {
 
 model JobProviderProfile {
   id                            Int      @id @default(autoincrement())
-  userId                        Int      @unique  // Make this field unique for the one-to-one relation
-  user                          User     @relation(fields: [userId], references: [id])
+  userId                        Int      @unique  
+  user                          User @relation(fields: [userId], references: [id])
   company_name                  String
   company_description           String
   website                       String
@@ -69,6 +69,7 @@ model JobProviderProfile {
   updated_at                    DateTime @updatedAt
   jobListings                   JobListing[]
 }
+
 model JobListing {
   id                        Int      @id @default(autoincrement())
   provider_id               Int
@@ -108,10 +109,11 @@ model JobCategory {
   listings      JobListing[]
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
+  joblisting    JobListing[]
 }
 
 model Notification {
-  id    Int      @id @default(autoincrement())
+  id                 Int         @id @default(autoincrement())
   user_id            Int      // Foreign key to reference User's id
   user               User     @relation(fields: [user_id], references: [id]) // Correct field reference
   message            String
@@ -119,6 +121,7 @@ model Notification {
   created_at         DateTime @default(now())
  
 }
+
 
 
 

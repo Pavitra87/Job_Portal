@@ -13,6 +13,7 @@ const createJobList = async (req, res) => {
     salary_range,
     expires_at,
     categoryIds,
+    providerId
   } = req.body;
 
   try {
@@ -26,6 +27,7 @@ const createJobList = async (req, res) => {
         location,
         salary_range,
         expires_at,
+        providerId,
         categories: {
           connect: categoryIds.map((id) => ({ id })),
         },

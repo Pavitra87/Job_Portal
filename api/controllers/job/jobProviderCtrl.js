@@ -1,30 +1,33 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
 
 //create profile
 const createProfile = async (req, res) => {
   const {
+    userId,
     company_name,
     company_description,
     email,
     phone,
     location,
-    industry,
+
+    website,
   } = req.body;
   try {
-    const newCreateProfile = await prisma.jobprovider.create({
+    const newCreateProfile = await prisma.jobProviderProfile.create({
       data: {
+        userId,
         company_name,
         company_description,
         email,
         phone,
+        website,
         location,
-        industry,
       },
     });
-    res.status(200).json({ newCreateProfile });
+    res.status(200).json(newCreateProfile);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -49,6 +52,7 @@ const getProfile = async (req, res) => {
     if (!profile) return res.status(404).json({ error: "profile not found" });
     res.status(201).json(profile);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -93,4 +97,10 @@ const deleteProfile = async (req, res) => {
   } catch (error) {}
 };
 
-module.exports={createProfile,getProfile,getProfiles,updateProfile,deleteProfile}
+module.exports = {
+  createProfile,
+  getProfile,
+  getProfiles,
+  updateProfile,
+  deleteProfile,
+};

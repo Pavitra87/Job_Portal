@@ -3,9 +3,9 @@ const { createProfile, getProfile, getProfiles, updateProfile, deleteProfile } =
 const { authenticateToken } = require('../middleware/authenticateJwt');
 const router=express.Router();
 
-router.post('/',authenticateToken, createProfile)
+router.post('/',authenticateToken,autherizationRoles(['Job Seeker']), createProfile)
 router.get('/:id',getProfile)
 router.get('/',getProfiles)
-router.put('/:id',updateProfile)
-router.post('/:id',deleteProfile)
+router.put('/:id',authenticateToken,autherizationRoles(['Job Seeker']),updateProfile)
+router.post('/:id',authenticateToken,autherizationRoles(['Job Provider']),deleteProfile)
 module.exports=router;
