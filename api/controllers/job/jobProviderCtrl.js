@@ -4,15 +4,15 @@ const prisma = new PrismaClient();
 //create profile
 const createProfile = async (req, res) => {
   const {
-    userId,
     company_name,
     company_description,
     email,
     phone,
     location,
-
     website,
   } = req.body;
+  const userId=req.user.userId;
+
   try {
     const newCreateProfile = await prisma.jobProviderProfile.create({
       data: {
@@ -35,7 +35,7 @@ const createProfile = async (req, res) => {
 //get all
 const getProfiles = async (req, res) => {
   try {
-    const profiles = prisma.jobprovider.findMany();
+    const profiles =await prisma.jobProviderProfile.findMany();
     res.status(201).json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,11 +46,11 @@ const getProfiles = async (req, res) => {
 const getProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const profile = prisma.jobprovider.findUnique({
+    const profile =await prisma.jobProviderProfile.findUnique({
       where: { id: Number(id) },
     });
     if (!profile) return res.status(404).json({ error: "profile not found" });
-    res.status(201).json(profile);
+    res.status(201).send(profile);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -66,10 +66,11 @@ const updateProfile = async (req, res) => {
     email,
     phone,
     location,
-    industry,
+    website,
+
   } = req.body;
   try {
-    const updatedprofile = await prisma.jobprovider.update({
+    const updatedprofile = await prisma.jobProviderProfile.update({
       where: { id: Number(id) },
       data: {
         company_name,
@@ -77,7 +78,8 @@ const updateProfile = async (req, res) => {
         email,
         phone,
         location,
-        industry,
+        website,
+       
       },
     });
     res.status(201).json(updatedprofile);
@@ -90,7 +92,7 @@ const updateProfile = async (req, res) => {
 const deleteProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedProfile = await prisma.jobprovider.delete({
+    const deletedProfile = await prisma.jobProviderProfile.delete({
       where: { id: Number(id) },
     });
     res.status(204).send(deletedProfile);

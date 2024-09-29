@@ -3,39 +3,38 @@ const prisma = new PrismaClient();
 
 //create
 const createJobList = async (req, res) => {
-  //provider
   const {
-    title,
-    description,
-    requirements,
-    preferred_skills,
-    location,
-    salary_range,
-    expires_at,
-    categoryIds,
-    providerId
+    title,                     
+    description,              
+    requirements,             
+    preferred_skills,         
+    location ,               
+    salary_range ,             
+    applications_count  ,
+    categoryId      
   } = req.body;
+
+  const providerId=req.jobProviderProfile.providerId;
+  
 
   try {
     const jobListing = await prisma.jobListing.create({
       data: {
-        provider_id: req.user.id,
-        title,
-        description,
-        requirements,
-        preferred_skills,
-        location,
-        salary_range,
-        expires_at,
         providerId,
-        categories: {
-          connect: categoryIds.map((id) => ({ id })),
-        },
+        categoryId,
+        title,                     
+        description,              
+        requirements,             
+        preferred_skills,         
+        location ,               
+        salary_range ,             
+        applications_count  
       },
     });
 
     res.status(201).json(jobListing);
   } catch (error) {
+    console.log(error)
     res.status(401).json({ error: error.message });
   }
 };

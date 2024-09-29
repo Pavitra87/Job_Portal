@@ -21,8 +21,8 @@ model User {
   role                          Role     @relation(fields: [roleId], references: [id])
   roleId                        Int
   profile_picture_url           String?  // Optional profile picture URL
-  jobSeekerProfile              JobSeekerProfile[]
-  jobProviderProfile            JobProviderProfile[]
+  jobSeekerProfile              JobSeekerProfile?
+  jobProviderProfile            JobProviderProfile?
   notifications                 Notification[]
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
@@ -44,11 +44,11 @@ model JobSeekerProfile {
   last_name                     String
   phone_number                  String
   resume_url                    String
-  skills                        Json      // Array or JSON
-  experience                    Json      // Array of job experiences with start/end dates
-  education                     Json      // Array of educational qualifications
+  skills                        Json     
+  experience                    Json     
+  education                     String     
   location                      String
-  preferred_job_types           Json      // Array of preferred job types
+  preferredJobTypes           Json      
   notifications_enabled         Boolean   @default(true)
   created_at                    DateTime  @default(now())
   updated_at                    DateTime  @updatedAt
@@ -67,13 +67,13 @@ model JobProviderProfile {
   location                      String
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
-  jobListings                   JobListing[]
+  jobListing                  JobListing[]
 }
 
 model JobListing {
   id                        Int      @id @default(autoincrement())
-  provider_id               Int
-  provider                  JobProviderProfile @relation(fields: [provider_id], references: [id])
+  providerId                Int
+  categoryId                Int
   title                     String
   description               String
   requirements              Json     // Array or JSON of job requirements
@@ -86,7 +86,8 @@ model JobListing {
   created_at                DateTime  @default(now())
   updated_at                DateTime  @updatedAt
   jobApplications           JobApplication[]
-  categories                JobCategory[]  // Add this opposite relation
+  jobProviderProfile        JobProviderProfile @relation(fields: [providerId], references: [id])
+  jobCategory               JobCategory @relation(fields:[categoryId],references:[id]) // Add this opposite relation
 }
 
 model JobApplication {
@@ -105,12 +106,10 @@ model JobApplication {
 model JobCategory {
   id            Int              @id @default(autoincrement())
   name          String           @unique
-  description   String?
-  listings      JobListing[]
+  jobListing    JobListing[]
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
-  joblisting    JobListing[]
-}
+ }
 
 model Notification {
   id                 Int         @id @default(autoincrement())

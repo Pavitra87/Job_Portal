@@ -1,5 +1,5 @@
-const PrismaClient=require('@prisma/client')
-const prisma=PrismaClient();
+const {PrismaClient}=require('@prisma/client')
+const prisma=new PrismaClient();
 
 
 //create
@@ -7,7 +7,7 @@ const createJobCategory=async(req,res)=>{
     const {name,description}=req.body;
 
     try {
-        const jobcategory=await prisma.jobcategory.create({
+        const jobcategory=await prisma.jobCategory.create({
             data:{name,description}
         })
         res.status(200).json(jobcategory)
@@ -22,7 +22,7 @@ const updateJobCategory=async(req,res)=>{
     const {id}=req.params;
 
     try {
-        const updateCategory=await prisma.jobcategory.update({
+        const updateCategory=await prisma.jobCategory.update({
             where:{id:Number(id)}
         })
 res.status(200).json(updateCategory)
@@ -37,7 +37,7 @@ const deleteCategory=async(req,res)=>{
     const {id}=req.params;
 
     try {
-        const deletecategory=await prisma.jobcategory.delete({
+        const deletecategory=await prisma.jobCategory.delete({
             where:{id:Number(id)}
         })
         res.status(200).json(deletecategory)
@@ -51,7 +51,7 @@ const deleteCategory=async(req,res)=>{
 //get 
 const getCategories=async(req,res)=>{
     try {
-        const getallcategories=await prisma.jobcategory.findMany()
+        const getallcategories=await prisma.jobCategory.findMany()
         res.status(200).json(getallcategories)
     } catch (error) {
         console.log(error)

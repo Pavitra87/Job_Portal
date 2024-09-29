@@ -3,8 +3,7 @@ const prisma = new PrismaClient();
 
 //create profile
 const createProfile = async (req, res) => {
-  const {
-    userId,
+ const {
     first_name,
     last_name,
     phone_number,
@@ -13,9 +12,11 @@ const createProfile = async (req, res) => {
     experience,
     education,
     location,
+    preferredJobTypes           
   } = req.body;
+  const userId  = req.user.userId;
   try {
-    const newCreateProfile = await prisma.jobseeker.create({
+    const newCreateProfile = await prisma.jobSeekerProfile.create({
       data: {
         userId,
         first_name,
@@ -26,10 +27,12 @@ const createProfile = async (req, res) => {
         experience,
         education,
         location,
+        preferredJobTypes          
       },
     });
-    res.status(200).json({ newCreateProfile });
+    res.status(200).json( newCreateProfile );
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -37,7 +40,7 @@ const createProfile = async (req, res) => {
 //get all
 const getProfiles = async (req, res) => {
   try {
-    const profiles = prisma.jobseeker.findMany();
+    const profiles =await prisma.jobSeekerProfile.findMany();
     res.status(201).json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -48,7 +51,7 @@ const getProfiles = async (req, res) => {
 const getProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const profile = prisma.jobseeker.findUnique({
+    const profile =await prisma.jobSeekerProfile.findUnique({
       where: { id: Number(id) },
     });
     if (!profile) return res.status(404).json({ error: "profile not found" });
@@ -72,7 +75,7 @@ const updateProfile = async (req, res) => {
     location,
   } = req.body;
   try {
-    const updatedprofile = await prisma.jobseeker.update({
+    const updatedprofile = await prisma.jobSeekerProfile.update({
       where: { id: Number(id) },
       data: {
         first_name,
@@ -95,11 +98,13 @@ const updateProfile = async (req, res) => {
 const deleteProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedProfile = await prisma.jobseeker.delete({
+    const deletedProfile = await prisma.jobSeekerProfile.delete({
       where: { id: Number(id) },
     });
     res.status(204).send(deletedProfile);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 module.exports = {

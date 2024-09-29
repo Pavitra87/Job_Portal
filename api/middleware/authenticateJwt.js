@@ -20,13 +20,18 @@ const authenticateToken = async (req, res, next) => {
 
 
 //Authorization Middleware to Check User Role(Authorization Middleware to Check Roles)
-const autherizationRoles = async (...roles) => {
+const autherizationRoles = (roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(401).send("Access denied");
+    const userRole = req.role.name; // Assuming req.user contains the authenticated user
+
+    if (roles.includes(userRole)) {
+      return next();
     }
-    next();
+    
+    return res.status(403).json({ message: 'Access denied' });
   };
 };
+
+
 
 module.exports={authenticateToken,autherizationRoles}

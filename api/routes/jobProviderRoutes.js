@@ -10,9 +10,9 @@ const {
 const { authenticateToken, autherizationRoles,} = require("../middleware/authenticateJwt");
 
 
-router.post("/create",authenticateToken,autherizationRoles(['job provider']),createProfile)
-router.get("/:id",authenticateToken,autherizationRoles(['job provider']), getProfile);
-router.get("/", authenticateToken,autherizationRoles(['job provider']),getProfiles);
-router.put("/:id",authenticateToken,autherizationRoles(['job provider']), updateProfile);
-router.delete("/:id",authenticateToken,autherizationRoles(['job provider']), deleteProfile);
+router.post("/create",authenticateToken,createProfile)
+router.get("/:id",authenticateToken, getProfile);
+router.get("/",getProfiles);
+router.put("/:id",authenticateToken, updateProfile);
+router.delete("/:id",authenticateToken, deleteProfile);
 module.exports = router;

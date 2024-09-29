@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 //register
 const Register = async (req, res) => {
-  const { email, username,roleName, password, profile_picture_url } = req.body;
+  const { email, username, password,roleName, profile_picture_url } = req.body;
   
   try {
     // Check if the email already exists in the database
