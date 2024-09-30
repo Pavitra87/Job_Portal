@@ -1,9 +1,17 @@
 const express=require('express');
-const { createJobApplication, getJobApplication, getJobApplications } = require('../controllers/job/jobApplicationCtrl');
+const { createJobApplication, getJobApplication, getJobApplications, updateApllication, deleteApplication } = require('../controllers/job/jobApplicationCtrl');
 const {authenticateToken,autherizationRoles}=require('../middleware/authenticateJwt')
 
 const router=express.Router();
 
-router.post('/jobs/:id/apply',authenticateToken,autherizationRoles(['job seeker']),createJobApplication)
-router.get('/:id',authenticateToken,autherizationRoles(['job seeker']),getJobApplication)
-router.get('/', authenticateToken,autherizationRoles(['job provider']), getJobApplications)
+const Roles=require('../middleware/roles')
+
+router.post(`/apply`,authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),createJobApplication)
+
+router.get('/apply/:id',authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),getJobApplication)
+ 
+router.get('/', authenticateToken, autherizationRoles([Roles.JOB_PROVIDER]), getJobApplications)
+router.put('/:id',authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),updateApllication)
+router.delete('/:id',authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),deleteApplication)
+
+module.exports=router;

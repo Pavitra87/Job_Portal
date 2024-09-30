@@ -1,40 +1,22 @@
 const express = require("express");
-const {
-  createJobList,
-  updateJoblist,
-  getJoblists,
-  deleteJoblist,
-  serchlisting,
-  getJoblist,
-} = require("../controllers/job/jobListingCtrl");
+const {createJobList,updateJoblist,getJoblists,deleteJoblist,getJoblist} = require("../controllers/job/jobListingCtrl");
 
-const {
-  authenticateToken,
-  autherizationRoles,
-} = require("../middleware/authenticateJwt");
+
+const {authenticateToken,autherizationRoles,} = require("../middleware/authenticateJwt");
+
+const Roles = require("../middleware/roles");
 
 const router = express.Router();
 
-router.post("/create",authenticateToken,autherizationRoles(['Job Provider']), createJobList);
-// router.get(
-//   "/:id",
-//   authenticateToken,
+router.post("/create",authenticateToken,autherizationRoles([Roles.JOB_PROVIDER]),createJobList);
 
-//   getJoblist
-// );
-// router.get("/jobs", getJoblists);
-// router.put(
-//   "/jobs/:id",
-//   authenticateToken,
-//  updateJoblist
-// );
-// router.delete(
-//   "/:id",
-//   authenticateToken,
-// deleteJoblist
-// );
+router.get("/:id",authenticateToken,autherizationRoles([Roles.JOB_PROVIDER]),getJoblist);
 
-//search joblisting
-router.get("/jobs/search", serchlisting);
+router.get("/", authenticateToken,getJoblists);
 
-module.exports =  router;
+router.put("/:id",authenticateToken,autherizationRoles([Roles.JOB_PROVIDER]),updateJoblist);
+
+router.delete("/:id",authenticateToken,autherizationRoles([Roles.JOB_PROVIDER]),deleteJoblist);
+
+
+module.exports = router;

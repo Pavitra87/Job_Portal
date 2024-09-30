@@ -1,12 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 //register
 const Register = async (req, res) => {
-  const { email, username, password,roleName, profile_picture_url } = req.body;
-  
+  const { email, username, password, roleName, profile_picture_url } = req.body;
+
   try {
     // Check if the email already exists in the database
     const existingUser = await prisma.user.findUnique({
@@ -22,16 +22,16 @@ const Register = async (req, res) => {
 
     const role = await prisma.role.findUnique({
       where: { name: roleName },
-  });
-  if (!role) {
-    // If role doesn't exist, create it
-    const role = await prisma.role.create({
-      data: {
-        name: roleName
-      }
     });
-    res.status(200).send(role)
-  }
+    if (!role) {
+      // If role doesn't exist, create it
+      const role = await prisma.role.create({
+        data: {
+          name: roleName,
+        },
+      });
+      res.status(200).send(role);
+    }
     const user = await prisma.user.create({
       data: {
         email,
@@ -39,13 +39,16 @@ const Register = async (req, res) => {
         password_hash: hashedPassword,
         profile_picture_url,
         role: {
-          connect: { id: role.id }
-        }
+          connect: { id: role.id },
+        },
       },
     });
-    res
-      .status(201)
-      .json({ id: user.id, email: user.email, username: user.username,role:role.name });
+    res.status(201).json({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      role: role.name,
+    });
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(400).json({ error: "Internal server error" });
@@ -57,6 +60,7 @@ const Login = async (req, res) => {
   const { email, password } = req.body;
   const user = await prisma.user.findUnique({
     where: { email },
+    include:{role:true}
   });
 
   if (!user) {
@@ -70,18 +74,22 @@ const Login = async (req, res) => {
 
   try {
     const accesstoken = jwt.sign(
-      { userId: user.id, email: user.email },
-      process.env.JWT_TOKEN,
-      { expiresIn: "30d" }
+      {userId: user.id, name: user.username, email: user.email, role: user.role ? user.role.name : null },
+      process.env.JWT_TOKEN,{ expiresIn: "30d" }
     );
-    res
-      .status(200)
-      .json({
-        message: "Login succesfully",
-        accesstoken,
-        user: { id: user.id, email: user.id },
-      });
+    // In your login function, you can log the user object
+    console.log("User object in JWT:", {
+      userId: user.id, name: user.username, email: user.email, role: user.role ? user.role.name : null 
+      
+    });
+
+    res.status(200).json({
+      message: "Login succesfully",
+      accesstoken,
+      user: { id: user.id, email: user.email, name: user.username ,  role: user.role ? user.role.name : null,},
+    });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

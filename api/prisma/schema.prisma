@@ -52,7 +52,7 @@ model JobSeekerProfile {
   notifications_enabled         Boolean   @default(true)
   created_at                    DateTime  @default(now())
   updated_at                    DateTime  @updatedAt
-  jobApplications               JobApplication[] // Add this relation
+  jobApplications               JobApplication?// Add this relation
 }
 
 model JobProviderProfile {
@@ -67,13 +67,13 @@ model JobProviderProfile {
   location                      String
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
-  jobListing                  JobListing[]
+  jobListing                    JobListing?
 }
 
 model JobListing {
   id                        Int      @id @default(autoincrement())
-  providerId                Int
-  categoryId                Int
+  providerId                Int       @unique
+  categoryId                Int        @unique
   title                     String
   description               String
   requirements              Json     // Array or JSON of job requirements
@@ -85,28 +85,28 @@ model JobListing {
   applications_count        Int      @default(0)
   created_at                DateTime  @default(now())
   updated_at                DateTime  @updatedAt
-  jobApplications           JobApplication[]
+  jobApplications           JobApplication?
   jobProviderProfile        JobProviderProfile @relation(fields: [providerId], references: [id])
   jobCategory               JobCategory @relation(fields:[categoryId],references:[id]) // Add this opposite relation
 }
 
 model JobApplication {
   id                Int      @id @default(autoincrement())
-  job_id            Int
-  job               JobListing @relation(fields: [job_id], references: [id]) // Correct reference to id
-  seeker_id         Int
-  seeker            JobSeekerProfile @relation(fields: [seeker_id], references: [id]) // Correct reference to id
+  jobId             Int        @unique
+  seekerId          Int      @unique
   applied_at        DateTime @default(now())
   cover_letter_url  String?
   portfolio_url     String?
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
+  seeker            JobSeekerProfile @relation(fields: [seekerId], references: [id]) // Correct reference to id
+  jobListing        JobListing @relation(fields: [jobId], references: [id]) // Correct reference to id
 }
 
 model JobCategory {
   id            Int              @id @default(autoincrement())
   name          String           @unique
-  jobListing    JobListing[]
+  jobListing    JobListing?
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
  }

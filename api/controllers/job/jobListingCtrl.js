@@ -4,37 +4,43 @@ const prisma = new PrismaClient();
 //create
 const createJobList = async (req, res) => {
   const {
-    title,                     
-    description,              
-    requirements,             
-    preferred_skills,         
-    location ,               
-    salary_range ,             
-    applications_count  ,
-    categoryId      
+    title,
+    description,
+    requirements,
+    preferred_skills,
+    location,
+    salary_range,
+    applications_count,
+    categoryId,
+    providerId,
+    expires_at,
   } = req.body;
 
-  const providerId=req.jobProviderProfile.providerId;
-  
-
   try {
+    const providerExists = await prisma.jobProviderProfile.findUnique({
+      where: { id: providerId },
+    });
+
+    if (!providerExists) {
+      return res.status(400).json({ error: "Job provider does not exist" });
+    }
     const jobListing = await prisma.jobListing.create({
       data: {
         providerId,
         categoryId,
-        title,                     
-        description,              
-        requirements,             
-        preferred_skills,         
-        location ,               
-        salary_range ,             
-        applications_count  
+        title,
+        description,
+        requirements,
+        preferred_skills,
+        location,
+        salary_range,
+        applications_count,
+        expires_at: new Date(expires_at),
       },
     });
-
     res.status(201).json(jobListing);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(401).json({ error: error.message });
   }
 };
@@ -49,7 +55,6 @@ const updateJoblist = async (req, res) => {
     preferred_skills,
     location,
     salary_range,
-    expires_at,
   } = req.body;
 
   try {
@@ -62,11 +67,13 @@ const updateJoblist = async (req, res) => {
         preferred_skills,
         location,
         salary_range,
-        expires_at,
+      
       },
     });
     res.status(201).json(updatejoblist);
   } catch (error) {
+    console.log(error)
+    
     res.status(401).json({ error: error.message });
   }
 };
@@ -100,58 +107,19 @@ const getJoblist = async (req, res) => {
 //get all
 const getJoblists = async (req, res) => {
   try {
-    const getjoblists = await prisma.jobListing.findMany({});
+    const getjoblists = await prisma.jobListing.findMany();
     res.status(201).json(getjoblists);
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 };
 
-//search job listing
-const serchlisting = async (req, res) => {
-  const { title, location, salaryRange, categories, preferredskills } =
-    req.query;
-  try {
-    const jobs = await prisma.jobListing.findMany({
-      where: {
-        title: {
-          contains: title || "",
-          mode: "insensitive",
-        },
-        location: {
-          contains: location || "",
-          mode: "insensitive",
-        },
-        salary_range: {
-          contains: salaryRange || "",
-          mode: "insensitive",
-        },
-        categories: {
-          some: {
-            name: {
-              in: categories ? categories.split(",") : [],
-            },
-          },
-        },
-        requirements: {
-          contains: preferredskills
-            ? JSON.stringify(preferredskills.split(","))
-            : "",
-        },
-      },
-      include: true,
-    });
-    res.status(200).json({ jobs });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error fetching job listings" });
-  }
-};
+
 module.exports = {
   createJobList,
   updateJoblist,
   deleteJoblist,
   getJoblist,
   getJoblists,
-  serchlisting
+ 
 };

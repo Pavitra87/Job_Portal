@@ -15,8 +15,13 @@ app.use('/api/jobProvider',require('./routes/jobProviderRoutes'))
 app.use('/api/jobSeeker',require('./routes/jobSeekerRoutes'))
 app.use('/api/jobCategory',require('./routes/jobCategoryRoutes'))
 app.use('/api/jobListings',require('./routes/jobListingRoutes'))
+app.use('/api/jobApplications',require('./routes/jobApplicationRoutes'))
+app.use('/api/searching',require('./routes/jobSearchRoute'))
 
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
 })
+
+
+//inapp
