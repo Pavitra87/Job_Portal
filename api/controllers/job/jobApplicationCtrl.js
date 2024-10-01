@@ -1,9 +1,10 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../../prismaClient");
+const {emitJobApplied} = require("../notification/socket");
 
+//create
 const createJobApplication = async (req, res) => {
-  const { jobId, seekerId, cover_letter_url, portfolio_url, applied_at } =req.body;
-
+  const { jobId, seekerId, cover_letter_url, portfolio_url, applied_at } =
+    req.body;
   try {
     const applications = await prisma.jobApplication.create({
       data: {
@@ -14,15 +15,16 @@ const createJobApplication = async (req, res) => {
         applied_at,
       },
     });
+    emitJobApplied(applications);
     res.status(200).send(applications);
   } catch (error) {
+    console.log(error)
     res.status(400).json({ error: error.message });
   }
 };
 
 //getjobapplication job seeker only
 const getJobApplication = async (req, res) => {
-  //job seeker only
   const { id } = req.params;
 
   try {
@@ -45,43 +47,38 @@ const getJobApplications = async (req, res) => {
   }
 };
 
-
 //update
-const updateApllication=async(req,res)=>{
-  const {cover_letter_url,portfolio_url,applied_at,}=req.body;
-  const {id}=req.params;
+const updateApllication = async (req, res) => {
+  const { cover_letter_url, portfolio_url, applied_at } = req.body;
+  const { id } = req.params;
 
   try {
-    const updateapplication=await prisma.jobApplication.update({
-      where:{id:Number(id)},
-      data:{
-        cover_letter_url,portfolio_url,applied_at,
-      }
-    })
-    res.status(200).json(updateapplication)
+    const updateapplication = await prisma.jobApplication.update({
+      where: { id: Number(id) },
+      data: {
+        cover_letter_url,
+        portfolio_url,
+        applied_at,
+      },
+    });
+    res.status(200).json(updateapplication);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
-}
+};
 
 //delete
-const deleteApplication=async(req,res)=>{
-  const {id}=req.params;
+const deleteApplication = async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const deleteapplication=await prisma.jobApplication.delete({
-      where:{id:Number(id)}})
-    res.status(200).json(deleteapplication)
+    const deleteapplication = await prisma.jobApplication.delete({
+      where: { id: Number(id) },
+    });
+    res.status(200).json(deleteapplication);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}
-
-module.exports = {
-  createJobApplication,
-  getJobApplication,
-  getJobApplications,
-  updateApllication,
-  deleteApplication
 };
+
+module.exports = {createJobApplication,getJobApplication, getJobApplications,updateApllication,deleteApplication};

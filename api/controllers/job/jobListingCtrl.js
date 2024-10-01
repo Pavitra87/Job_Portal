@@ -1,5 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../../prismaClient");
+const {emitJobPosted} = require("../notification/socket");
 
 //create
 const createJobList = async (req, res) => {
@@ -7,7 +7,7 @@ const createJobList = async (req, res) => {
     title,
     description,
     requirements,
-    preferred_skills,
+    preferredSkills,
     location,
     salary_range,
     applications_count,
@@ -15,15 +15,16 @@ const createJobList = async (req, res) => {
     providerId,
     expires_at,
   } = req.body;
+  
 
   try {
-    const providerExists = await prisma.jobProviderProfile.findUnique({
-      where: { id: providerId },
-    });
+    // const providerExists = await prisma.jobProviderProfile.findUnique({
+    //   where: { id: providerId },
+    // });
 
-    if (!providerExists) {
-      return res.status(400).json({ error: "Job provider does not exist" });
-    }
+    // if (!providerExists) {
+    //   return res.status(400).json({ error: "Job provider does not exist" });
+    // }
     const jobListing = await prisma.jobListing.create({
       data: {
         providerId,
@@ -31,13 +32,14 @@ const createJobList = async (req, res) => {
         title,
         description,
         requirements,
-        preferred_skills,
+        preferredSkills,
         location,
         salary_range,
         applications_count,
         expires_at: new Date(expires_at),
       },
     });
+    emitJobPosted(jobListing);
     res.status(201).json(jobListing);
   } catch (error) {
     console.log(error);
@@ -52,7 +54,7 @@ const updateJoblist = async (req, res) => {
     title,
     description,
     requirements,
-    preferred_skills,
+    preferredSkills,
     location,
     salary_range,
   } = req.body;
@@ -64,16 +66,15 @@ const updateJoblist = async (req, res) => {
         title,
         description,
         requirements,
-        preferred_skills,
+        preferredSkills,
         location,
         salary_range,
-      
       },
     });
     res.status(201).json(updatejoblist);
   } catch (error) {
-    console.log(error)
-    
+    console.log(error);
+
     res.status(401).json({ error: error.message });
   }
 };
@@ -114,12 +115,4 @@ const getJoblists = async (req, res) => {
   }
 };
 
-
-module.exports = {
-  createJobList,
-  updateJoblist,
-  deleteJoblist,
-  getJoblist,
-  getJoblists,
- 
-};
+module.exports = {createJobList,updateJoblist,deleteJoblist,getJoblist,getJoblists};

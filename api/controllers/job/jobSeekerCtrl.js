@@ -1,9 +1,8 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../../prismaClient");
 
 //create profile
 const createProfile = async (req, res) => {
- const {
+  const {
     first_name,
     last_name,
     phone_number,
@@ -12,9 +11,9 @@ const createProfile = async (req, res) => {
     experience,
     education,
     location,
-    preferredJobTypes           
+    preferredJobTypes,
   } = req.body;
-  const userId  = req.user.userId;
+  const userId = req.user.userId;
   try {
     const newCreateProfile = await prisma.jobSeekerProfile.create({
       data: {
@@ -27,10 +26,10 @@ const createProfile = async (req, res) => {
         experience,
         education,
         location,
-        preferredJobTypes          
+        preferredJobTypes,
       },
     });
-    res.status(200).json( newCreateProfile );
+    res.status(200).json(newCreateProfile);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -40,7 +39,7 @@ const createProfile = async (req, res) => {
 //get all
 const getProfiles = async (req, res) => {
   try {
-    const profiles =await prisma.jobSeekerProfile.findMany();
+    const profiles = await prisma.jobSeekerProfile.findMany();
     res.status(201).json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -51,7 +50,7 @@ const getProfiles = async (req, res) => {
 const getProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const profile =await prisma.jobSeekerProfile.findUnique({
+    const profile = await prisma.jobSeekerProfile.findUnique({
       where: { id: Number(id) },
     });
     if (!profile) return res.status(404).json({ error: "profile not found" });
@@ -107,10 +106,4 @@ const deleteProfile = async (req, res) => {
   }
 };
 
-module.exports = {
-  createProfile,
-  getProfile,
-  getProfiles,
-  updateProfile,
-  deleteProfile,
-};
+module.exports = {createProfile,getProfile,getProfiles,updateProfile,deleteProfile};

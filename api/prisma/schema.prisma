@@ -29,17 +29,17 @@ model User {
 }
 
 model Role {
-  id                             Int      @id @default(autoincrement())
-  name                           String   @unique
-  createdAt                      DateTime @default(now())
-  updatedAt                      DateTime @updatedAt
-  users                          User[]
+  id                            Int      @id @default(autoincrement())
+  name                          String   @unique
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime @updatedAt
+  users                         User[]
 }
 
 model JobSeekerProfile {
-  id                            Int       @id @default(autoincrement())
-  userId                        Int       @unique
-  user                          User      @relation(fields: [userId], references: [id])
+  id                            Int @id @default(autoincrement())
+  userId                        Int  @unique
+  user                          User @relation(fields: [userId], references: [id])
   first_name                    String
   last_name                     String
   phone_number                  String
@@ -48,16 +48,16 @@ model JobSeekerProfile {
   experience                    Json     
   education                     String     
   location                      String
-  preferredJobTypes           Json      
+  preferredJobTypes             Json      
   notifications_enabled         Boolean   @default(true)
   created_at                    DateTime  @default(now())
   updated_at                    DateTime  @updatedAt
-  jobApplications               JobApplication?// Add this relation
+  jobApplications               JobApplication[]
 }
 
 model JobProviderProfile {
-  id                            Int      @id @default(autoincrement())
-  userId                        Int      @unique  
+  id                            Int @id @default(autoincrement())
+  userId                        Int  @unique  
   user                          User @relation(fields: [userId], references: [id])
   company_name                  String
   company_description           String
@@ -67,59 +67,61 @@ model JobProviderProfile {
   location                      String
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
-  jobListing                    JobListing?
+  jobListing                    JobListing[]
 }
 
 model JobListing {
-  id                        Int      @id @default(autoincrement())
-  providerId                Int       @unique
-  categoryId                Int        @unique
-  title                     String
-  description               String
-  requirements              Json     // Array or JSON of job requirements
-  preferred_skills          Json     // Array of preferred skills
-  location                  String
-  salary_range              String
-  posted_at                 DateTime @default(now())
-  expires_at                DateTime
-  applications_count        Int      @default(0)
-  created_at                DateTime  @default(now())
-  updated_at                DateTime  @updatedAt
-  jobApplications           JobApplication?
-  jobProviderProfile        JobProviderProfile @relation(fields: [providerId], references: [id])
-  jobCategory               JobCategory @relation(fields:[categoryId],references:[id]) // Add this opposite relation
+  id                            Int @id @default(autoincrement())
+  providerId                    Int
+  categoryId                    Int  
+  title                         String
+  description                   String
+  requirements                  Json     
+  preferredSkills               Json     
+  location                      String
+  salary_range                  String
+  posted_at                     DateTime @default(now())
+  expires_at                    DateTime
+  applications_count            Int  @default(0)
+  created_at                    DateTime  @default(now())
+  updated_at                    DateTime  @updatedAt
+  jobApplications               JobApplication[]
+  jobProviderProfile            JobProviderProfile @relation(fields: [providerId], references: [id])
+  jobCategory                   JobCategory @relation(fields:[categoryId],references:[id])
 }
 
 model JobApplication {
-  id                Int      @id @default(autoincrement())
-  jobId             Int        @unique
-  seekerId          Int      @unique
-  applied_at        DateTime @default(now())
-  cover_letter_url  String?
-  portfolio_url     String?
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
-  seeker            JobSeekerProfile @relation(fields: [seekerId], references: [id]) // Correct reference to id
-  jobListing        JobListing @relation(fields: [jobId], references: [id]) // Correct reference to id
+  id                            Int @id @default(autoincrement())
+  jobId                         Int 
+  seekerId                      Int 
+  applied_at                    DateTime @default(now())
+  cover_letter_url              String?
+  portfolio_url                 String?
+  created_at                    DateTime @default(now())
+  updated_at                    DateTime @updatedAt
+  seeker                        JobSeekerProfile @relation(fields: [seekerId], references: [id]) 
+  jobListing                    JobListing @relation(fields: [jobId], references: [id]) 
 }
 
 model JobCategory {
-  id            Int              @id @default(autoincrement())
-  name          String           @unique
-  jobListing    JobListing?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  id                            Int   @id @default(autoincrement())
+  name                          String  @unique
+  jobListing                    JobListing[]
+  createdAt                     DateTime @default(now())
+  updatedAt                     DateTime @updatedAt
  }
 
 model Notification {
-  id                 Int         @id @default(autoincrement())
-  user_id            Int      // Foreign key to reference User's id
-  user               User     @relation(fields: [user_id], references: [id]) // Correct field reference
-  message            String
-  read            Boolean  @default(false)
-  created_at         DateTime @default(now())
- 
-}
+  id                            Int  @id @default(autoincrement())
+  userId                        Int  
+  title                         String
+  message                       String
+  read                          Boolean  @default(false)
+  type                          String
+  createdAt                     DateTime  @default(now())
+  updatedAt                     DateTime  @updatedAt
+  user                          User   @relation(fields: [userId], references: [id]) 
+ }
 
 
 

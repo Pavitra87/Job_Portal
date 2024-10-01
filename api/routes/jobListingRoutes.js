@@ -1,12 +1,9 @@
-const express = require("express");
+const router = require('express').Router();
 const {createJobList,updateJoblist,getJoblists,deleteJoblist,getJoblist} = require("../controllers/job/jobListingCtrl");
-
-
 const {authenticateToken,autherizationRoles,} = require("../middleware/authenticateJwt");
-
 const Roles = require("../middleware/roles");
 
-const router = express.Router();
+
 
 router.post("/create",authenticateToken,autherizationRoles([Roles.JOB_PROVIDER]),createJobList);
 

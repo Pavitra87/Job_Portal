@@ -1,17 +1,10 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../../prismaClient");
 
 //create profile
 const createProfile = async (req, res) => {
-  const {
-    company_name,
-    company_description,
-    email,
-    phone,
-    location,
-    website,
-  } = req.body;
-  const userId=req.user.userId;
+  const { company_name, company_description, email, phone, location, website } =
+    req.body;
+  const userId = req.user.userId;
 
   try {
     const newCreateProfile = await prisma.jobProviderProfile.create({
@@ -35,7 +28,7 @@ const createProfile = async (req, res) => {
 //get all
 const getProfiles = async (req, res) => {
   try {
-    const profiles =await prisma.jobProviderProfile.findMany();
+    const profiles = await prisma.jobProviderProfile.findMany();
     res.status(201).json(profiles);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,7 +39,7 @@ const getProfiles = async (req, res) => {
 const getProfile = async (req, res) => {
   const { id } = req.params;
   try {
-    const profile =await prisma.jobProviderProfile.findUnique({
+    const profile = await prisma.jobProviderProfile.findUnique({
       where: { id: Number(id) },
     });
     if (!profile) return res.status(404).json({ error: "profile not found" });
@@ -60,15 +53,8 @@ const getProfile = async (req, res) => {
 //update
 const updateProfile = async (req, res) => {
   const { id } = req.params;
-  const {
-    company_name,
-    company_description,
-    email,
-    phone,
-    location,
-    website,
-
-  } = req.body;
+  const { company_name, company_description, email, phone, location, website } =
+    req.body;
   try {
     const updatedprofile = await prisma.jobProviderProfile.update({
       where: { id: Number(id) },
@@ -79,7 +65,6 @@ const updateProfile = async (req, res) => {
         phone,
         location,
         website,
-       
       },
     });
     res.status(201).json(updatedprofile);
@@ -99,10 +84,4 @@ const deleteProfile = async (req, res) => {
   } catch (error) {}
 };
 
-module.exports = {
-  createProfile,
-  getProfile,
-  getProfiles,
-  updateProfile,
-  deleteProfile,
-};
+module.exports = {createProfile,getProfile,getProfiles,updateProfile,deleteProfile};

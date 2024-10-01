@@ -1,5 +1,4 @@
-const {PrismaClient}=require('@prisma/client')
-const prisma=new PrismaClient();
+const prisma=require('../../prismaClient')
 
 
 //create
@@ -16,6 +15,17 @@ const createJobCategory=async(req,res)=>{
         res.status(400).json({error:error.message})
     }
 }
+
+//get 
+const getCategories=async(req,res)=>{
+    try {
+        const getallcategories=await prisma.jobCategory.findMany()
+        res.status(200).json(getallcategories)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({error:error.message}) 
+    }
+} 
 
 //update
 const updateJobCategory=async(req,res)=>{
@@ -48,15 +58,6 @@ const deleteCategory=async(req,res)=>{
     }
 }
 
-//get 
-const getCategories=async(req,res)=>{
-    try {
-        const getallcategories=await prisma.jobCategory.findMany()
-        res.status(200).json(getallcategories)
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({error:error.message}) 
-    }
-} 
+
 
 module.exports={createJobCategory,updateJobCategory,deleteCategory,getCategories}
