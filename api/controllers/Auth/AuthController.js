@@ -1,10 +1,15 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const prisma=require('../../prismaClient')
+const prisma = require("../../prismaClient");
 
 //register
 const Register = async (req, res) => {
   const { email, username, password, roleName, profile_picture_url } = req.body;
+  if (!email || !username || !password || !roleName) {
+    return res
+      .status(400)
+      .json({ error: "Please provide all required fields" });
+  }
 
   try {
     // Check if the email already exists in the database
@@ -19,17 +24,15 @@ const Register = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const role = await prisma.role.findUnique({
+    let role = await prisma.role.findUnique({
       where: { name: roleName },
     });
     if (!role) {
-      // If role doesn't exist, create it
-      const role = await prisma.role.create({
+      role = await prisma.role.create({
         data: {
           name: roleName,
         },
       });
-      res.status(200).send(role);
     }
     const user = await prisma.user.create({
       data: {
@@ -59,7 +62,7 @@ const Login = async (req, res) => {
   const { email, password } = req.body;
   const user = await prisma.user.findUnique({
     where: { email },
-    include:{role:true}
+    include: { role: true },
   });
 
   if (!user) {
@@ -73,19 +76,32 @@ const Login = async (req, res) => {
 
   try {
     const accesstoken = jwt.sign(
-      {userId: user.id, name: user.username, email: user.email, role: user.role ? user.role.name : null },
-      process.env.JWT_TOKEN,{ expiresIn: "30d" }
+      {
+        userId: user.id,
+        name: user.username,
+        email: user.email,
+        role: user.role ? user.role.name : null,
+      },
+      process.env.JWT_TOKEN,
+      { expiresIn: "30d" }
     );
     // In your login function, you can log the user object
     console.log("User object in JWT:", {
-      userId: user.id, name: user.username, email: user.email, role: user.role ? user.role.name : null 
-      
+      userId: user.id,
+      name: user.username,
+      email: user.email,
+      role: user.role ? user.role.name : null,
     });
 
     res.status(200).json({
       message: "Login succesfully",
       accesstoken,
-      user: { id: user.id, email: user.email, name: user.username ,  role: user.role ? user.role.name : null,},
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.username,
+        role: user.role ? user.role.name : null,
+      },
     });
   } catch (error) {
     console.log(error);
