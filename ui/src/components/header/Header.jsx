@@ -11,9 +11,18 @@ const Header = () => {
         </div>
         <div className="middlenav">
           <ul>
-            <li>Home</li>
-            <li>Find Jobs</li>
-            <li>Candidates</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/category">Category</Link>
+            </li>
+            <li>
+              <Link>Jobs</Link>
+            </li>
+            <li>
+              <Link>Candidates</Link>
+            </li>
           </ul>
         </div>
         <div className="rightnav">

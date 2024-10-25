@@ -1,0 +1,64 @@
+/* category.css */
+
+.category {
+  padding: 20px;
+  background-color: #f5f5f5;
+  text-align: center;
+  width: 90%;
+  margin: 50px auto;
+}
+
+.category-contain {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-heading h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.category-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.category-title {
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.category-item {
+  width: 150px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.category-item h4 {
+  font-size: 1rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+.category-item img {
+  margin-top: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+}
