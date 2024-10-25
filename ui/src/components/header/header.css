@@ -1,0 +1,62 @@
+.navbar {
+  
+    background-color: #333;
+    color: #fff;
+  
+ width: 100%;
+    padding: 15px 30px;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+  
+   align-items: center;
+   
+  }
+  
+  .icon h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .middlenav ul {
+    display: flex;
+   align-items: center;
+    gap: 25px;
+  
+   
+  }
+  
+  .middlenav ul li {
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+  
+  .middlenav ul li:hover {
+    color: #ccc;
+  }
+  
+  .rightnav .btns {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .rightnav .btns a {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    border: 1px solid #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .rightnav .btns a:hover {
+    background-color: #fff;
+    color: #333;
+  }
+  
