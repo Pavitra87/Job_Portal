@@ -1,0 +1,39 @@
+.footer-section {
+  /* background-color: #f5f5f5; */
+  width: 90%;
+  margin: 10px auto;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+  margin: auto;
+  /* width: 70%; */
+  background: linear-gradient(to bottom, rgb(50, 50, 50), rgb(162, 162, 162));
+}
+.heding h1 {
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+}
+.small p {
+  font-size: 17px;
+  text-align: center;
+  color: #f5f5f5;
+}
+.join-btn button {
+  background-color: #fff;
+  color: #000;
+  outline: none;
+  padding: 13px 15px;
+  border-radius: 2px;
+  border: none;
+}
+.join-btn button:hover {
+  background-color: #e3e3e3;
+}
+.join-btn button a {
+  font-size: 16px;
+}

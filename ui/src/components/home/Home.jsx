@@ -3,6 +3,7 @@ import "./home.css";
 import banner from "../../assets/home-banner.jpg";
 import { Link } from "react-router-dom";
 import Category from "../../pages/category/Category";
+import Footer from "../footer/Footer";
 
 const Home = () => {
   return (
@@ -32,6 +33,7 @@ const Home = () => {
         </div>
       </div>
       <Category />
+      <Footer />
     </>
   );
 };
