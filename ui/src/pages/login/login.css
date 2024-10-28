@@ -1,0 +1,114 @@
+/* Centering and form container styling */
+.login {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title styling */
+.login h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input styling */
+.login input[type="email"],
+.login input[type="password"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  /* outline: none; */
+  width: 100%;
+}
+
+/* Password input container */
+.password-input-containers {
+  position: relative;
+}
+
+/* Styling for the password field with visibility toggle */
+.password-input-containers input {
+  position: absolute;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+.password-toggle-icons {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(60%);
+  cursor: pointer;
+  color: #666;
+}
+
+/* Button styling */
+.login button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5a67d8;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 70px;
+  transition: background-color 0.3s;
+}
+
+.login button:hover {
+  background-color: #4c51bf;
+}
+
+/* Message styling */
+.message {
+  text-align: center;
+  color: #ff0000;
+  margin-top: 10px;
+}
+
+/* Account links styling */
+.account-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.account-links .text {
+  color: #333;
+}
+
+.account-links .register-link {
+  color: #5a67d8;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.account-links .register-link:hover {
+  text-decoration: underline;
+}
+
+.forgot {
+  position: absolute;
+  top: 50%;
+  /* left: 10px; */
+  /* right: 60px; */
+}
+.forgot-password-link {
+  font-size: 12px;
+  margin-bottom: 20px;
+}

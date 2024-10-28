@@ -14,6 +14,11 @@ initSocket(server);
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(
+  "/uploads/profile_picture_url",
+  express.static("uploads/profile_picture_url")
+);
+
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/jobProvider", require("./routes/jobProviderRoutes"));
 app.use("/api/jobSeeker", require("./routes/jobSeekerRoutes"));

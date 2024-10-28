@@ -21,6 +21,8 @@ model User {
   role                          Role     @relation(fields: [roleId], references: [id])
   roleId                        Int
   profile_picture_url           String?  // Optional profile picture URL
+   password_reset_token String?    // Add this line for reset token
+  token_expiry         DateTime?  
   jobSeekerProfile              JobSeekerProfile?
   jobProviderProfile            JobProviderProfile?
   notifications                 Notification[]

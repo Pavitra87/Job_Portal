@@ -4,7 +4,12 @@ const prisma = require("../../prismaClient");
 
 //register
 const Register = async (req, res) => {
-  const { email, username, password, roleName, profile_picture_url } = req.body;
+  console.log("Request Body:", req.body);
+  console.log("Uploaded File:", req.file);
+  const { email, username, password, roleName } = req.body;
+  const profile_picture_url = req.file
+    ? `/uploads/profile_picture_url/${req.file.filename}`
+    : null;
   if (!email || !username || !password || !roleName) {
     return res
       .status(400)
@@ -39,7 +44,7 @@ const Register = async (req, res) => {
         email,
         username,
         password_hash: hashedPassword,
-        profile_picture_url,
+        profile_picture_url: profile_picture_url,
         role: {
           connect: { id: role.id },
         },
@@ -50,7 +55,9 @@ const Register = async (req, res) => {
       email: user.email,
       username: user.username,
       role: role.name,
+      profile_picture_url,
     });
+    console.log(user);
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(400).json({ error: "Internal server error" });

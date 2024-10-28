@@ -2,30 +2,70 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./register.css";
 import { Link } from "react-router-dom";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    profile_picture_url: null,
+    username: "",
     email: "",
     password: "",
-    role: "Job Seeker",
+    roleName: "Job Seeker",
   });
 
   const [message, setMessage] = useState("");
+  const [profilePreview, setPreview] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setFormData((prevData) => ({
+        ...prevData,
+        profile_picture_url: file,
+      }));
+      setPreview(imageUrl);
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const data = new FormData();
+    data.append("profile_picture_url", formData.profile_picture_url);
+    data.append("username", formData.username);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("roleName", formData.roleName);
+
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/register",
-        formData
+        "http://localhost:5001/api/auth/register",
+        data
       );
+
+      setFormData({
+        email: "",
+        username: "",
+        password: "",
+        roleName: "Job Seeker",
+      });
       setMessage(response.data.message);
+      navigate("/login");
     } catch (error) {
       setMessage("Error registering user. Please try again.");
       console.error("Registration error:", error);
@@ -37,10 +77,30 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <h1>Register</h1>
         <input
+          id="profileInput"
+          type="file"
+          name="profile_picture_url"
+          onChange={handleFileChange}
+          accept="image/*"
+          className="profile"
+        />
+        <label className="upload-label" htmlFor="profileInput">
+          {profilePreview ? (
+            <img
+              src={profilePreview}
+              alt="Profile Preview"
+              className="profile-preview"
+            />
+          ) : (
+            <div className="default-avatar">+</div>
+          )}
+        </label>
+
+        <input
           type="text"
-          name="name"
+          name="username"
           placeholder="Enter your Name"
-          value={formData.name}
+          value={formData.username}
           onChange={handleChange}
           required
         />
@@ -52,17 +112,24 @@ const Register = () => {
           onChange={handleChange}
           required
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter your Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+        <div className="password-input-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Enter your Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEyeSlash : faEye}
+            onClick={togglePasswordVisibility}
+            className="password-toggle-icon"
+          />
+        </div>
         <select
-          name="role"
-          value={formData.role}
+          name="roleName"
+          value={formData.roleName}
           onChange={handleChange}
           required
         >

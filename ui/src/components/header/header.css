@@ -55,3 +55,84 @@
   background-color: #fff;
   color: #333;
 }
+
+.profile-picture {
+  width: 40px; /* Adjust as needed */
+  height: 40px; /* Adjust as needed */
+  border-radius: 50%; /* Makes it circular */
+  margin-right: 10px; /* Space between picture and logout button */
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.dropdown {
+  background-color: #ffffff;
+  margin-top: -7px;
+  position: absolute;
+  top: 110%;
+  width: 53%;
+  height: 10vh;
+  padding: 12px 10px;
+  clip-path: polygon(
+    0 100%,
+    100% 100%,
+    100% 18%,
+    33% 20%,
+    25% 0,
+    19% 21%,
+    0 20%
+  );
+}
+.logout {
+  padding: 5px 7px;
+  margin-top: 13px;
+  background: none;
+  /* border: none; */
+  outline: none;
+  cursor: pointer;
+}
+
+.post-jobs-button,
+.wants-job-button {
+  margin-top: 6px;
+  color: #ffffff;
+  padding: 10px 12px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 14px;
+  background-color: #333;
+  cursor: pointer;
+}
+.post-jobs-button a,
+.wants-job-button a {
+  color: #fff;
+}
+.post-jobs-button:hover {
+  background-color: #fff;
+  color: #333;
+}
+.wants-job-button:hover {
+  background-color: #fff;
+  /* color: #333; */
+}
+.post-jobs-button:hover a {
+  color: #333;
+}
+.wants-job-button:hover a {
+  color: #333;
+}
+
+/* .dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+} */
