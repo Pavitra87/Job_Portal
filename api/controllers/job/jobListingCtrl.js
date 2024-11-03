@@ -1,5 +1,5 @@
 const prisma = require("../../prismaClient");
-const {emitJobPosted} = require("../notification/socket");
+const { emitJobPosted } = require("../notification/socket");
 
 //create
 const createJobList = async (req, res) => {
@@ -10,36 +10,52 @@ const createJobList = async (req, res) => {
     preferredSkills,
     location,
     salary_range,
-    applications_count,
-    categoryId,
-    providerId,
+
+    posted_at,
     expires_at,
   } = req.body;
-  
+  const providerId = req.user?.id;
 
   try {
-    // const providerExists = await prisma.jobProviderProfile.findUnique({
-    //   where: { id: providerId },
-    // });
+    if (req.user.role !== "Job Provider") {
+      return res.status(403).json({
+        error: "Access denied. Only Job Providers can create job listings.",
+      });
+    }
 
-    // if (!providerExists) {
-    //   return res.status(400).json({ error: "Job provider does not exist" });
-    // }
+    let profileId = req.profile?.id;
+    if (!profileId) {
+      const profile = await prisma.profile.findUnique({
+        where: { userId: providerId },
+      });
+      if (!profile) {
+        return res
+          .status(404)
+          .json({ error: "Profile not found for the user" });
+      }
+      profileId = profile.id;
+    }
+
     const jobListing = await prisma.jobListing.create({
       data: {
-        providerId,
-        categoryId,
         title,
         description,
         requirements,
         preferredSkills,
         location,
         salary_range,
-        applications_count,
+        // providerId: req.user?.id,
+        posted_at: new Date(posted_at),
         expires_at: new Date(expires_at),
+        provider: {
+          connect: { id: providerId },
+        },
+        profile: {
+          connect: { id: profileId },
+        },
       },
     });
-    emitJobPosted(jobListing);
+
     res.status(201).json(jobListing);
   } catch (error) {
     console.log(error);
@@ -57,6 +73,10 @@ const updateJoblist = async (req, res) => {
     preferredSkills,
     location,
     salary_range,
+    applications_count,
+    providerId,
+    posted_at,
+    expires_at,
   } = req.body;
 
   try {
@@ -69,6 +89,10 @@ const updateJoblist = async (req, res) => {
         preferredSkills,
         location,
         salary_range,
+        applications_count,
+        providerId,
+        posted_at,
+        expires_at,
       },
     });
     res.status(201).json(updatejoblist);
@@ -115,4 +139,10 @@ const getJoblists = async (req, res) => {
   }
 };
 
-module.exports = {createJobList,updateJoblist,deleteJoblist,getJoblist,getJoblists};
+module.exports = {
+  createJobList,
+  updateJoblist,
+  deleteJoblist,
+  getJoblist,
+  getJoblists,
+};

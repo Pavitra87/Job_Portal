@@ -1,15 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import { useAuth } from "../../authenticated/AuthContext";
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const userRole = user?.roleName;
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const showLogoutbtn = () => {
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (user && !user.roleName) {
+      console.warn(
+        "User role is undefined. Please check user role assignment."
+      );
+    }
+  }, [user]);
+
+  const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="navbar">
       <div className="nav">
@@ -25,10 +50,13 @@ const Header = () => {
               <Link to="/category">Category</Link>
             </li>
             <li>
-              <Link>Jobs</Link>
+              <Link to="/jobs">Jobs</Link>
             </li>
             <li>
-              <Link>Candidates</Link>
+              <Link to="/post-job">Post Job</Link>
+            </li>
+            <li>
+              <Link to="/candidate-list">Candidates</Link>
             </li>
           </ul>
         </div>
@@ -36,27 +64,25 @@ const Header = () => {
           {user ? (
             <div className="user-profile">
               <img
-                src={user.profile_picture_url}
+                src={user.profile_picture_url || "/default-profile.png"}
                 alt="Profile"
                 className="profile-picture"
-                onClick={showLogoutbtn}
+                onClick={toggleDropdown}
               />
+              <button>
+                <Link
+                  to={userRole === "Job Provider" ? "/post-job" : "/apply-job"}
+                >
+                  {userRole === "Job Provider" ? "Post Job" : "Apply Job"}
+                </Link>
+              </button>
               {showDropdown && (
-                <div className="dropdown">
+                <div className="dropdown" ref={dropdownRef}>
+                  <Link to={`/candidate/${user.id}`}> Profile</Link>
                   <button onClick={logout} className="logout">
                     Logout
                   </button>
                 </div>
-              )}
-
-              {user.role === "Job Provider" ? (
-                <button className="post-jobs-button">
-                  <Link to="/post-job">Post Job</Link>
-                </button>
-              ) : (
-                <button className="wants-job-button">
-                  <Link to="/wants-job">Wants Job</Link>
-                </button>
               )}
             </div>
           ) : (

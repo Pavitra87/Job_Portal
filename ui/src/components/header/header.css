@@ -74,8 +74,13 @@
   position: absolute;
   top: 110%;
   width: 53%;
-  height: 10vh;
-  padding: 12px 10px;
+  /* height: 15vh; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 13px 10px;
+  border-radius: 2px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   clip-path: polygon(
     0 100%,
     100% 100%,
@@ -86,13 +91,15 @@
     0 20%
   );
 }
-.logout {
-  padding: 5px 7px;
-  margin-top: 13px;
-  background: none;
-  /* border: none; */
+.dropdown button {
+  background-color: #efefef;
+  border: none;
   outline: none;
+  padding: 5px 7px;
   cursor: pointer;
+}
+.dropdown .logout {
+  margin-top: 10px;
 }
 
 .post-jobs-button,
@@ -114,7 +121,7 @@
 }
 .post-jobs-button:hover {
   background-color: #fff;
-  color: #333;
+  /* color: #333; */
 }
 .wants-job-button:hover {
   background-color: #fff;
@@ -126,13 +133,3 @@
 .wants-job-button:hover a {
   color: #333;
 }
-
-/* .dropdown {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: white;
-  border: 1px solid #ddd;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-} */

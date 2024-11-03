@@ -34,13 +34,15 @@ const Login = () => {
         "http://localhost:5001/api/auth/login",
         formData
       );
+      const { token, user, role, message } = response.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("role", role);
 
       setSuccess("Login successful!");
-      setMessage(response.data.message);
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      login(user); // Log in user using AuthContext
-
+      setMessage(message);
+      login(user); // Call your login function from context
       navigate("/");
     } catch (error) {
       setMessage("Error logging in. Please check your credentials.");

@@ -6,7 +6,21 @@ const prisma = require("../../prismaClient");
 const Register = async (req, res) => {
   console.log("Request Body:", req.body);
   console.log("Uploaded File:", req.file);
-  const { email, username, password, roleName } = req.body;
+  const {
+    email,
+    username,
+    password,
+    roleName,
+    location,
+    skills,
+    description,
+    education,
+    phone_number,
+    jobtitle,
+    resume,
+    experience,
+    jobtype,
+  } = req.body;
   const profile_picture_url = req.file
     ? `/uploads/profile_picture_url/${req.file.filename}`
     : null;
@@ -48,6 +62,20 @@ const Register = async (req, res) => {
         role: {
           connect: { id: role.id },
         },
+
+        profile: {
+          create: {
+            description: roleName === "Job Provider" ? description : null,
+            location: roleName === "Job Provider" ? location : null,
+            skills: roleName === "Job Seeker" ? skills : null,
+            education: roleName === "Job Seeker" ? education : null,
+            phone_number: roleName === "Job Seeker" ? phone_number : null,
+            resume: roleName === "Job Seeker" ? resume : null,
+            jobtitle: roleName === "Job Seeker" ? jobtitle : null,
+            experience: roleName === "Job Seeker" ? experience : null,
+            jobtype: roleName === "Job Seeker" ? jobtype : null,
+          },
+        },
       },
     });
     res.status(201).json({
@@ -82,33 +110,26 @@ const Login = async (req, res) => {
   }
 
   try {
-    const accesstoken = jwt.sign(
+    const token = jwt.sign(
       {
-        userId: user.id,
-        name: user.username,
-        email: user.email,
-        role: user.role ? user.role.name : null,
-      },
-      process.env.JWT_TOKEN,
-      { expiresIn: "30d" }
-    );
-    // In your login function, you can log the user object
-    console.log("User object in JWT:", {
-      userId: user.id,
-      name: user.username,
-      email: user.email,
-      role: user.role ? user.role.name : null,
-    });
-
-    res.status(200).json({
-      message: "Login succesfully",
-      accesstoken,
-      user: {
         id: user.id,
         email: user.email,
-        name: user.username,
-        role: user.role ? user.role.name : null,
+        role: user.role.name,
       },
+      process.env.JWT_TOKEN, // Ensure this is correctly set
+      { expiresIn: "30d" } // Token expiration time
+    );
+
+    res.status(200).json({
+      message: "Login successfully",
+
+      user: {
+        id: user.id,
+        name: user.username, // Adjust if you use a different field for name
+        email: user.email,
+      },
+      token,
+      role: user.role.name,
     });
   } catch (error) {
     console.log(error);

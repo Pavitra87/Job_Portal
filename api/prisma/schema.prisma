@@ -21,11 +21,9 @@ model User {
   role                          Role     @relation(fields: [roleId], references: [id])
   roleId                        Int
   profile_picture_url           String?  // Optional profile picture URL
-   password_reset_token String?    // Add this line for reset token
-  token_expiry         DateTime?  
-  jobSeekerProfile              JobSeekerProfile?
-  jobProviderProfile            JobProviderProfile?
-  notifications                 Notification[]
+  profile                       Profile? 
+  jobListing                  JobListing[] // Added field for job listings created by the user
+  
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
 }
@@ -38,44 +36,28 @@ model Role {
   users                         User[]
 }
 
-model JobSeekerProfile {
-  id                            Int @id @default(autoincrement())
-  userId                        Int  @unique
-  user                          User @relation(fields: [userId], references: [id])
-  first_name                    String
-  last_name                     String
-  phone_number                  String
-  resume_url                    String
-  skills                        Json     
-  experience                    Json     
-  education                     String     
-  location                      String
-  preferredJobTypes             Json      
-  notifications_enabled         Boolean   @default(true)
-  created_at                    DateTime  @default(now())
-  updated_at                    DateTime  @updatedAt
-  jobApplications               JobApplication[]
-}
-
-model JobProviderProfile {
-  id                            Int @id @default(autoincrement())
-  userId                        Int  @unique  
-  user                          User @relation(fields: [userId], references: [id])
-  company_name                  String
-  company_description           String
-  website                       String
-  email                         String
-  phone                         String
-  location                      String
-  created_at                    DateTime @default(now())
-  updated_at                    DateTime @updatedAt
-  jobListing                    JobListing[]
+model Profile {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @unique
+  description     String?
+  location        String?
+  skills          Json?
+  education       String?
+  phone_number    String?
+  jobtitle        String?
+  experience      String?
+  jobtype         String?
+  resume          String? // You might want to change the type to store file paths or another format
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  jobListing    JobListing[] // Holds job listings associated with the profile
 }
 
 model JobListing {
   id                            Int @id @default(autoincrement())
   providerId                    Int
-  categoryId                    Int  
+  provider                      User   @relation(fields: [providerId], references: [id]) 
   title                         String
   description                   String
   requirements                  Json     
@@ -84,12 +66,11 @@ model JobListing {
   salary_range                  String
   posted_at                     DateTime @default(now())
   expires_at                    DateTime
-  applications_count            Int  @default(0)
   created_at                    DateTime  @default(now())
   updated_at                    DateTime  @updatedAt
   jobApplications               JobApplication[]
-  jobProviderProfile            JobProviderProfile @relation(fields: [providerId], references: [id])
-  jobCategory                   JobCategory @relation(fields:[categoryId],references:[id])
+  profile                       Profile? @relation(fields: [profileId], references: [id]) // Added the relation for profile
+  profileId                     Int?    // Add a foreign key field for the relation
 }
 
 model JobApplication {
@@ -101,30 +82,6 @@ model JobApplication {
   portfolio_url                 String?
   created_at                    DateTime @default(now())
   updated_at                    DateTime @updatedAt
-  seeker                        JobSeekerProfile @relation(fields: [seekerId], references: [id]) 
+
   jobListing                    JobListing @relation(fields: [jobId], references: [id]) 
 }
-
-model JobCategory {
-  id                            Int   @id @default(autoincrement())
-  name                          String  @unique
-  jobListing                    JobListing[]
-  createdAt                     DateTime @default(now())
-  updatedAt                     DateTime @updatedAt
- }
-
-model Notification {
-  id                            Int  @id @default(autoincrement())
-  userId                        Int  
-  title                         String
-  message                       String
-  read                          Boolean  @default(false)
-  type                          String
-  createdAt                     DateTime  @default(now())
-  updatedAt                     DateTime  @updatedAt
-  user                          User   @relation(fields: [userId], references: [id]) 
- }
-
-
-
-

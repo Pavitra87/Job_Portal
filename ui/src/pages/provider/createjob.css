@@ -1,0 +1,83 @@
+/* createjob.css */
+
+.job-listing-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.job-listing-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.job-listing-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.job-listing-form input[type="text"],
+.job-listing-form input[type="date"],
+.job-listing-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.job-listing-form textarea {
+  height: 50px;
+}
+
+.job-listing-form input[type="text"]:focus,
+.job-listing-form input[type="date"]:focus,
+.job-listing-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.job-listing-form .error-message,
+.job-listing-form .success-message {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.job-listing-form .error-message {
+  background-color: #e74c3c;
+}
+
+.job-listing-form .success-message {
+  background-color: #2ecc71;
+}
+
+.job-listing-form button[type="submit"] {
+  padding: 12px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.job-listing-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.job-listing-form button[type="submit"]:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
