@@ -3,16 +3,29 @@ const http = require("http");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { initSocket } = require("./controllers/notification/socket");
+
+const { Server } = require("socket.io");
 
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5001;
 const server = http.createServer(app);
-initSocket(server);
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// let io;
+// const initSocket = (server) => {
+//   io = new Server(server);
+
+//   io.on("connection", (socket) => {
+//     console.log("A user connected:", socket.id);
+
+//     socket.on("disconnect", () => {
+//       console.log("User disconnected:", socket.id);
+//     });
+//   });
+// };
 
 app.use(
   "/uploads/profile_picture_url",
@@ -21,8 +34,7 @@ app.use(
 
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/jobListing", require("./routes/jobListingRoutes"));
-// app.use("/api/jobApplications", require("./routes/jobApplicationRoutes"));
-app.use("/api/searching", require("./routes/jobSearchRoute"));
+app.use("/api/jobApplications", require("./routes/jobApplicationRoutes"));
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

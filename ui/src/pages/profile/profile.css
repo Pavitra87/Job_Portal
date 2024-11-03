@@ -1,0 +1,74 @@
+.profile-container {
+  max-width: 700px; /* Increased width for a more spacious layout */
+  margin: 30px auto; /* Center the profile container */
+  padding: 20px; /* Add padding */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #ffffff; /* White background for the container */
+}
+
+.profile-container h1 {
+  text-align: center; /* Center the heading */
+  color: #333; /* Dark text color */
+  margin-bottom: 20px; /* Space below the heading */
+  font-size: 24px; /* Font size for the heading */
+}
+
+.profile-actions {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: flex-end; /* Align actions to the right */
+  margin-bottom: 20px; /* Space below the actions */
+}
+
+.profile-actions i {
+  font-size: 28px; /* Increased icon size */
+  margin-left: 20px; /* Space between icons */
+  cursor: pointer; /* Pointer cursor on hover */
+  color: #007bff; /* Blue color for the icons */
+  transition: color 0.3s, transform 0.2s; /* Transition for color and scale */
+}
+
+.profile-actions i:hover {
+  color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.profile-details {
+  font-size: 18px; /* Font size for details */
+  line-height: 1.6; /* Line height for readability */
+}
+
+.profile-details p {
+  margin: 15px 0; /* Vertical spacing between paragraphs */
+}
+
+.profile-details strong {
+  color: #555; /* Dark grey for labels */
+}
+
+.message {
+  color: #ff0000; /* Red for error messages */
+  text-align: center; /* Center the error message */
+  margin-top: 10px; /* Space above the message */
+}
+
+.success {
+  color: #28a745; /* Green for success messages */
+  text-align: center; /* Center the success message */
+  margin-top: 10px; /* Space above the message */
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    margin: 10px; /* Reduce margin on smaller screens */
+    padding: 15px; /* Reduce padding on smaller screens */
+  }
+
+  .profile-actions i {
+    font-size: 24px; /* Smaller icons on mobile */
+  }
+
+  .profile-details {
+    font-size: 16px; /* Smaller text on mobile */
+  }
+}

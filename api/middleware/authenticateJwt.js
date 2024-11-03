@@ -17,6 +17,7 @@ const authenticateToken = async (req, res, next) => {
     if (!user) return res.status(403).json({ error: "Invalid token" });
 
     req.user = {
+      id: user.id,
       role: user.role.name,
       user,
     };

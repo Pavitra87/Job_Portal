@@ -9,6 +9,8 @@ import Login from "./pages/login/Login";
 
 import CreateJobApplication from "./pages/provider/CreateJobApplication";
 import AllJobs from "./pages/provider/AllJobs";
+import Candidates from "./pages/candidate/Candidates";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   return (
@@ -23,7 +25,11 @@ function App() {
           {/* ---------------job provider------------ */}
 
           <Route path="/post-job" element={<CreateJobApplication />} />
-          <Route path="jobs" element={<AllJobs />} />
+          <Route path="/jobs" element={<AllJobs />} />
+          <Route path="/candidate-list" element={<Candidates />} />
+          <Route path="/userprofile" element={<Profile />} />
+
+          {/* ----------------job seeker--------------- */}
         </Routes>
       </BrowserRouter>
     </div>

@@ -78,7 +78,7 @@ const Header = () => {
               </button>
               {showDropdown && (
                 <div className="dropdown" ref={dropdownRef}>
-                  <Link to={`/candidate/${user.id}`}> Profile</Link>
+                  <Link to="/userprofile"> Profile</Link>
                   <button onClick={logout} className="logout">
                     Logout
                   </button>

@@ -4,6 +4,16 @@ const { Register, Login } = require("../controllers/Auth/AuthController");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
+const {
+  getAllJobSeekerProfiles,
+  getProfile,
+  updateProfile,
+  deleteProfile,
+} = require("../controllers/profiles/profilectrl");
+const {
+  authenticateToken,
+  authorize,
+} = require("../middleware/authenticateJwt");
 
 // Configure multer storage
 const uploadDir = "uploads/profile_pictures";
@@ -28,5 +38,16 @@ const upload = multer({ storage });
 router.post("/register", upload.single("profile_picture_url"), Register);
 
 router.post("/login", Login);
+
+router.get(
+  "/profiles",
+  authenticateToken,
+  authorize("Job Provider"),
+  getAllJobSeekerProfiles
+);
+
+router.get("/profile", authenticateToken, getProfile);
+router.put("/profile/:id", authenticateToken, updateProfile);
+router.delete("/profile/:id", authenticateToken, deleteProfile);
 
 module.exports = router;

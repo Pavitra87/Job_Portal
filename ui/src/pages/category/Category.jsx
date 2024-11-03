@@ -4,7 +4,7 @@ import category from "../../data/data";
 
 const Category = () => {
   return (
-    <div className="category">
+    <div className="category" id="category">
       <div className="category-contain">
         <div className="category-heading">
           <h1>Categories</h1>

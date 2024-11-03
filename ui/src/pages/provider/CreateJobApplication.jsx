@@ -44,6 +44,7 @@ const CreateJobApplication = () => {
           },
         }
       );
+
       setSuccess("Job listing created successfully!");
       setFormData({
         title: "",
@@ -56,12 +57,17 @@ const CreateJobApplication = () => {
         posted_at: new Date().toISOString().split("T")[0],
         expires_at: "",
       });
-      alert("Job listing created successfully!");
     } catch (err) {
-      setError("Error creating job listing: " + err.message);
-      alert(`Error: ${error.response.data.error}`);
+      const errorMessage =
+        err.response && err.response.data && err.response.data.error
+          ? err.response.data.error
+          : err.message;
+      setError("Error creating job listing: " + errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <div className="job-listing-form">
       <h2>Create Job Listing</h2>
@@ -94,6 +100,7 @@ const CreateJobApplication = () => {
           placeholder="Preferred Skills"
           value={formData.preferredSkills}
           onChange={handleChange}
+          required
         />
         <input
           type="text"

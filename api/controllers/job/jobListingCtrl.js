@@ -10,7 +10,6 @@ const createJobList = async (req, res) => {
     preferredSkills,
     location,
     salary_range,
-
     posted_at,
     expires_at,
   } = req.body;
@@ -44,7 +43,7 @@ const createJobList = async (req, res) => {
         preferredSkills,
         location,
         salary_range,
-        // providerId: req.user?.id,
+
         posted_at: new Date(posted_at),
         expires_at: new Date(expires_at),
         provider: {
@@ -54,6 +53,11 @@ const createJobList = async (req, res) => {
           connect: { id: profileId },
         },
       },
+    });
+
+    io.emit("newJobPosted", {
+      message: `A new job has been posted: ${jobListing.title}`,
+      jobListing, // Optionally send job listing data
     });
 
     res.status(201).json(jobListing);

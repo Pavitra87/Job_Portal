@@ -1,55 +1,82 @@
 /* candidate.css */
 
-/* Container styling */
-.candidate-profile {
-  max-width: 500px;
-  margin: 50px auto;
+.candidates-container {
+  max-width: 1000px;
+  margin: 20px auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.candidate-profile h2 {
+.candidates-container h1 {
   text-align: center;
-  font-size: 24px;
   color: #333;
   margin-bottom: 20px;
 }
 
-/* Form input styling */
-.candidate-profile form {
+.filter-form {
+  max-width: 800px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.candidate-profile input[type="text"] {
+.filter-form input[type="text"] {
   padding: 10px;
-  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 4px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
 }
 
-/* Input focus effect */
-.candidate-profile input[type="text"]:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+.candidate-details {
+  list-style: none;
+  padding: 0;
 }
 
-/* Button styling */
-.candidate-profile button {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.candidate-details li {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.candidate-profile button:hover {
-  background-color: #0056b3;
+.candidate-details li h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #2c3e50;
+}
+
+.candidate-details li p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 15px;
+}
+
+.candidate-details li p strong {
+  color: #333;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 20px;
+  opacity: 0.5;
+}
+
+@media (min-width: 600px) {
+  .filter-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-form input[type="text"] {
+    width: calc(50% - 10px);
+  }
 }
