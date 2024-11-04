@@ -53,86 +53,67 @@ const getProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  const userId = req.user.id; // Get user ID from authenticated user
-  const roleName = req.user.role.name; // Get role from user object
-
-  console.log("Updating profile for user:", userId, "with role:", roleName); // Log the role
+  const { userId } = req.params;
+  const {
+    description,
+    location,
+    skills,
+    education,
+    phone_number,
+    jobtitle,
+    experience,
+    jobtype,
+    resume,
+  } = req.body;
 
   try {
-    let updatedProfile;
-
-    if (roleName === "Job Provider") {
-      // Logic for Job Providers
-      const { email, username, location, description } = req.body;
-      updatedProfile = await prisma.user.update({
-        where: { id: Number(userId) },
-        data: {
-          email,
-          username,
-          profile: {
-            update: {
-              location,
-              description,
-            },
-          },
-        },
-        include: {
-          profile: true,
-        },
-      });
-    } else if (roleName === "Job Seeker") {
-      // Logic for Job Seekers
-      const { email, username, profileData } = req.body;
-      updatedProfile = await prisma.user.update({
-        where: { id: Number(userId) },
-        data: {
-          email,
-          username,
-          profile: {
-            update: {
-              location: profileData.location,
-              description: profileData.description,
-              skills: profileData.skills,
-              education: profileData.education,
-              phone_number: profileData.phone_number,
-              experience: profileData.experience,
-            },
-          },
-        },
-        include: {
-          profile: true,
-        },
-      });
-    } else {
-      return res
-        .status(403)
-        .json({
-          error: "Unauthorized role for profile update",
-          role: roleName,
-        });
+    // Parse userId as integer and validate
+    const parsedUserId = parseInt(userId, 10);
+    if (isNaN(parsedUserId)) {
+      return res.status(400).json({ error: "Invalid user ID format" });
     }
 
-    res.status(200).json(updatedProfile);
-  } catch (error) {
-    console.error("Error updating profile:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-const deleteProfile = async (req, res) => {
-  const { id } = req.params; // Extract user ID from request parameters
-
-  try {
-    // Delete the job seeker profile
-    const deletedJobSeeker = await prisma.user.delete({
-      where: { id: Number(id) }, // Use the user ID to find the correct profile
+    const updatedProfile = await prisma.profile.update({
+      where: { userId: parsedUserId },
+      data: {
+        description: description || null,
+        location: location || null,
+        skills: skills ? JSON.parse(skills) : null, // Parse JSON if skills are provided
+        education: education || null,
+        phone_number: phone_number || null,
+        jobtitle: jobtitle || null,
+        experience: experience || null,
+        jobtype: jobtype || null,
+        resume: resume || null,
+      },
     });
 
     res
       .status(200)
-      .json({ message: "Profile deleted successfully", deletedJobSeeker });
+      .json({ message: "Profile updated successfully", updatedProfile });
   } catch (error) {
-    console.error("Error deleting job seeker profile:", error);
+    console.error("Error updating profile:", error);
+    res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+};
+
+const deleteProfile = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    // Delete the user (the profile will be deleted automatically)
+    const deletedUser = await prisma.user.delete({
+      where: { id: Number(userId) },
+    });
+
+    res.status(200).json({
+      message: "User and profile deleted successfully",
+      deletedUser,
+    });
+  } catch (error) {
+    console.error("Error deleting user and profile:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

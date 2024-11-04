@@ -11,13 +11,13 @@ const Header = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    if (user && !user.roleName) {
+    if (user && user.roleName) {
       console.warn(
         "User role is undefined. Please check user role assignment."
       );
     }
   }, [user]);
-
+  console.log("userHeader", user, "userRole", userRole);
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
   };
@@ -49,15 +49,20 @@ const Header = () => {
             <li>
               <Link to="/category">Category</Link>
             </li>
-            <li>
-              <Link to="/jobs">Jobs</Link>
-            </li>
-            <li>
-              <Link to="/post-job">Post Job</Link>
-            </li>
-            <li>
-              <Link to="/candidate-list">Candidates</Link>
-            </li>
+            {userRole === "Job Seeker" ? (
+              <li>
+                <Link to="/jobs">Jobs</Link>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/post-job">Post Job</Link>
+                </li>
+                <li>
+                  <Link to="/candidate-list">Candidates</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <div className="rightnav">
@@ -69,13 +74,7 @@ const Header = () => {
                 className="profile-picture"
                 onClick={toggleDropdown}
               />
-              <button>
-                <Link
-                  to={userRole === "Job Provider" ? "/post-job" : "/apply-job"}
-                >
-                  {userRole === "Job Provider" ? "Post Job" : "Apply Job"}
-                </Link>
-              </button>
+
               {showDropdown && (
                 <div className="dropdown" ref={dropdownRef}>
                   <Link to="/userprofile"> Profile</Link>
