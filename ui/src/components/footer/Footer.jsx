@@ -13,7 +13,7 @@ const Footer = () => {
         </div>
         <div className="join-btn">
           <button>
-            <Link>Join now</Link>
+            <Link to="/login">Join now</Link>
           </button>
         </div>
       </div>

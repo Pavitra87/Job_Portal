@@ -22,7 +22,7 @@ const Home = () => {
             </div>
             <div className="serch-btn">
               <button>
-                <Link>Find Job</Link>
+                <Link to="/jobs">Find Job</Link>
               </button>
             </div>
           </div>

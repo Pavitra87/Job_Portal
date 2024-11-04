@@ -15,7 +15,7 @@ const Roles = require("../middleware/roles");
 router.post(
   "/create",
   authenticateToken,
-  authorize(["Job Provider"]),
+  authorize("Job Provider"),
   createJobList
 );
 
@@ -26,7 +26,7 @@ router.post(
 //   getJoblist
 // );
 
-router.get("/", authenticateToken, authorize(["Job Seeker"]), getJoblists);
+router.get("/", authenticateToken, authorize("Job Seeker"), getJoblists);
 
 // router.put(
 //   "/:id",

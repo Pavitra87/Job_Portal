@@ -53,7 +53,7 @@ const getProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  const { userId } = req.params;
+  const userId = req.user.id; // Assuming authenticated user's ID is available on req.user
   const {
     description,
     location,
@@ -64,38 +64,44 @@ const updateProfile = async (req, res) => {
     experience,
     jobtype,
     resume,
-  } = req.body;
+  } = req.body; // Expecting these fields from the request body
 
   try {
-    // Parse userId as integer and validate
-    const parsedUserId = parseInt(userId, 10);
-    if (isNaN(parsedUserId)) {
-      return res.status(400).json({ error: "Invalid user ID format" });
+    // Check if the user has an existing profile
+    const existingProfile = await prisma.profile.findUnique({
+      where: { userId },
+    });
+
+    if (!existingProfile) {
+      return res.status(404).json({ error: "Profile not found" });
     }
 
+    // Update the profile with provided fields
     const updatedProfile = await prisma.profile.update({
-      where: { userId: parsedUserId },
+      where: { userId },
       data: {
-        description: description || null,
-        location: location || null,
-        skills: skills ? JSON.parse(skills) : null, // Parse JSON if skills are provided
-        education: education || null,
-        phone_number: phone_number || null,
-        jobtitle: jobtitle || null,
-        experience: experience || null,
-        jobtype: jobtype || null,
-        resume: resume || null,
+        description: description || existingProfile.description,
+        location: location || existingProfile.location,
+        skills: skills || existingProfile.skills,
+        education: education || existingProfile.education,
+        phone_number: phone_number || existingProfile.phone_number,
+        jobtitle: jobtitle || existingProfile.jobtitle,
+        experience: experience || existingProfile.experience,
+        jobtype: jobtype || existingProfile.jobtype,
+        resume: resume || existingProfile.resume,
+      },
+      include: {
+        user: true, // Include user data if needed in response
       },
     });
 
-    res
-      .status(200)
-      .json({ message: "Profile updated successfully", updatedProfile });
+    res.status(200).json({
+      message: "Profile updated successfully",
+      profile: updatedProfile,
+    });
   } catch (error) {
-    console.error("Error updating profile:", error);
-    res
-      .status(500)
-      .json({ error: "Internal server error", details: error.message });
+    console.error("Error updating profile:", error.message);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

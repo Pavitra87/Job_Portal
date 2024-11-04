@@ -1,74 +1,108 @@
+/* profile.css */
+
+/* Basic styling for the profile container */
 .profile-container {
-  max-width: 700px; /* Increased width for a more spacious layout */
-  margin: 30px auto; /* Center the profile container */
-  padding: 20px; /* Add padding */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  background-color: #ffffff; /* White background for the container */
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-container h1 {
-  text-align: center; /* Center the heading */
-  color: #333; /* Dark text color */
-  margin-bottom: 20px; /* Space below the heading */
-  font-size: 24px; /* Font size for the heading */
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
+/* Styling for the profile actions (Edit and Delete icons) */
 .profile-actions {
-  display: flex; /* Use flexbox for alignment */
-  justify-content: flex-end; /* Align actions to the right */
-  margin-bottom: 20px; /* Space below the actions */
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .profile-actions i {
-  font-size: 28px; /* Increased icon size */
-  margin-left: 20px; /* Space between icons */
-  cursor: pointer; /* Pointer cursor on hover */
-  color: #007bff; /* Blue color for the icons */
-  transition: color 0.3s, transform 0.2s; /* Transition for color and scale */
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s;
 }
 
 .profile-actions i:hover {
-  color: #0056b3; /* Darker blue on hover */
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  color: #333;
 }
 
+/* Styling for each profile detail */
 .profile-details {
-  font-size: 18px; /* Font size for details */
-  line-height: 1.6; /* Line height for readability */
+  line-height: 1.6;
 }
 
 .profile-details p {
-  margin: 15px 0; /* Vertical spacing between paragraphs */
+  font-size: 1rem;
+  color: #555;
+  margin: 0.5rem 0;
 }
 
 .profile-details strong {
-  color: #555; /* Dark grey for labels */
+  font-weight: 600;
+  color: #333;
 }
 
-.message {
-  color: #ff0000; /* Red for error messages */
-  text-align: center; /* Center the error message */
-  margin-top: 10px; /* Space above the message */
+/* Styling for input fields in edit mode */
+.profile-details label {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5rem 0 0.3rem;
 }
 
-.success {
-  color: #28a745; /* Green for success messages */
-  text-align: center; /* Center the success message */
-  margin-top: 10px; /* Space above the message */
+.profile-details input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  .profile-container {
-    margin: 10px; /* Reduce margin on smaller screens */
-    padding: 15px; /* Reduce padding on smaller screens */
-  }
+.profile-details input[type="text"]:focus {
+  border-color: #333;
+  outline: none;
+}
 
-  .profile-actions i {
-    font-size: 24px; /* Smaller icons on mobile */
-  }
+/* Styling for buttons */
+.profile-contents button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
 
-  .profile-details {
-    font-size: 16px; /* Smaller text on mobile */
-  }
+.profile-contents button:hover {
+  opacity: 0.9;
+}
+
+.profile-contents button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.profile-contents button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Message styling */
+p.message {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 1rem 0;
+  text-align: center;
 }

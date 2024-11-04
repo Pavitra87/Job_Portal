@@ -49,20 +49,19 @@ const Header = () => {
             <li>
               <Link to="/category">Category</Link>
             </li>
-            {userRole === "Job Seeker" ? (
+
+            <li>
+              <Link to="/jobs">Jobs</Link>
+            </li>
+
+            <>
               <li>
-                <Link to="/jobs">Jobs</Link>
+                <Link to="/post-job">Post Job</Link>
               </li>
-            ) : (
-              <>
-                <li>
-                  <Link to="/post-job">Post Job</Link>
-                </li>
-                <li>
-                  <Link to="/candidate-list">Candidates</Link>
-                </li>
-              </>
-            )}
+              <li>
+                <Link to="/candidate-list">Candidates</Link>
+              </li>
+            </>
           </ul>
         </div>
         <div className="rightnav">

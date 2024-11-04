@@ -10,8 +10,8 @@ const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({}); // For updating profile
-  const [message, setMessage] = useState(""); // For success/error messages
+  const [formData, setFormData] = useState({});
+  const [message, setMessage] = useState("");
   const [editMode, setEditMode] = useState(false);
 
   const navigate = useNavigate();
@@ -23,12 +23,12 @@ const Profile = () => {
           "http://localhost:5001/api/auth/profile",
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT token
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
         setProfileData(response.data);
-        localStorage.setItem("profileData", JSON.stringify(response.data)); // Store in local storage
+        localStorage.setItem("profileData", JSON.stringify(response.data));
       } catch (err) {
         console.error("Error fetching profile:", err);
         setError("Could not load profile. Please try again.");
@@ -40,30 +40,57 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+  // const handleUpdate = async () => {
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:5001/api/auth/profile/${user.id}`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     setProfileData(response.data.user);
+  //     localStorage.setItem("profileData", JSON.stringify(response.data.user));
+  //     setMessage("Profile updated successfully!");
+  //     setEditMode(false);
+  //   } catch (error) {
+  //     setMessage("Error updating profile. Please try again.");
+  //     console.error("Update error:", error);
+  //   }
+  // };
+
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5001/api/auth/profile/${user.id}`, // replace with user's ID
+        `http://localhost:5001/api/auth/profile/${user.id}`,
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT token
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      console.log("User ID:", user.id);
-      setProfileData(response.data.user);
-      localStorage.setItem("profileData", JSON.stringify(response.data.user)); // Update local storage
+
+      // Merge updated data into profileData
+      setProfileData((prevProfileData) => ({
+        ...prevProfileData,
+        profile: { ...prevProfileData.profile, ...formData },
+      }));
+
+      localStorage.setItem("profileData", JSON.stringify(response.data.user));
       setMessage("Profile updated successfully!");
-      console.log("Profile updated:", response.data.user);
+
+      // Exit edit mode and clear success message after a delay
       setEditMode(false);
+      setTimeout(() => setMessage(""), 1000);
     } catch (error) {
       setMessage("Error updating profile. Please try again.");
       console.error("Update error:", error);
     }
   };
 
-  // Delete user profile
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your profile? This action cannot be undone."
@@ -71,21 +98,22 @@ const Profile = () => {
     if (!confirmDelete) return;
     try {
       const response = await axios.delete(
-        `http://localhost:5001/api/auth/profile/${profileData.id}`, // replace with user's ID
+        `http://localhost:5001/api/auth/profile/${profileData.id}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT token
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
       setMessage(response.data.message);
-      localStorage.removeItem("profileData"); // Remove from local storage
-      navigate("/register"); // Redirect after deletion
+      localStorage.removeItem("profileData");
+      navigate("/register");
     } catch (error) {
       setMessage("Error deleting profile. Please try again.");
       console.error("Delete error:", error);
     }
   };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -99,7 +127,7 @@ const Profile = () => {
       <div className="profile-actions">
         <i
           className="fas fa-edit"
-          onClick={() => setEditMode(true)} // Enable edit mode
+          onClick={() => setEditMode(true)}
           title="Edit Profile"
         ></i>
         <i
@@ -108,7 +136,7 @@ const Profile = () => {
           title="Delete Profile"
         ></i>
       </div>
-      {message && <p>{message}</p>} {/* Display message */}
+      {message && <p>{message}</p>}
       {profileData ? (
         <div className="profile-details">
           {!editMode ? (
@@ -150,53 +178,62 @@ const Profile = () => {
               ) : null}
             </>
           ) : (
-            <div>
+            <div className="profile-contents">
               <label>Email:</label>
               <input type="text" value={profileData.email} readOnly />
               <label>Username:</label>
               <input type="text" value={profileData.username} readOnly />
-              <label>Location:</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location || ""}
-                onChange={handleChange}
-              />
-              <label>Description:</label>
-              <input
-                type="text"
-                name="description"
-                value={formData.description || ""}
-                onChange={handleChange}
-              />
-              <label>Skills:</label>
-              <input
-                type="text"
-                name="skills"
-                value={formData.skills || ""}
-                onChange={handleChange}
-              />
-              <label>Education:</label>
-              <input
-                type="text"
-                name="education"
-                value={formData.education || ""}
-                onChange={handleChange}
-              />
-              <label>Phone Number:</label>
-              <input
-                type="text"
-                name="phone_number"
-                value={formData.phone_number || ""}
-                onChange={handleChange}
-              />
-              <label>Experience:</label>
-              <input
-                type="text"
-                name="experience"
-                value={formData.experience || ""}
-                onChange={handleChange}
-              />
+
+              {profileData.role === "Job Provider" ? (
+                <>
+                  <label>Location:</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={formData.location || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Description:</label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={formData.description || ""}
+                    onChange={handleChange}
+                  />
+                </>
+              ) : profileData.role === "Job Seeker" ? (
+                <>
+                  <label>Skills:</label>
+                  <input
+                    type="text"
+                    name="skills"
+                    value={formData.skills || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Education:</label>
+                  <input
+                    type="text"
+                    name="education"
+                    value={formData.education || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Phone Number:</label>
+                  <input
+                    type="text"
+                    name="phone_number"
+                    value={formData.phone_number || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Experience:</label>
+                  <input
+                    type="text"
+                    name="experience"
+                    value={formData.experience || ""}
+                    onChange={handleChange}
+                  />
+                </>
+              ) : null}
+
               <button onClick={handleUpdate}>Save Changes</button>
               <button onClick={() => setEditMode(false)}>Cancel</button>
             </div>
