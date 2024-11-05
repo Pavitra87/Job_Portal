@@ -17,9 +17,11 @@ const Header = () => {
       );
     }
   }, [user]);
+  console.log("User object:", user);
 
   const userRole = user?.role || JSON.parse(localStorage.getItem("user"))?.role;
-  console.log("userRole", userRole);
+  const profilePictureUrl = user?.profile_picture_url || "/default-profile.png";
+
   console.log("Profile Picture URL:", user?.profile_picture_url);
 
   const toggleDropdown = () => {
