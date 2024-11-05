@@ -1,7 +1,7 @@
 /* header.css */
 
 .navbar {
-  background-color: #000; /* Black background */
+  background-color: #202020; /* Black background */
   color: #fff; /* White text */
   padding: 13px 20px;
 }
@@ -69,6 +69,11 @@
   z-index: 1000;
   padding: 10px;
   min-width: 150px;
+}
+.profile-picture {
+  width: 50px; /* Set a fixed width */
+  height: 50px; /* Set a fixed height */
+  object-fit: cover; /* Optional: to ensure the image fits within the bounds */
 }
 
 .dropdown a {

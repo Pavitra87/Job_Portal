@@ -19,7 +19,12 @@ router.post(
   createJobApplication
 );
 
-// router.get('/apply/:id',authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),getJobApplication)
+router.get(
+  "/getapply",
+  authenticateToken,
+  authorize("Job Seeker"),
+  getJobApplication
+);
 
 // router.get('/', authenticateToken, autherizationRoles([Roles.JOB_PROVIDER]), getJobApplications)
 

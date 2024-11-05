@@ -48,4 +48,38 @@ const createJobApplication = async (req, res) => {
   }
 };
 
-module.exports = { createJobApplication };
+const getJobApplication = async (req, res) => {
+  try {
+    const seekerId = req.user.id;
+
+    // Fetch all job applications for this seeker
+    const applications = await prisma.jobApplication.findMany({
+      where: { seekerId: seekerId },
+      include: {
+        jobListing: {
+          // Use jobListing instead of job
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            location: true,
+            salary_range: true,
+          },
+        },
+      },
+    });
+
+    if (applications.length === 0) {
+      return res.status(404).json({ message: "No job applications found" });
+    }
+
+    res.status(200).json(applications);
+  } catch (error) {
+    console.error("Error retrieving job applications:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching job applications" });
+  }
+};
+
+module.exports = { createJobApplication, getJobApplication };

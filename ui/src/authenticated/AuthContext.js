@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
+    console.log("Logging in user with data:", userData);
     setUser(userData); // Update the user state with the provided user data
     localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
   };

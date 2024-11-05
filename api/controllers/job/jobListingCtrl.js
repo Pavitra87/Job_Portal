@@ -55,11 +55,6 @@ const createJobList = async (req, res) => {
       },
     });
 
-    io.emit("newJobPosted", {
-      message: `A new job has been posted: ${jobListing.title}`,
-      jobListing, // Optionally send job listing data
-    });
-
     res.status(201).json(jobListing);
   } catch (error) {
     console.log(error);
@@ -121,15 +116,32 @@ const deleteJoblist = async (req, res) => {
 };
 
 //get one
-const getJoblist = async (req, res) => {
-  const { id } = req.params;
+const getJobPost = async (req, res) => {
   try {
-    const getjoblist = await prisma.jobListing.findUnique({
-      where: { id: Number(id) },
+    const providerId = req.user.id; // Assuming user ID is stored in req.user after authentication
+
+    // Fetch job listings created by this provider
+    const jobPosts = await prisma.jobListing.findMany({
+      where: {
+        providerId: providerId,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        location: true,
+        salary_range: true,
+        posted_at: true,
+        expires_at: true,
+      },
     });
-    res.status(201).json(getjoblist);
+
+    res.json({ profile: req.user.profile, jobPosts });
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    console.error("Error retrieving job posts:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching job posts" });
   }
 };
 
@@ -147,6 +159,6 @@ module.exports = {
   createJobList,
   updateJoblist,
   deleteJoblist,
-  getJoblist,
+  getJobPost,
   getJoblists,
 };

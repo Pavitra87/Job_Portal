@@ -13,9 +13,12 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [jobPosts, setJobPosts] = useState([]);
+  const [appliedJobs, setAppliedJobs] = useState([]);
 
   const navigate = useNavigate();
-
+  // console.log("applied jobs", appliedJobs);
+  // console.log("jobposts", jobPosts);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -27,8 +30,47 @@ const Profile = () => {
             },
           }
         );
+        console.log("User Profile Data:", response.data);
         setProfileData(response.data);
         localStorage.setItem("profileData", JSON.stringify(response.data));
+
+        if (response.data.role === "Job Provider") {
+          try {
+            const postsResponse = await axios.get(
+              `http://localhost:5001/api/jobListing/jobpost`,
+              {
+                headers: {
+                  Authorization: ` Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
+            console.log("Job Posts Response:", postsResponse.data);
+            const posts = Array.isArray(postsResponse.data)
+              ? postsResponse.data
+              : [];
+            setJobPosts(posts);
+            console.log("job posts", posts);
+          } catch (err) {
+            console.error("Error fetching job posts:", err); // Debugging
+          }
+        }
+
+        if (response.data.role === "Job Seeker") {
+          const applicationsResponse = await axios.get(
+            `http://localhost:5001/api/jobApplications/getapply`,
+            {
+              headers: {
+                Authorization: ` Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          console.log("Job apply Response:", applicationsResponse.data);
+          setAppliedJobs(
+            Array.isArray(applicationsResponse.data)
+              ? applicationsResponse.data
+              : []
+          );
+        }
       } catch (err) {
         console.error("Error fetching profile:", err);
         setError("Could not load profile. Please try again.");
@@ -40,27 +82,6 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  // const handleUpdate = async () => {
-  //   try {
-  //     const response = await axios.put(
-  //       `http://localhost:5001/api/auth/profile/${user.id}`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     setProfileData(response.data.user);
-  //     localStorage.setItem("profileData", JSON.stringify(response.data.user));
-  //     setMessage("Profile updated successfully!");
-  //     setEditMode(false);
-  //   } catch (error) {
-  //     setMessage("Error updating profile. Please try again.");
-  //     console.error("Update error:", error);
-  //   }
-  // };
-
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
@@ -68,7 +89,7 @@ const Profile = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: ` Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -150,13 +171,27 @@ const Profile = () => {
 
               {profileData.role === "Job Provider" ? (
                 <>
-                  <p>
-                    <strong>Location:</strong> {profileData.profile.location}
-                  </p>
-                  <p>
-                    <strong>Description:</strong>{" "}
-                    {profileData.profile.description}
-                  </p>
+                  <div>
+                    <p>
+                      <strong>Location:</strong> {profileData.profile.location}
+                    </p>
+                    <p>
+                      <strong>Description:</strong>{" "}
+                      {profileData.profile.description}
+                    </p>
+                  </div>
+                  <div>
+                    <h2>Your Job Posts</h2>
+                    {jobPosts.length > 0 ? (
+                      <ul>
+                        {jobPosts.map((post) => (
+                          <li key={post.id}>{post.title}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No job posts available.</p>
+                    )}
+                  </div>
                 </>
               ) : profileData.role === "Job Seeker" ? (
                 <>
@@ -174,6 +209,13 @@ const Profile = () => {
                     <strong>Experience:</strong>{" "}
                     {profileData.profile.experience}
                   </p>
+
+                  <h2>Your Applied Jobs</h2>
+                  <div>
+                    {appliedJobs.map((job) => (
+                      <p key={job.id}>{job.title}</p>
+                    ))}
+                  </div>
                 </>
               ) : null}
             </>

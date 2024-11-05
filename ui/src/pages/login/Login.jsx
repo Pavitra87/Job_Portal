@@ -34,6 +34,7 @@ const Login = () => {
         "http://localhost:5001/api/auth/login",
         formData
       );
+      // console.log("Login response:", response.data);
       const { token, user, role, message } = response.data;
 
       localStorage.setItem("token", token);

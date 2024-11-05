@@ -5,12 +5,13 @@ const {
   getJoblists,
   deleteJoblist,
   getJoblist,
+  getJobPost,
 } = require("../controllers/job/jobListingCtrl");
+
 const {
   authenticateToken,
   authorize,
 } = require("../middleware/authenticateJwt");
-const Roles = require("../middleware/roles");
 
 router.post(
   "/create",
@@ -18,28 +19,12 @@ router.post(
   authorize("Job Provider"),
   createJobList
 );
-
-// router.get(
-//   "/:id",
-//   authenticateToken,
-//   autherizationRoles([Roles.JOB_PROVIDER]),
-//   getJoblist
-// );
-
+router.get(
+  "/jobpost",
+  authenticateToken,
+  authorize("Job Provider"),
+  getJobPost
+);
 router.get("/", authenticateToken, authorize("Job Seeker"), getJoblists);
-
-// router.put(
-//   "/:id",
-//   authenticateToken,
-//   autherizationRoles([Roles.JOB_PROVIDER]),
-//   updateJoblist
-// );
-
-// router.delete(
-//   "/:id",
-//   authenticateToken,
-//   autherizationRoles([Roles.JOB_PROVIDER]),
-//   deleteJoblist
-// );
 
 module.exports = router;

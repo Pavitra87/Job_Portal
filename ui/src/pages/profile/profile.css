@@ -1,108 +1,103 @@
-/* profile.css */
-
-/* Basic styling for the profile container */
 .profile-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .profile-container h1 {
-  font-size: 1.8rem;
   text-align: center;
-  margin-bottom: 1.5rem;
   color: #333;
 }
 
-/* Styling for the profile actions (Edit and Delete icons) */
 .profile-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
 
 .profile-actions i {
-  font-size: 1.2rem;
   cursor: pointer;
-  color: #888;
-  transition: color 0.3s;
+  margin-left: 10px;
+  font-size: 1.5em;
+  color: #007bff;
 }
 
 .profile-actions i:hover {
-  color: #333;
+  color: #0056b3;
 }
 
-/* Styling for each profile detail */
 .profile-details {
-  line-height: 1.6;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .profile-details p {
-  font-size: 1rem;
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+strong {
   color: #555;
-  margin: 0.5rem 0;
 }
 
-.profile-details strong {
-  font-weight: 600;
-  color: #333;
+.profile-contents {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Styling for input fields in edit mode */
-.profile-details label {
-  display: block;
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0.5rem 0 0.3rem;
+.profile-contents label {
+  margin: 10px 0 5px;
+  font-weight: bold;
 }
 
-.profile-details input[type="text"] {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
+.profile-contents input {
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
-.profile-details input[type="text"]:focus {
-  border-color: #333;
-  outline: none;
-}
-
-/* Styling for buttons */
 .profile-contents button {
-  padding: 0.5rem 1.5rem;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-right: 0.5rem;
-  font-size: 1rem;
 }
 
 .profile-contents button:hover {
-  opacity: 0.9;
+  background-color: #0056b3;
 }
 
-.profile-contents button:first-child {
-  background-color: #4caf50;
-  color: white;
+.profile-contents button + button {
+  margin-left: 10px;
 }
 
-.profile-contents button:last-child {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Message styling */
-p.message {
-  font-size: 0.95rem;
+.profile-details h2 {
+  margin-top: 20px;
   color: #333;
-  margin: 1rem 0;
+}
+
+.profile-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-details ul li {
+  background: #e7f1ff;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.profile-message {
+  color: green;
+  font-weight: bold;
   text-align: center;
+  margin-top: 15px;
 }

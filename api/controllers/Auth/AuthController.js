@@ -127,9 +127,10 @@ const Login = async (req, res) => {
         id: user.id,
         name: user.username, // Adjust if you use a different field for name
         email: user.email,
+        role: user.role.name,
       },
       token,
-      role: user.role.name,
+      // role: user.role.name,
     });
   } catch (error) {
     console.log(error);

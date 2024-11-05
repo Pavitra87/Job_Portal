@@ -74,11 +74,6 @@ const Register = () => {
       const response = await axios.post(
         "http://localhost:5001/api/auth/register",
         data
-        // {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // }
       );
 
       setFormData({

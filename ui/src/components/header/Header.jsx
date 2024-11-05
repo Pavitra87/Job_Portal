@@ -5,19 +5,23 @@ import { useAuth } from "../../authenticated/AuthContext";
 
 const Header = () => {
   const { user, logout } = useAuth();
-  const userRole = user?.roleName;
+
   const [showDropdown, setShowDropdown] = useState(false);
 
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    if (user && user.roleName) {
+    if (user && !user.role) {
       console.warn(
         "User role is undefined. Please check user role assignment."
       );
     }
   }, [user]);
-  console.log("userHeader", user, "userRole", userRole);
+
+  const userRole = user?.role || JSON.parse(localStorage.getItem("user"))?.role;
+  console.log("userRole", userRole);
+  console.log("Profile Picture URL:", user?.profile_picture_url);
+
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
   };
@@ -49,27 +53,32 @@ const Header = () => {
             <li>
               <Link to="/category">Category</Link>
             </li>
-
-            <li>
-              <Link to="/jobs">Jobs</Link>
-            </li>
-
-            <>
+            {userRole === "Job Seeker" ? (
               <li>
-                <Link to="/post-job">Post Job</Link>
+                <Link to="/jobs">Jobs</Link>
               </li>
-              <li>
-                <Link to="/candidate-list">Candidates</Link>
-              </li>
-            </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/post-job">Post Job</Link>
+                </li>
+                <li>
+                  <Link to="/candidate-list">Candidates</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <div className="rightnav">
           {user ? (
             <div className="user-profile">
               <img
-                src={user.profile_picture_url || "/default-profile.png"}
-                alt="Profile"
+                src={
+                  user.profile_picture_url
+                    ? user.profile_picture_url
+                    : "/default-profile.png"
+                }
+                alt={user.username ? user.username : "User Profile"}
                 className="profile-picture"
                 onClick={toggleDropdown}
               />
