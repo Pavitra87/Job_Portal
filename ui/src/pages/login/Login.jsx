@@ -35,11 +35,12 @@ const Login = () => {
         formData
       );
       // console.log("Login response:", response.data);
-      const { token, user, role, message } = response.data;
+      const { token, user, role, message, profile_picture_url } = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("role", role);
+      localStorage.setItem("profilepicture", profile_picture_url);
 
       setSuccess("Login successful!");
       setMessage(message);

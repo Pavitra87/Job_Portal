@@ -79,8 +79,13 @@ const updateJoblist = async (req, res) => {
   } = req.body;
 
   try {
+    // Check if `id` is a valid integer
+    if (isNaN(id)) {
+      return res.status(400).json({ error: "Invalid job listing ID." });
+    }
+
     const updatejoblist = await prisma.jobListing.update({
-      where: { id: Number(id) },
+      where: { id: parseInt(id, 10) }, // Ensure id is parsed as an integer
       data: {
         title,
         description,
@@ -96,9 +101,8 @@ const updateJoblist = async (req, res) => {
     });
     res.status(201).json(updatejoblist);
   } catch (error) {
-    console.log(error);
-
-    res.status(401).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -118,9 +122,8 @@ const deleteJoblist = async (req, res) => {
 //get one
 const getJobPost = async (req, res) => {
   try {
-    const providerId = req.user.id; // Assuming user ID is stored in req.user after authentication
+    const providerId = req.user.id;
 
-    // Fetch job listings created by this provider
     const jobPosts = await prisma.jobListing.findMany({
       where: {
         providerId: providerId,
@@ -155,10 +158,26 @@ const getJoblists = async (req, res) => {
   }
 };
 
+//job provider view  applicants their job posts
+const getapplyjobpostsapplicants = async (req, res) => {
+  const { jobId } = req.params;
+  try {
+    const applicants = await prisma.jobApplication.findMany({
+      where: { jobId: parseInt(jobId) },
+      include: { seeker: true },
+    });
+    res.status(200).json({ applicants });
+  } catch (error) {
+    console.error("Error fetching applicants:", error);
+    res.status(500).json({ error: "Failed to fetch applicants" });
+  }
+};
+
 module.exports = {
   createJobList,
   updateJoblist,
   deleteJoblist,
   getJobPost,
   getJoblists,
+  getapplyjobpostsapplicants,
 };

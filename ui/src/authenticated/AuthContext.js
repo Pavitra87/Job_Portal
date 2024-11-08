@@ -1,15 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        setUser(storedUser);
       } catch (error) {
         console.error("Failed to parse user from local storage:", error);
       }
@@ -20,14 +23,20 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     console.log("Logging in user with data:", userData);
-    setUser(userData); // Update the user state with the provided user data
-    localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
+    const updatedUser = {
+      ...userData,
+      profile_picture_url:
+        userData.profile_picture_url || "/default-profile.png", // Ensure profile URL
+    };
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser)); // Store updated user data
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token"); // Remove token if stored separately
+    navigate("/");
   };
 
   return (

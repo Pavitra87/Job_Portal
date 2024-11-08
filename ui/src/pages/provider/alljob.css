@@ -1,88 +1,102 @@
 .job-list-container {
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.job-list-container h2 {
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.filter-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.job-list-container h2 {
+  font-size: 30px;
+}
+.job-contain {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 18px;
 }
 
-.filter-form input {
-  padding: 10px;
-  border: 1px solid #ccc;
+.filter-form-jobs {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  flex: 1;
+  padding: 15px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.filter-form-jobs h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.filter-form-jobs input {
+  width: 100%;
+  padding: 18px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  width: 200px;
+  outline: none;
+  font-size: 15px;
 }
 
 ul {
-  list-style: none;
-  padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  /* width: 100%; */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex: 3;
+  margin-left: 20px;
 }
 
 .job-list-item {
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   width: 100%;
-  max-width: 300px;
-  line-height: 1.5;
-}
-
-.job-list-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 15px;
+  margin-bottom: 10px;
+  position: relative;
 }
 
 .job-list-item h3 {
-  margin: 0;
-  color: #007bff;
-  font-size: 1.5em;
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #333;
 }
 
 .job-list-item p {
+  margin: 5px 0;
+  font-size: 16px;
   color: #555;
+}
+
+.job-list-item button {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 20%;
+}
+
+.job-list-item button:hover {
+  background-color: #0056b3;
 }
 
 .error-message {
   color: red;
-  text-align: center;
-  font-weight: bold;
-}
-
-.loading-message {
-  text-align: center;
-  font-size: 1.2em;
-  color: #007bff;
-}
-
-.not-found {
-  text-align: center;
+  font-size: 16px;
   margin-top: 20px;
 }
 
-.not-found img {
-  max-width: 300px;
-  height: auto;
+.notfound {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
 }

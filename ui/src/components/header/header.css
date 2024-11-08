@@ -1,49 +1,77 @@
 /* header.css */
 
+/* General Navbar Styling */
 .navbar {
-  background-color: #202020; /* Black background */
-  color: #fff; /* White text */
-  padding: 13px 20px;
+  background-color: #1d1d1d;
+  color: white;
+  padding: 20px 30px;
 }
 
 .nav {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: auto 12px;
-  padding: 0 12px;
+  margin: auto 30px;
+}
+.sidenav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .icon h1 {
-  margin: 0;
   font-size: 24px;
+  margin: 0;
 }
 
 .middlenav ul {
-  list-style-type: none;
   display: flex;
-  margin: 0;
+  list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-.middlenav li {
-  margin: 0 15px;
+.middlenav ul li {
+  display: inline-block;
+  margin: 2px 15px;
+  position: relative;
 }
-
-.middlenav a {
-  color: #fff; /* White links */
+.middlenav ul li::after {
+  display: block;
+  content: "";
+  width: 0%;
+  height: 2px;
+  margin: auto;
+  background-color: #ffff;
+  transition: 0.5s;
+}
+.middlenav ul li:hover::after {
+  width: 100%;
+}
+.middlenav ul .home::after {
+  display: block;
+  content: "";
+  width: 60%;
+  height: 2px;
+  margin: auto;
+  background-color: #ffff;
+  transition: 0.5s;
+}
+.middlenav ul li a {
+  color: white;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
+  font-size: 16px;
+  transition: 0.5s;
 }
 
-.middlenav a:hover {
-  color: #ccc; /* Light gray on hover for links */
-}
-
+/* Right Side of Navbar (User Profile & Buttons) */
 .rightnav {
   display: flex;
   align-items: center;
+
+  gap: 20px;
 }
 
 .user-profile {
@@ -51,68 +79,102 @@
 }
 
 .profile-picture {
-  width: 40px;
-  height: 40px;
+  /* position: absolute; */
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid #fff; /* White border */
+  object-fit: cover;
+  margin: auto;
 }
 
+.btns {
+  display: flex;
+}
+
+.btns a {
+  margin-left: 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+.btns a::after {
+  display: block;
+  content: "";
+  width: 0;
+  height: 2px;
+  margin: auto;
+  background-color: #ffff;
+  transition: 0.5s;
+}
+
+.btns a:hover::after {
+  width: 100%;
+}
+
+/* Dropdown Menu */
 .dropdown {
   position: absolute;
-  top: 60px;
+  top: 40px;
   right: 0;
-  background-color: #fff; /* White background for dropdown */
-  color: #000; /* Black text */
+  background-color: #ffffff;
+  color: #2c3e50;
   border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  padding: 10px;
-  min-width: 150px;
-}
-.profile-picture {
-  width: 50px; /* Set a fixed width */
-  height: 50px; /* Set a fixed height */
-  object-fit: cover; /* Optional: to ensure the image fits within the bounds */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 120px;
+  z-index: 10;
+  padding: 10px 0;
+  text-align: center;
 }
 
 .dropdown a {
-  display: block;
-  padding: 10px;
+  display: flex;
+  gap: 8px;
+  padding: 8px 10px;
   text-decoration: none;
-  color: #000; /* Black text for dropdown items */
-  transition: background 0.3s;
+  color: #2c3e50;
+  font-size: 14px;
+  justify-content: center;
 }
 
 .dropdown a:hover {
-  background-color: #f0f0f0; /* Light gray on hover */
+  background-color: #f1f1f1;
 }
 
 .logout {
   background: none;
   border: none;
-  color: #000; /* Black text for logout button */
+  padding: 8px 10px;
   cursor: pointer;
-  text-align: left;
-  padding: 10px;
+  font-size: 14px;
+  color: #e74c3c;
   width: 100%;
-}
-
-.btns {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  justify-content: center;
 }
 
-.btns a {
-  background-color: #f1f1f1; /* Optional blue for buttons, can change to black or white */
-  color: #0f0f0f; /* White text */
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s;
+.logout:hover {
+  background-color: #f1f1f1;
 }
 
-.btns a:hover {
-  background-color: #131313;
-  color: #f7f7f7; /* Darker blue on hover */
+/* Mobile View */
+@media (max-width: 768px) {
+  .middlenav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .middlenav ul li {
+    margin: 10px 0;
+  }
+
+  .rightnav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btns a {
+    margin: 10px 0;
+  }
 }

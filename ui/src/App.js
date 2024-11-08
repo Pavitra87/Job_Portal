@@ -11,27 +11,26 @@ import CreateJobApplication from "./pages/provider/CreateJobApplication";
 import AllJobs from "./pages/provider/AllJobs";
 import Candidates from "./pages/candidate/Candidates";
 import Profile from "./pages/profile/Profile";
+import { AuthProvider } from "./authenticated/AuthContext";
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
-          {/* ---------------job provider------------ */}
+        {/* ---------------job provider------------ */}
 
-          <Route path="/post-job" element={<CreateJobApplication />} />
-          <Route path="/jobs" element={<AllJobs />} />
-          <Route path="/candidate-list" element={<Candidates />} />
-          <Route path="/userprofile" element={<Profile />} />
+        <Route path="/post-job" element={<CreateJobApplication />} />
+        <Route path="/jobs" element={<AllJobs />} />
+        <Route path="/candidate-list" element={<Candidates />} />
+        <Route path="/userprofile" element={<Profile />} />
 
-          {/* ----------------job seeker--------------- */}
-        </Routes>
-      </BrowserRouter>
+        {/* ----------------job seeker--------------- */}
+      </Routes>
     </div>
   );
 }

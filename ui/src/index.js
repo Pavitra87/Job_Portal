@@ -4,10 +4,13 @@ import "./index.css";
 import App from "./App";
 import { AuthProvider } from "./authenticated/AuthContext";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>
 );

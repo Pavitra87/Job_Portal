@@ -114,6 +114,7 @@ const Login = async (req, res) => {
       {
         id: user.id,
         email: user.email,
+        profile_picture_url: user.profile_picture_url,
         role: user.role.name,
       },
       process.env.JWT_TOKEN, // Ensure this is correctly set
@@ -127,6 +128,7 @@ const Login = async (req, res) => {
         id: user.id,
         name: user.username, // Adjust if you use a different field for name
         email: user.email,
+        profile_picture_url: user.profile_picture_url,
         role: user.role.name,
       },
       token,

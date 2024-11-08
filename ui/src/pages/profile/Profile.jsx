@@ -15,6 +15,7 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [jobPosts, setJobPosts] = useState([]);
   const [appliedJobs, setAppliedJobs] = useState([]);
+  const [applicants, setApplicants] = useState({});
 
   const navigate = useNavigate();
 
@@ -39,26 +40,51 @@ const Profile = () => {
         setLoading(false);
       }
     };
-    const fetchJobPosts = async () => {
+
+    const fetchJobPostsAndApplicants = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5001/api/jobListing/jobpost`,
+        const jobPostsResponse = await axios.get(
+          `http://localhost:5001/api/jobListing/jobpost/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
-        setJobPosts(response.data.jobPosts);
-      } catch (err) {
-        console.error("Error fetching job posts:", err);
+
+        setJobPosts(jobPostsResponse.data.jobPosts);
+
+        const applicantPromises = jobPostsResponse.data.jobPosts.map(
+          async (job) => {
+            const applicantResponse = await axios.get(
+              `http://localhost:5001/api/jobListing/applicants/${job.id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
+            return { jobId: job.id, applicants: applicantResponse.data };
+          }
+        );
+
+        const allApplicants = await Promise.all(applicantPromises);
+        setApplicants(
+          allApplicants.reduce((acc, { jobId, applicants }) => {
+            acc[jobId] = applicants;
+            return acc;
+          }, {})
+        );
+      } catch (error) {
+        console.error("Error fetching job posts or applicants:", error);
+        // handleError("Error loading job posts or applicants.");
       }
     };
 
     const fetchAppliedJobs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/jobApplications/getapply`,
+          `http://localhost:5001/api/jobApplications/getapply/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -71,10 +97,11 @@ const Profile = () => {
       }
     };
 
-    fetchJobPosts();
+    fetchJobPostsAndApplicants();
     fetchAppliedJobs();
     fetchProfile();
-  }, []);
+  }, [user]);
+
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
@@ -128,6 +155,58 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteJob = async (jobId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this job post?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`http://localhost:5001/api/jobListing/${jobId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      setJobPosts((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+      setMessage("Job post deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting job post:", error);
+      setMessage("Error deleting job post. Please try again.");
+    }
+  };
+  const handleEditJob = (job) => {
+    // Load job details into form data and enter edit mode
+    setFormData(job);
+    setEditMode(true);
+  };
+  const handleJobUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5001/api/jobListing/${formData.id}`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      setJobPosts((prevJobs) =>
+        prevJobs.map((job) => (job.id === formData.id ? response.data : job))
+      );
+      setMessage("Job updated successfully!");
+      setEditMode(false);
+    } catch (error) {
+      console.error("Error updating job:", error);
+      setMessage("Error updating job. Please try again.");
+    }
+  };
+
+  const handleDeleteAppliedJob = async (jobId) => {
+    try {
+      await axios.delete(`http://localhost:5001/api/jobApplications/${jobId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      setAppliedJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+    } catch (err) {
+      setError("Failed to delete the application");
+    }
+  };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -175,17 +254,64 @@ const Profile = () => {
                   </div>
                   <h2>Your Job Posts</h2>
                   {jobPosts.length > 0 ? (
-                    <ul>
+                    <ul className="provider-job-posts">
                       {jobPosts.map((job) => (
                         <li key={job.id}>
-                          <h3>{job.title}</h3>
-                          <p>{job.description}</p>
-                          <p>
-                            <strong>Location:</strong> {job.location}
-                          </p>
-                          <p>
-                            <strong>Salary Range:</strong> {job.salary_range}
-                          </p>
+                          <div className="job-item">
+                            <h3>{job.title}</h3>
+                            <p>{job.description}</p>
+                            <p>
+                              <strong>Location:</strong> {job.location}
+                            </p>
+                            <p>
+                              <strong>Salary Range:</strong> {job.salary_range}
+                            </p>
+                            <div className="job-actions">
+                              <i
+                                className="fas fa-edit"
+                                onClick={() => handleEditJob(job)}
+                                title="Edit Job"
+                              ></i>
+                              <i
+                                className="fas fa-trash"
+                                onClick={() => handleDeleteJob(job.id)}
+                                title="Delete Job"
+                              ></i>
+                            </div>
+
+                            <h4>Applicants:</h4>
+                            {applicants[job.id]?.length > 0 ? (
+                              applicants[job.id].map((applicant) => (
+                                <div
+                                  key={applicant.id}
+                                  className="applicant-item"
+                                >
+                                  <p>
+                                    <strong>Username:</strong>{" "}
+                                    {applicant.user.username}
+                                  </p>
+                                  <p>
+                                    <strong>Skills:</strong>{" "}
+                                    {applicant.user.profile.skills}
+                                  </p>
+                                  <p>
+                                    <strong>Education:</strong>{" "}
+                                    {applicant.user.profile.education}
+                                  </p>
+                                  <p>
+                                    <strong>Experience:</strong>{" "}
+                                    {applicant.user.profile.experience}
+                                  </p>
+                                  <p>
+                                    <strong>Phone:</strong>{" "}
+                                    {applicant.user.profile.phone_number}
+                                  </p>
+                                </div>
+                              ))
+                            ) : (
+                              <p>No applicants yet.</p>
+                            )}
+                          </div>
                         </li>
                       ))}
                     </ul>
@@ -224,6 +350,11 @@ const Profile = () => {
                             <strong>Salary Range:</strong>{" "}
                             {job.jobListing.salary_range}
                           </p>
+                          <i
+                            className="fas fa-trash"
+                            onClick={() => handleDeleteAppliedJob(job.id)}
+                            title="Delete Application"
+                          ></i>
                         </li>
                       ))}
                     </ul>
@@ -256,6 +387,34 @@ const Profile = () => {
                     value={formData.description || ""}
                     onChange={handleChange}
                   />
+                  <label>Job Title:</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Description:</label>
+                  <textarea
+                    name="description"
+                    value={formData.description || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Location:</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={formData.location || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Salary Range:</label>
+                  <input
+                    type="text"
+                    name="salary_range"
+                    value={formData.salary_range || ""}
+                    onChange={handleChange}
+                  />
+                  <button onClick={handleJobUpdate}>Save Job Changes</button>
                 </>
               ) : profileData.role === "Job Seeker" ? (
                 <>

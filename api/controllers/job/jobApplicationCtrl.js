@@ -82,4 +82,16 @@ const getJobApplication = async (req, res) => {
   }
 };
 
-module.exports = { createJobApplication, getJobApplication };
+const deleteApplication = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleteappliedjob = await prisma.jobApplication.delete({
+      where: { id: Number(id) },
+    });
+    res.status(201).json(deleteappliedjob);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
+
+module.exports = { createJobApplication, getJobApplication, deleteApplication };

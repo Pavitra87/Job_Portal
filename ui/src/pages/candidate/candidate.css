@@ -1,82 +1,79 @@
-/* candidate.css */
-
 .candidates-container {
-  max-width: 1000px;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.candidates-container h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
 }
 
-.candidates-container h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+.filter-contains-candidate {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1100px;
 }
 
 .filter-form {
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  width: 25%;
+  padding: 20px;
+  height: 300px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.filter-form input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
+.filter-form h4 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.filter-form input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 15px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  font-size: 14px;
 }
 
 .candidate-details {
-  list-style: none;
+  width: 70%;
+  list-style-type: none;
   padding: 0;
 }
 
 .candidate-details li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px;
+  margin-left: 15px;
+  margin-bottom: 20px;
   background-color: #fff;
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
-.candidate-details li h2 {
+.candidate-details h2 {
   margin: 0;
-  font-size: 22px;
-  color: #2c3e50;
+  font-size: 1.5rem;
 }
 
-.candidate-details li p {
-  margin: 8px 0;
-  color: #555;
-  font-size: 15px;
+.candidate-details p {
+  font-size: 1rem;
+  margin: 5px 0;
 }
 
-.candidate-details li p strong {
-  color: #333;
+.candidate-details strong {
+  font-weight: bold;
 }
 
 img {
-  display: block;
   max-width: 100%;
   height: auto;
+  display: block;
   margin: 0 auto;
-  margin-top: 20px;
-  opacity: 0.5;
-}
-
-@media (min-width: 600px) {
-  .filter-form {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .filter-form input[type="text"] {
-    width: calc(50% - 10px);
-  }
 }

@@ -20,16 +20,17 @@ router.post(
 );
 
 router.get(
-  "/getapply",
+  "/getapply/:id",
   authenticateToken,
   authorize("Job Seeker"),
   getJobApplication
 );
 
-// router.get('/', authenticateToken, autherizationRoles([Roles.JOB_PROVIDER]), getJobApplications)
-
-// router.put('/:id',authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),updateApllication)
-
-// router.delete('/:id',authenticateToken,  autherizationRoles([Roles.JOB_SEEKER]),deleteApplication)
+router.delete(
+  "/:id",
+  authenticateToken,
+  authorize("Job Seeker"),
+  deleteApplication
+);
 
 module.exports = router;

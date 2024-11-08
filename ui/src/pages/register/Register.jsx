@@ -81,6 +81,7 @@ const Register = () => {
         username: "",
         password: "",
         roleName: "Job Seeker",
+        profile_picture_url: null,
       });
       setMessage(response.data.message);
       navigate("/login");
@@ -98,6 +99,7 @@ const Register = () => {
           id="profileInput"
           type="file"
           name="profile_picture_url"
+          // value={formData.profile_picture_url}
           onChange={handleFileChange}
           accept="image/*"
           className="profile"
