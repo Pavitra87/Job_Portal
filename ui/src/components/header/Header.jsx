@@ -21,11 +21,11 @@ const Header = () => {
 
   const storedUserRole = JSON.parse(localStorage.getItem("user"))?.role;
   const userRole = user?.role || storedUserRole;
-  const profilePictureUrl = user?.profile_picture_url || "/default-profile.png";
+  const profilePictureUrl = user.profile_picture_url || "/default-profile.png";
 
   const username = user?.username || "User Profile";
-  console.log("User object:", user);
-  console.log("Profile Picture URL:", profilePictureUrl);
+  // console.log("User object:", user);
+  // console.log("Profile Picture URL:", profilePictureUrl);
 
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);

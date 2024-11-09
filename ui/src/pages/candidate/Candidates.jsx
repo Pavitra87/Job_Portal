@@ -41,26 +41,26 @@ const Candidates = () => {
     const { skills, education, jobtitle, experience } = filters;
 
     const matchskills = skills
-      ? candidate.profile.skills ||
+      ? candidate.profile.skills &&
         candidate.profile.skills.toLowerCase().includes(skills.toLowerCase())
       : true;
 
     const matcheducation = education
-      ? candidate.profile.education ||
+      ? candidate.profile.education &&
         candidate.profile.education
           .toLowerCase()
           .includes(education.toLowerCase())
       : true;
 
     const matchjobtitle = jobtitle
-      ? candidate.profile.jobtitle ||
+      ? candidate.profile.jobtitle &&
         candidate.profile.jobtitle
           .toLowerCase()
           .includes(jobtitle.toLowerCase())
       : true;
 
     const matchexperience = experience
-      ? candidate.profile.experience ||
+      ? candidate.profile.experience &&
         candidate.profile.experience
           .toLowerCase()
           .includes(experience.toLowerCase())

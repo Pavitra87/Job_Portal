@@ -34,18 +34,25 @@ const Login = () => {
         "http://localhost:5001/api/auth/login",
         formData
       );
-      // console.log("Login response:", response.data);
-      const { token, user, role, message, profile_picture_url } = response.data;
 
+      const { token, user, message, profile_picture_url } = response.data;
+
+      const userRole = user.role;
+      console.log("userrole", userRole);
+      console.log("user", response.data);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("role", role);
+      localStorage.setItem("role", userRole);
       localStorage.setItem("profilepicture", profile_picture_url);
 
       setSuccess("Login successful!");
       setMessage(message);
-      login(user); // Call your login function from context
-      navigate("/");
+      login(user);
+      if (userRole === "Job Seeker") {
+        navigate("/seeker");
+      } else {
+        navigate("/provider");
+      }
     } catch (error) {
       setMessage("Error logging in. Please check your credentials.");
       console.error("Login error:", error);

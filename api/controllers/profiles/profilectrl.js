@@ -1,4 +1,118 @@
-const prisma = require("../../prismaClient");
+const express = require("express");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const router = express.Router();
+
+const createJobProviderProfile = async (req, res) => {
+  try {
+    const { description, location, phone_number } = req.body;
+
+    const profile = await prisma.profile.create({
+      data: {
+        userId: req.user.id,
+        phone_number,
+        description,
+        location,
+      },
+    });
+
+    res.json({ message: "Job Seeker Profile created successfully", profile });
+  } catch (error) {
+    console.error("Error creating job seeker profile:", error);
+    res.status(500).json({ message: "Error creating job seeker profile" });
+  }
+};
+
+const createJobSeekerProfile = async (req, res) => {
+  try {
+    console.log("User in request:", req.user);
+    console.log("Request body:", req.body);
+
+    if (!req.user || !req.user.id) {
+      return res
+        .status(401)
+        .json({ message: "User not authenticated or ID missing" });
+    }
+
+    const {
+      jobtype,
+      jobtitle,
+      skills,
+
+      experience,
+      location,
+      education,
+      phone_number,
+    } = req.body;
+
+    const userId = req.user?.id;
+
+    // Check if profile already exists for the user
+    const existingProfile = await prisma.profile.findUnique({
+      where: { userId: req.user.id },
+    });
+    if (existingProfile) {
+      return res
+        .status(400)
+        .json({ message: "A profile already exists for this user." });
+    }
+
+    const profile = await prisma.profile.create({
+      data: {
+        user: {
+          connect: { id: userId },
+        },
+        location,
+        skills,
+        jobtitle,
+        experience,
+        jobtype,
+
+        education,
+        phone_number,
+      },
+    });
+
+    res.json({ message: "Job Seeker Profile created successfully", profile });
+  } catch (error) {
+    console.error("Error creating job seeker profile:", error);
+    res.status(500).json({ message: "Error creating job seeker profile" });
+  }
+};
+
+// const createJobSeekerProfile = async (req, res) => {
+//   try {
+//     const {
+//       jobtype,
+//       jobtitle,
+//       skills,
+//       resume,
+//       experience,
+//       location,
+//       education,
+//       phone_number,
+//     } = req.body;
+
+//     const profile = await prisma.profile.create({
+//       data: {
+//         userId: req.user.id,
+//         location,
+//         skills: typeof skills === "string" ? JSON.parse(skills) : skills, // Parse if `skills` is sent as JSON string
+//         jobtitle,
+//         experience,
+//         jobtype,
+//         resume,
+//         education,
+//         phone_number,
+//       },
+//     });
+
+//     res.json({ message: "Job Seeker Profile created successfully", profile });
+//   } catch (error) {
+//     console.error("Error creating job seeker profile:", error);
+//     res.status(500).json({ message: "Error creating job seeker profile" });
+//   }
+// };
 
 // Get All Job Seeker Profiles
 const getAllJobSeekerProfiles = async (req, res) => {
@@ -129,4 +243,6 @@ module.exports = {
   getProfile,
   updateProfile,
   deleteProfile,
+  createJobProviderProfile,
+  createJobSeekerProfile,
 };

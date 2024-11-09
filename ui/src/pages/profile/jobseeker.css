@@ -1,0 +1,63 @@
+/* jobseeker.css */
+
+.job-seeker-profile {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.job-seeker-profile h1 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.job-seeker-profile form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.job-seeker-profile input[type="text"],
+.job-seeker-profile input[type="file"],
+.job-seeker-profile button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.job-seeker-profile input[type="file"] {
+  padding: 5px;
+}
+
+.job-seeker-profile button {
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.job-seeker-profile button:hover {
+  background-color: #218838;
+}
+
+.job-seeker-profile .message {
+  text-align: center;
+  font-size: 16px;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.job-seeker-profile .message.error {
+  color: #dc3545;
+}

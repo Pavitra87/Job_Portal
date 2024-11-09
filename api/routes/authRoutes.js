@@ -9,6 +9,8 @@ const {
   getProfile,
   updateProfile,
   deleteProfile,
+  createJobSeekerProfile,
+  createJobProviderProfile,
 } = require("../controllers/profiles/profilectrl");
 const {
   authenticateToken,
@@ -39,6 +41,18 @@ router.post("/register", upload.single("profile_picture_url"), Register);
 
 router.post("/login", Login);
 
+router.post(
+  "/seeker",
+  authenticateToken,
+  authorize("Job Seeker"),
+  createJobSeekerProfile
+);
+router.post(
+  "/provider",
+  authenticateToken,
+  authorize("Job Provider"),
+  createJobProviderProfile
+);
 router.get(
   "/profiles",
   authenticateToken,

@@ -1,0 +1,64 @@
+/* jobprovider.css */
+
+.job-provider-profile {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.job-provider-profile h1 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.job-provider-profile form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.job-provider-profile input,
+.job-provider-profile textarea,
+.job-provider-profile button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.job-provider-profile textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.job-provider-profile button {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.job-provider-profile button:hover {
+  background-color: #0056b3;
+}
+
+.job-provider-profile .message {
+  text-align: center;
+  font-size: 16px;
+  color: #28a745;
+  margin-top: 10px;
+}
+
+.job-provider-profile .message.error {
+  color: #dc3545;
+}
