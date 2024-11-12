@@ -7,9 +7,9 @@ const Register = async (req, res) => {
   console.log("Request Body:", req.body);
   console.log("Uploaded File:", req.file);
   const { email, username, password, roleName } = req.body;
-  const profile_picture_url = req.file
-    ? `/uploads/profile_picture_url/${req.file.filename}`
-    : null;
+
+  const profile_picture_url = req.file ? `/uploads/${req.file.filename}` : null;
+
   if (!email || !username || !password || !roleName) {
     return res
       .status(400)
@@ -55,7 +55,7 @@ const Register = async (req, res) => {
       email: user.email,
       username: user.username,
       role: role.name,
-      profile_picture_url,
+      profile_picture_url: user.profile_picture_url,
     });
     console.log(user);
   } catch (error) {

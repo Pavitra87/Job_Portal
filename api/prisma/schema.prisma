@@ -43,7 +43,7 @@ model Profile {
   experience                    String?
   jobtype                       String?
   resume                        String?            // To store file paths or another format
-  user                          User               @relation(fields: [userId], references: [id], onDelete: Cascade) // Add onDelete: Cascade
+  user                  User               @relation(fields: [userId], references: [id], onDelete: Cascade) // Add onDelete: Cascade
   jobListing                    JobListing[]       // Job listings associated with the profile
  
   createdAt                     DateTime           @default(now())

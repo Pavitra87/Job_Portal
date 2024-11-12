@@ -36,22 +36,22 @@ const Login = () => {
       );
 
       const { token, user, message, profile_picture_url } = response.data;
-
+      console.log("token from response:", response.data.token);
       const userRole = user.role;
-      console.log("userrole", userRole);
-      console.log("user", response.data);
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("role", userRole);
-      localStorage.setItem("profilepicture", profile_picture_url);
+      if (token) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("role", userRole);
+        localStorage.setItem("profilepicture", profile_picture_url);
 
-      setSuccess("Login successful!");
-      setMessage(message);
-      login(user);
-      if (userRole === "Job Seeker") {
-        navigate("/seeker");
+        setSuccess("Login successful!");
+        setMessage(message);
+
+        login(user);
+        navigate("/");
+        setMessage(message || "Login successful!");
       } else {
-        navigate("/provider");
+        console.error("No token received in the response.");
       }
     } catch (error) {
       setMessage("Error logging in. Please check your credentials.");

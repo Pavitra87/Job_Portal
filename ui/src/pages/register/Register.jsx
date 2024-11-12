@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./register.css";
 import { Link } from "react-router-dom";
@@ -8,33 +8,32 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    profile_picture_url: null,
     username: "",
     email: "",
     password: "",
     roleName: "Job Seeker",
   });
 
+  const [profilePicture, setProfilePicture] = useState(null);
   const [message, setMessage] = useState("");
-  const [profilePreview, setPreview] = useState(null);
+  const [profilePreview, setProfilePreview] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    setProfilePicture(file);
+
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setFormData((prevData) => ({
-        ...prevData,
-        profile_picture_url: file,
-      }));
-      setPreview(imageUrl);
+      setProfilePreview(URL.createObjectURL(file));
+    } else {
+      setProfilePreview(null);
     }
   };
 
@@ -46,7 +45,7 @@ const Register = () => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append("profile_picture_url", formData.profile_picture_url);
+    data.append("profile_picture_url", profilePicture);
     data.append("username", formData.username);
     data.append("email", formData.email);
     data.append("password", formData.password);
@@ -55,7 +54,12 @@ const Register = () => {
     try {
       const response = await axios.post(
         "http://localhost:5001/api/auth/register",
-        data
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       setFormData({
@@ -63,9 +67,10 @@ const Register = () => {
         username: "",
         password: "",
         roleName: "Job Seeker",
-        profile_picture_url: null,
+        profilePicture: null,
       });
-      setMessage(response.data.message);
+      setProfilePreview(null); // Reset preview after successful submission
+      setProfilePicture(null);
       navigate("/login");
     } catch (error) {
       setMessage("Error registering user. Please try again.");
@@ -73,6 +78,13 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (profilePreview) {
+        URL.revokeObjectURL(profilePreview);
+      }
+    };
+  }, [profilePreview]);
   return (
     <div className="register">
       <form onSubmit={handleSubmit}>
@@ -81,7 +93,6 @@ const Register = () => {
           id="profileInput"
           type="file"
           name="profile_picture_url"
-          // value={formData.profile_picture_url}
           onChange={handleFileChange}
           accept="image/*"
           className="profile"

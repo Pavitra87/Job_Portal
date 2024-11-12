@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./jobprovider.css";
+import { useAuth } from "../../authenticated/AuthContext";
 
 const JobProvider = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     description: "",
     location: "",
+    phone_number: "",
   });
-
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -21,14 +23,27 @@ const JobProvider = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5001/api/auth/provider", formData);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setMessage("Authorization token is missing. Please log in again.");
+        return;
+      }
+
+      await axios.post(`http://localhost:5001/api/auth/provider`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setMessage("Profile created successfully!");
-      navigate("/"); // Navigate to job provider dashboard
+      navigate("/"); // Redirect to provider dashboard or home page
     } catch (error) {
       setMessage("Error creating profile. Please try again.");
       console.error("Profile error:", error);
     }
   };
+
+  if (!user) {
+    // Display a loading message or redirect to login if user is not available
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="job-provider-profile">
@@ -36,7 +51,7 @@ const JobProvider = () => {
       <form onSubmit={handleSubmit}>
         <textarea
           name="description"
-          placeholder="Company Description"
+          placeholder="Description"
           value={formData.description}
           onChange={handleChange}
           required
@@ -49,7 +64,6 @@ const JobProvider = () => {
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           name="phone_number"

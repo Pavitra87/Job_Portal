@@ -157,6 +157,12 @@
 .logout:hover {
   background-color: #f1f1f1;
 }
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
 /* Mobile View */
 @media (max-width: 768px) {

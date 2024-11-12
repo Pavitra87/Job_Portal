@@ -5,14 +5,17 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedtoken = localStorage.getItem("token");
 
-    if (storedUser) {
+    if (storedUser && storedtoken) {
       try {
         setUser(storedUser);
+        setToken(storedtoken);
       } catch (error) {
         console.error("Failed to parse user from local storage:", error);
       }
@@ -23,17 +26,20 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     console.log("Logging in user with data:", userData);
+
     const updatedUser = {
       ...userData,
       profile_picture_url:
         userData.profile_picture_url || "/default-profile.png", // Ensure profile URL
     };
     setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser)); // Store updated user data
+    setToken(localStorage.getItem("token"));
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token"); // Remove token if stored separately
     navigate("/");

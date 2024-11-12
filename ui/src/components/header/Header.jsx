@@ -4,10 +4,12 @@ import "./header.css";
 import { useAuth } from "../../authenticated/AuthContext";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
+
 const Header = () => {
   const { user, logout } = useAuth();
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const [hasProfile, setHasProfile] = useState(false);
 
   const dropdownRef = useRef(null);
 
@@ -21,11 +23,12 @@ const Header = () => {
 
   const storedUserRole = JSON.parse(localStorage.getItem("user"))?.role;
   const userRole = user?.role || storedUserRole;
-  const profilePictureUrl = user.profile_picture_url || "/default-profile.png";
 
-  const username = user?.username || "User Profile";
-  // console.log("User object:", user);
-  // console.log("Profile Picture URL:", profilePictureUrl);
+  const profilepictureurl = `http://localhost:5001/uploads/profile_picture_url-1731320300644-719501259.jpg
+`;
+
+  console.log("user", user);
+  // console.log("Profile picture URL:", user.profile_picture_url);
 
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
@@ -36,6 +39,11 @@ const Header = () => {
       setShowDropdown(false);
     }
   };
+  // useEffect(() => {
+  //   if (user) {
+  //     setHasProfile(user.profileComplete); // Adjust based on your user object
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -60,18 +68,30 @@ const Header = () => {
                 <Link to="/category">Category</Link>
               </li>
               {userRole === "Job Seeker" && (
-                <li>
-                  <Link to="/jobs">Jobs</Link>
-                </li>
+                <>
+                  <li>
+                    <Link to="/seeker">Create Profile</Link>
+                  </li>
+
+                  <li>
+                    <Link to="/jobs">Jobs</Link>
+                  </li>
+                </>
               )}
               {userRole === "Job Provider" && (
                 <>
                   <li>
-                    <Link to="/post-job">Post Job</Link>
+                    <Link to="/provider">Create Profile</Link>
                   </li>
-                  <li>
-                    <Link to="/candidate-list">Candidates</Link>
-                  </li>
+
+                  <>
+                    <li>
+                      <Link to="/post-job">Post Job</Link>
+                    </li>
+                    <li>
+                      <Link to="/candidate-list">Candidates</Link>
+                    </li>
+                  </>
                 </>
               )}
             </ul>
@@ -80,17 +100,29 @@ const Header = () => {
             {user ? (
               <div className="user-profile">
                 <img
-                  src={profilePictureUrl}
-                  alt={username}
+                  src={
+                    // profile
+                    user.profile_picture_url
+                      ? user.profile_picture_url
+                      : "/default-profile.png"
+                  }
+                  alt={user.name}
                   className="profile-picture"
                   onClick={toggleDropdown}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                  }}
                 />
+                {/* <p>{user.name}</p> */}
                 {showDropdown && (
                   <div className="dropdown" ref={dropdownRef}>
                     <Link to="/userprofile">
                       <FaRegUser />
                       <span>Profile</span>
                     </Link>
+
                     <button onClick={logout} className="logout">
                       <MdOutlineLogout />
                       <span> Logout</span>

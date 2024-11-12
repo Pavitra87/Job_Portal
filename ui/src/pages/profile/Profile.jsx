@@ -32,7 +32,7 @@ const Profile = () => {
         );
         console.log("User Profile Data:", response.data);
         setProfileData(response.data);
-        localStorage.setItem("profileData", JSON.stringify(response.data));
+        // localStorage.setItem("profileData", JSON.stringify(response.data));
       } catch (err) {
         console.error("Error fetching profile:", err);
         setError("Could not load profile. Please try again.");
@@ -120,7 +120,7 @@ const Profile = () => {
         profile: { ...prevProfileData.profile, ...formData },
       }));
 
-      localStorage.setItem("profileData", JSON.stringify(response.data.user));
+      // localStorage.setItem("profileData", JSON.stringify(response.data.user));
       setMessage("Profile updated successfully!");
 
       // Exit edit mode and clear success message after a delay

@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./jobseeker.css";
+import { useAuth } from "../../authenticated/AuthContext";
 
 const JobSeeker = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
-    jobtitle: "",
-    skills: "",
-    resume: null,
-    experience: "",
     location: "",
+    skills: "",
     education: "",
     phone_number: "",
+    jobtitle: "",
+    experience: "",
     jobtype: "",
   });
 
@@ -23,25 +24,18 @@ const JobSeeker = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    setFormData((prevData) => ({ ...prevData, resume: e.target.files[0] }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("jobtitle", formData.jobtitle);
-    data.append("skills", formData.skills);
-
-    data.append("experience", formData.experience);
-    data.append("location", formData.location);
-    data.append("education", formData.education);
-    data.append("phone_number", formData.phone_number);
-    data.append("jobtype", formData.jobtype);
-
     try {
-      await axios.post("http://localhost:5001/api/auth/seeker", data);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setMessage("Authorization token is missing. Please log in again.");
+        return;
+      }
+      await axios.post("http://localhost:5001/api/auth/seeker", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setMessage("Profile created successfully!");
       navigate("/"); // Navigate to job seeker dashboard
     } catch (error) {
@@ -49,6 +43,10 @@ const JobSeeker = () => {
       console.error("Profile error:", error);
     }
   };
+  if (!user) {
+    // Display a loading message or redirect to login if user is not available
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="job-seeker-profile">
