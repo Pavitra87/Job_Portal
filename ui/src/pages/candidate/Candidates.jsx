@@ -8,10 +8,13 @@ const Candidates = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
+    location: "",
     skills: "",
     education: "",
+    phone_number: "",
     jobtitle: "",
     experience: "",
+    jobtype: "",
   });
 
   useEffect(() => {
@@ -21,7 +24,7 @@ const Candidates = () => {
           "http://localhost:5001/api/auth/profiles",
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming you store the JWT token in localStorage
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
@@ -41,32 +44,32 @@ const Candidates = () => {
     const { skills, education, jobtitle, experience } = filters;
 
     const matchskills = skills
-      ? candidate.profile.skills &&
+      ? candidate.profile?.skills &&
         candidate.profile.skills.toLowerCase().includes(skills.toLowerCase())
       : true;
 
     const matcheducation = education
-      ? candidate.profile.education &&
+      ? candidate.profile?.education &&
         candidate.profile.education
           .toLowerCase()
           .includes(education.toLowerCase())
       : true;
 
     const matchjobtitle = jobtitle
-      ? candidate.profile.jobtitle &&
+      ? candidate.profile?.jobtitle &&
         candidate.profile.jobtitle
           .toLowerCase()
           .includes(jobtitle.toLowerCase())
       : true;
 
     const matchexperience = experience
-      ? candidate.profile.experience &&
+      ? candidate.profile?.experience &&
         candidate.profile.experience
           .toLowerCase()
           .includes(experience.toLowerCase())
       : true;
 
-    return matcheducation || matchskills || matchexperience || matchjobtitle;
+    return matcheducation && matchskills && matchexperience && matchjobtitle;
   });
 
   if (loading) return <p>Loading job seekers...</p>;
@@ -74,74 +77,119 @@ const Candidates = () => {
 
   return (
     <div className="candidates-container">
-      <h2>Job Seeker Profiles</h2>.
+      <h2>Job Seeker Profiles</h2>
       <div className="filter-contains-candidate">
-        <div className="filter-form">
-          <h4>Find Candidates</h4>
-          <input
-            type="text"
-            placeholder="Filter job Title"
-            value={filters.jobtitle}
-            onChange={(e) =>
-              setFilters({ ...filters, jobtitle: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Filter  Skills"
-            value={filters.skills}
-            onChange={(e) => setFilters({ ...filters, skills: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Filter education"
-            value={filters.education}
-            onChange={(e) =>
-              setFilters({ ...filters, education: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Filter experience"
-            value={filters.experience}
-            onChange={(e) =>
-              setFilters({ ...filters, experience: e.target.value })
-            }
-          />
+        <div className="filter-container">
+          <div className="filter-contain-sticky">
+            <h4>Find Candidates</h4>
+            <form className="filter-form">
+              <div className="filter-field">
+                <label htmlFor="jobtitle">Job Title:</label>
+                <input
+                  id="jobtitle"
+                  type="text"
+                  placeholder="Filter by Job Title"
+                  value={filters.jobtitle}
+                  onChange={(e) =>
+                    setFilters({ ...filters, jobtitle: e.target.value })
+                  }
+                />
+              </div>
+              <div className="filter-field">
+                <label htmlFor="skills">Skills:</label>
+                <input
+                  id="skills"
+                  type="text"
+                  placeholder="Filter by Skills"
+                  value={filters.skills}
+                  onChange={(e) =>
+                    setFilters({ ...filters, skills: e.target.value })
+                  }
+                />
+              </div>
+              <div className="filter-field">
+                <label htmlFor="education">Education:</label>
+                <input
+                  id="education"
+                  type="text"
+                  placeholder="Filter by Education"
+                  value={filters.education}
+                  onChange={(e) =>
+                    setFilters({ ...filters, education: e.target.value })
+                  }
+                />
+              </div>
+              <div className="filter-field">
+                <label htmlFor="experience">Experience:</label>
+                <input
+                  id="experience"
+                  type="text"
+                  placeholder="Filter by Experience"
+                  value={filters.experience}
+                  onChange={(e) =>
+                    setFilters({ ...filters, experience: e.target.value })
+                  }
+                />
+              </div>
+            </form>
+          </div>
         </div>
+
         <ul className="candidate-details">
           {filteredCandidates.length > 0 ? (
             filteredCandidates.map((jobSeeker) => (
               <li key={jobSeeker.id}>
-                <h3>{jobSeeker.username}</h3>
+                <h3>{jobSeeker.profile?.jobtitle || "N/A"}</h3>
+
+                <p>
+                  <strong>Name:</strong>
+                  <span>{jobSeeker.username}</span>
+                </p>
                 <p>
                   <strong>Email: </strong>
-                  {jobSeeker.email}
+                  <span> {jobSeeker.email}</span>
                 </p>
                 <p>
-                  <strong>Education:</strong> {jobSeeker.profile.education}
+                  <strong>Education:</strong>
+                  <span> {jobSeeker.profile?.education || "N/A"}</span>
                 </p>
                 <p>
-                  <strong>Location:</strong> {jobSeeker.profile.location}
+                  <strong>Location:</strong>
+                  <span> {jobSeeker.profile?.location || "N/A"}</span>
                 </p>
                 <p>
-                  <strong>Phone Number:</strong>{" "}
-                  {jobSeeker.profile.phone_number}
+                  <strong>Phone Number:</strong>
+                  <span> {jobSeeker.profile?.phone_number || "N/A"}</span>
+                </p>
+
+                <p className="skills">
+                  <strong>Skills:</strong>
+                  <span className="chips">
+                    {jobSeeker.profile?.skills
+                      ? jobSeeker.profile.skills
+                          .split(",")
+                          .map((skill, index) => (
+                            <span key={index} className="chip">
+                              {skill.trim()}
+                            </span>
+                          ))
+                      : "N/A"}
+                  </span>
+                </p>
+
+                {/* <p className="skills">
+                  <strong>Skills:</strong>
+                  <span className="chips">
+                    {jobSeeker.profile?.skills || "N/A"}
+                  </span>
+                </p> */}
+                <p>
+                  <strong>Experience:</strong>
+                  <span> {jobSeeker.profile?.experience || "N/A"}</span>
                 </p>
                 <p>
-                  <strong>Job Title:</strong> {jobSeeker.profile.jobtitle}
-                </p>
-                <p>
-                  <strong>Description:</strong> {jobSeeker.profile.description}
-                </p>
-                <p>
-                  <strong>Skills:</strong> {jobSeeker.profile.skills}
-                </p>
-                <p>
-                  <strong>Experience:</strong> {jobSeeker.profile.experience}
-                </p>
-                <p>
-                  <strong>Resume:</strong> {jobSeeker.profile.resume}
+                  <strong>Job Type:</strong>
+                  <span>{jobSeeker.profile?.jobtype || "N/A"}</span>
                 </p>
               </li>
             ))

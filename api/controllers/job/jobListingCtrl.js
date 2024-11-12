@@ -8,7 +8,9 @@ const createJobList = async (req, res) => {
     description,
     requirements,
     preferredSkills,
-    location,
+    address,
+    education,
+    experience,
     salary_range,
     posted_at,
     expires_at,
@@ -41,7 +43,9 @@ const createJobList = async (req, res) => {
         description,
         requirements,
         preferredSkills,
-        location,
+        address,
+        education,
+        experience,
         salary_range,
 
         posted_at: new Date(posted_at),
@@ -62,60 +66,112 @@ const createJobList = async (req, res) => {
   }
 };
 
+//get all
+const getJoblists = async (req, res) => {
+  try {
+    const getjoblists = await prisma.jobListing.findMany();
+    res.status(201).json(getjoblists);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
+
 //update
 const updateJoblist = async (req, res) => {
-  const { id } = req.params;
+  const { jobId } = req.params; // Job ID from URL parameters
   const {
     title,
     description,
     requirements,
     preferredSkills,
-    location,
+    address,
+    education,
+    experience,
     salary_range,
-    applications_count,
-    providerId,
     posted_at,
     expires_at,
   } = req.body;
 
+  const providerId = req.user?.id;
+
   try {
-    // Check if `id` is a valid integer
-    if (isNaN(id)) {
-      return res.status(400).json({ error: "Invalid job listing ID." });
+    if (req.user.role !== "Job Provider") {
+      return res.status(403).json({
+        error: "Access denied. Only Job Providers can update job listings.",
+      });
     }
 
-    const updatejoblist = await prisma.jobListing.update({
-      where: { id: parseInt(id, 10) }, // Ensure id is parsed as an integer
+    const jobListing = await prisma.jobListing.findUnique({
+      where: { id: Number(jobId) },
+    });
+
+    if (!jobListing) {
+      return res.status(404).json({ error: "Job listing not found." });
+    }
+
+    if (jobListing.providerId !== providerId) {
+      return res.status(403).json({
+        error: "You are not authorized to update this job listing.",
+      });
+    }
+
+    const updatedJobListing = await prisma.jobListing.update({
+      where: { id: Number(jobId) },
       data: {
         title,
         description,
         requirements,
         preferredSkills,
-        location,
+        address,
+        education,
+        experience,
         salary_range,
-        applications_count,
-        providerId,
-        posted_at,
-        expires_at,
+        posted_at: new Date(posted_at),
+        expires_at: new Date(expires_at),
       },
     });
-    res.status(201).json(updatejoblist);
+
+    res.status(200).json(updatedJobListing);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
 
 //delete
 const deleteJoblist = async (req, res) => {
-  const { id } = req.params;
+  const { jobId } = req.params; // Job ID from URL parameters
+  const providerId = req.user?.id;
+
   try {
-    const deletejoblist = await prisma.jobListing.delete({
-      where: { id: Number(id) },
+    if (req.user.role !== "Job Provider") {
+      return res.status(403).json({
+        error: "Access denied. Only Job Providers can delete job listings.",
+      });
+    }
+
+    const jobListing = await prisma.jobListing.findUnique({
+      where: { id: Number(jobId) },
     });
-    res.status(201).json(deletejoblist);
+
+    if (!jobListing) {
+      return res.status(404).json({ error: "Job listing not found." });
+    }
+
+    if (jobListing.providerId !== providerId) {
+      return res.status(403).json({
+        error: "You are not authorized to delete this job listing.",
+      });
+    }
+
+    await prisma.jobListing.delete({
+      where: { id: Number(jobId) },
+    });
+
+    res.status(200).json({ message: "Job listing deleted successfully." });
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    console.log(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -129,10 +185,13 @@ const getJobPost = async (req, res) => {
         providerId: providerId,
       },
       select: {
-        id: true,
         title: true,
         description: true,
-        location: true,
+        requirements: true,
+        preferredSkills: true,
+        address: true,
+        education: true,
+        experience: true,
         salary_range: true,
         posted_at: true,
         expires_at: true,
@@ -145,16 +204,6 @@ const getJobPost = async (req, res) => {
     res
       .status(500)
       .json({ message: "An error occurred while fetching job posts" });
-  }
-};
-
-//get all
-const getJoblists = async (req, res) => {
-  try {
-    const getjoblists = await prisma.jobListing.findMany();
-    res.status(201).json(getjoblists);
-  } catch (error) {
-    res.status(401).json({ error: error.message });
   }
 };
 

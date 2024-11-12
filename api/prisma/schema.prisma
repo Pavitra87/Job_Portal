@@ -59,7 +59,9 @@ model JobListing {
   description                   String
   requirements                  Json
   preferredSkills               Json
-  location                      String
+  address                    String
+  education                      String
+  experience                     String
   salary_range                  String
   posted_at                     DateTime           @default(now())
   expires_at                    DateTime

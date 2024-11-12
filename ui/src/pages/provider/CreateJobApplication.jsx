@@ -2,17 +2,21 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import "./createjob.css";
 import { useAuth } from "../../authenticated/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const CreateJobApplication = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     requirements: "",
     preferredSkills: "",
-    location: "",
+    address: "",
+    education: "",
+    experience: "",
     salary_range: "",
-    applications_count: 0,
+
     posted_at: new Date().toISOString().split("T")[0], // Today's date
     expires_at: "",
   });
@@ -51,12 +55,15 @@ const CreateJobApplication = () => {
         description: "",
         requirements: "",
         preferredSkills: "",
-        location: "",
+        address: "",
+        education: "",
+        experience: "",
         salary_range: "",
-        applications_count: 0,
+
         posted_at: new Date().toISOString().split("T")[0],
         expires_at: "",
       });
+      navigate("/");
     } catch (err) {
       const errorMessage =
         err.response && err.response.data && err.response.data.error
@@ -104,9 +111,23 @@ const CreateJobApplication = () => {
         />
         <input
           type="text"
-          name="location"
-          placeholder="Location"
-          value={formData.location}
+          name="address"
+          placeholder="Address"
+          value={formData.address}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="education"
+          placeholder="Education"
+          value={formData.education}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="experience"
+          placeholder="Experience"
+          value={formData.experience}
           onChange={handleChange}
         />
         <input

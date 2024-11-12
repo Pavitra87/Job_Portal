@@ -17,6 +17,7 @@ const authenticateToken = async (req, res, next) => {
 
     const user = await prisma.user.findUnique({
       where: { id: decodedUser.id },
+      include: { role: true },
     });
 
     if (!user) {
@@ -36,39 +37,44 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// const authorize = (roles = []) => {
-//   if (typeof roles === "string") {
-//     roles = [roles];
-//   }
-
-//   return (req, res, next) => {
-//     if (!req.user || !roles.includes(req.user.role)) {
-//       return res
-//         .status(403)
-//         .json({ error: "Access denied: Insufficient permissions" });
-//     }
-//     next();
-//   };
-// };
-
-const authorize = (role) => {
+const authorize = (...allowedRoles) => {
   return (req, res, next) => {
-    // Assuming user role is stored in the user object after authentication
-    if (!req.userId) {
+    // Check if user is authenticated
+    if (!req.user || !req.user.role) {
       return res
         .status(403)
-        .json({ error: "Access denied: User not authenticated" });
+        .json({ error: "Access denied. Role information missing." });
     }
 
-    // Check if the user has the required role
-    if (req.user.role !== role) {
+    // Check if user role is allowed
+    if (!allowedRoles.includes(req.user.role)) {
       return res
         .status(403)
-        .json({ error: `Access denied: User is not a ${role}` });
+        .json({ error: "Access denied. Insufficient permissions." });
     }
 
     next();
   };
 };
+
+// const authorize = (role) => {
+//   return (req, res, next) => {
+//     // Assuming user role is stored in the user object after authentication
+//     if (!req.userId) {
+//       return res
+//         .status(403)
+//         .json({ error: "Access denied: User not authenticated" });
+//     }
+
+//     // Check if the user has the required role
+//     if (req.user.role !== role) {
+//       return res
+//         .status(403)
+//         .json({ error: `Access denied: User is not a ${role}` });
+//     }
+
+//     next();
+//   };
+// };
 
 module.exports = { authenticateToken, authorize };

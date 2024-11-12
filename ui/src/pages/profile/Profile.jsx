@@ -207,6 +207,7 @@ const Profile = () => {
       setError("Failed to delete the application");
     }
   };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -234,177 +235,206 @@ const Profile = () => {
         <div className="profile-details">
           {!editMode ? (
             <>
-              <p>
-                <strong>Email:</strong> {profileData.email}
-              </p>
-              <p>
-                <strong>Username:</strong> {profileData.username}
-              </p>
+              <div className="profile-user-details">
+                <div className="user-details">
+                  <h3>{profileData.username}</h3>
+                  <p>
+                    <strong>Email:</strong> <span>{profileData.email}</span>
+                  </p>
+                </div>
+                <div>
+                  <img src="" alt="Profile picture" />
+                </div>
+              </div>
+              <div>
+                {profileData.role === "Job Provider" ? (
+                  <div className="provider-container">
+                    <div className="provider-profile-details">
+                      <p>
+                        <strong>Location:</strong>
+                        <span>{profileData.profile.location}</span>
+                      </p>
+                      <p>
+                        <strong>Description:</strong>{" "}
+                        <span> {profileData.profile.description}</span>
+                      </p>
+                      <p>
+                        <strong>Phone Number</strong>
+                        <span>{profileData.profile.phone_number}</span>
+                      </p>
+                    </div>
+                    <div className="provider-posts-job">
+                      <h2>Your Job Posts</h2>
+                      {jobPosts.length > 0 ? (
+                        <div className="provider-posts-job-container">
+                          <div className="job-item">
+                            <table className="job-details-table">
+                              <thead>
+                                <tr>
+                                  <th>Job Title</th>
+                                  <th>Description</th>
+                                  <th>Requirements</th>
+                                  <th>Skills</th>
+                                  <th>Education</th>
+                                  <th>Experience</th>
+                                  <th>Location</th>
+                                  <th>Salary Range</th>
+                                  <th>Edit</th>
+                                  <th>Delete</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {jobPosts.map((job) => (
+                                  <tr key={job.id}>
+                                    <td>{job.title}</td>
+                                    <td>{job.description}</td>
+                                    <td>{job.requirements}</td>
+                                    <td>{job.preferredSkills}</td>
+                                    <td>{job.education}</td>
+                                    <td>{job.experience}</td>
+                                    <td>{job.address}</td>
+                                    <td>{job.salary_range}</td>
+                                    <td>
+                                      <i
+                                        className="fas fa-edit"
+                                        onClick={() => handleEditJob(job)}
+                                        title="Edit Job"
+                                      ></i>
+                                    </td>
+                                    <td>
+                                      <i
+                                        className="fas fa-trash"
+                                        onClick={() => handleDeleteJob(job.id)}
+                                        title="Delete Job"
+                                      ></i>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
 
-              {profileData.role === "Job Provider" ? (
-                <>
-                  <div>
-                    <p>
-                      <strong>Location:</strong> {profileData.profile.location}
-                    </p>
-                    <p>
-                      <strong>Description:</strong>{" "}
-                      {profileData.profile.description}
-                    </p>
-                  </div>
-                  <>
-                    <h2>Your Job Posts</h2>
-                    {jobPosts.length > 0 ? (
-                      <ul className="provider-job-posts">
-                        {jobPosts.map((job) => (
-                          <li key={job.id}>
-                            <div className="job-item">
-                              <>
-                                <div className="job-actions">
-                                  <i
-                                    className="fas fa-edit"
-                                    onClick={() => handleEditJob(job)}
-                                    title="Edit Job"
-                                  ></i>
-                                  <i
-                                    className="fas fa-trash"
-                                    onClick={() => handleDeleteJob(job.id)}
-                                    title="Delete Job"
-                                  ></i>
-                                </div>
-                                <h3>{job.title}</h3>
-                                <p>{job.description}</p>
-                                <p>
-                                  <strong>Location:</strong> {job.location}
-                                </p>
-                                <p>
-                                  <strong>Salary Range:</strong>{" "}
-                                  {job.salary_range}
-                                </p>
-                              </>
-                              <>
-                                <h4>Applicants:</h4>
-                                {applicants[job.id]?.length > 0 ? (
-                                  applicants[job.id].map((applicant) => (
-                                    <div
-                                      key={applicant.id}
-                                      className="applicant-item"
-                                    >
-                                      <p>
-                                        <strong>Username:</strong>{" "}
-                                        {applicant.user.username}
-                                      </p>
-                                      <p>
-                                        <strong>Skills:</strong>{" "}
-                                        {applicant.user.profile.skills}
-                                      </p>
-                                      <p>
-                                        <strong>Education:</strong>{" "}
-                                        {applicant.user.profile.education}
-                                      </p>
-                                      <p>
-                                        <strong>Experience:</strong>{" "}
-                                        {applicant.user.profile.experience}
-                                      </p>
-                                      <p>
-                                        <strong>Phone:</strong>{" "}
-                                        {applicant.user.profile.phone_number}
-                                      </p>
-                                    </div>
-                                  ))
-                                ) : (
-                                  <p>No applicants yet.</p>
-                                )}
-                              </>
+                            <div className="job-applicants">
+                              <h4>Applicants:</h4>
+                              {applicants?.length > 0 ? (
+                                applicants.map((applicant) => (
+                                  <div
+                                    key={applicant.id}
+                                    className="applicant-item"
+                                  >
+                                    <p>
+                                      <strong>Username:</strong>{" "}
+                                      {applicant.user.username}
+                                    </p>
+                                    <p>
+                                      <strong>Skills:</strong>{" "}
+                                      {applicant.user.profile.skills}
+                                    </p>
+                                    <p>
+                                      <strong>Education:</strong>{" "}
+                                      {applicant.user.profile.education}
+                                    </p>
+                                    <p>
+                                      <strong>Experience:</strong>{" "}
+                                      {applicant.user.profile.experience}
+                                    </p>
+                                    <p>
+                                      <strong>Phone:</strong>{" "}
+                                      {applicant.user.profile.phone_number}
+                                    </p>
+                                  </div>
+                                ))
+                              ) : (
+                                <p>No applicants yet.</p>
+                              )}
                             </div>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p>No job posts found.</p>
-                    )}
-                  </>
-                </>
-              ) : profileData.role === "Job Seeker" ? (
-                <>
-                  <>
-                    <p>
-                      <strong>Skills:</strong> {profileData.profile.skills}
-                    </p>
-                    <p>
-                      <strong>Education:</strong>{" "}
-                      {profileData.profile.education}
-                    </p>
-                    <p>
-                      <strong>Phone Number:</strong>{" "}
-                      {profileData.profile.phone_number}
-                    </p>
-                    <p>
-                      <strong>Experience:</strong>{" "}
-                      {profileData.profile.experience}
-                    </p>
-                  </>
-                  <>
-                    <h2>Applied Jobs</h2>
-                    {appliedJobs.length > 0 ? (
-                      <ul>
-                        {appliedJobs.map((job) => (
-                          <li key={job.id}>
-                            <h3>{job.jobListing.title}</h3>
-                            <p>{job.jobListing.description}</p>
-                            <p>
-                              <strong>Location:</strong>{" "}
-                              {job.jobListing.location}
-                            </p>
-                            <p>
-                              <strong>Salary Range:</strong>{" "}
-                              {job.jobListing.salary_range}
-                            </p>
-                            <i
-                              className="fas fa-trash"
-                              onClick={() => handleDeleteAppliedJob(job.id)}
-                              title="Delete Application"
-                            ></i>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p>No job applications found.</p>
-                    )}
-                  </>
-                </>
-              ) : null}
+                          </div>
+                        </div>
+                      ) : (
+                        <p>No job posts found.</p>
+                      )}
+                    </div>
+                  </div>
+                ) : profileData.role === "Job Seeker" ? (
+                  <div className="seeker-container">
+                    <div className="seeker-profile-details">
+                      <p>
+                        <strong>Skills:</strong>
+                        <span>{profileData.profile?.skills}</span>
+                      </p>
+                      <p>
+                        <strong>Job Title:</strong>
+                        <span>{profileData.profile?.jobtitle}</span>
+                      </p>
+                      <p>
+                        <strong>Education:</strong>{" "}
+                        <span>{profileData.profile?.education}</span>
+                      </p>
+                      <p>
+                        <strong>Phone Number:</strong>{" "}
+                        <span>{profileData.profile?.phone_number}</span>
+                      </p>
+                      <p>
+                        <strong>Experience:</strong>{" "}
+                        <span>{profileData.profile?.experience}</span>
+                      </p>
+                      <p>
+                        <strong>Address:</strong>
+                        <span>{profileData.profile?.location}</span>
+                      </p>
+                      <p>
+                        <strong>Job Type:</strong>
+                        <span>{profileData.profile?.jobtype}</span>
+                      </p>
+                    </div>
+                    <div className="seeker-applied-job">
+                      <h2>Applied Jobs</h2>
+                      {appliedJobs.length > 0 ? (
+                        <ul>
+                          {appliedJobs.map((job) => (
+                            <li key={job.id}>
+                              <h3>{job.jobListing.title}</h3>
+                              <p>{job.jobListing.description}</p>
+                              <p>
+                                <strong>Location:</strong>{" "}
+                                {job.jobListing.location}
+                              </p>
+                              <p>
+                                <strong>Salary Range:</strong>{" "}
+                                {job.jobListing.salary_range}
+                              </p>
+                              <i
+                                className="fas fa-trash"
+                                onClick={() => handleDeleteAppliedJob(job.id)}
+                                title="Delete Application"
+                              ></i>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No job applications found.</p>
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             </>
           ) : (
-            <div className="">
-              <div className="profile-contents">
+            // -----------------update--------------------
+            <div className="update-profiles">
+              <div className="update-profile-contents">
                 <label>Email:</label>
                 <input type="text" value={profileData.email} readOnly />
                 <label>Username:</label>
                 <input type="text" value={profileData.username} readOnly />
               </div>
-              <>
+              <div className="update-profile-container">
                 {profileData.role === "Job Provider" ? (
-                  <>
+                  <div className="update-provider-details">
                     <label>Location:</label>
                     <input
                       type="text"
                       name="location"
                       value={formData.location || ""}
-                      onChange={handleChange}
-                    />
-                    <label>Description:</label>
-                    <input
-                      type="text"
-                      name="description"
-                      value={formData.description || ""}
-                      onChange={handleChange}
-                    />
-                    <label>Job Title:</label>
-                    <input
-                      type="text"
-                      name="title"
-                      value={formData.title || ""}
                       onChange={handleChange}
                     />
                     <label>Description:</label>
@@ -413,24 +443,24 @@ const Profile = () => {
                       value={formData.description || ""}
                       onChange={handleChange}
                     />
-                    <label>Location:</label>
+
+                    <label>Phone Number:</label>
                     <input
                       type="text"
-                      name="location"
-                      value={formData.location || ""}
+                      name="phone_number"
+                      value={formData.phone_number || ""}
                       onChange={handleChange}
                     />
-                    <label>Salary Range:</label>
-                    <input
-                      type="text"
-                      name="salary_range"
-                      value={formData.salary_range || ""}
-                      onChange={handleChange}
-                    />
-                    <button onClick={handleJobUpdate}>Save Job Changes</button>
-                  </>
+                  </div>
                 ) : profileData.role === "Job Seeker" ? (
-                  <>
+                  <div className="update-seeker-details">
+                    <label htmlFor="">Job Title:</label>
+                    <input
+                      type="text"
+                      name="jobtitle"
+                      value={formData.jobtitle || ""}
+                      onChange={handleChange}
+                    />
                     <label>Skills:</label>
                     <input
                       type="text"
@@ -438,6 +468,7 @@ const Profile = () => {
                       value={formData.skills || ""}
                       onChange={handleChange}
                     />
+
                     <label>Education:</label>
                     <input
                       type="text"
@@ -459,9 +490,23 @@ const Profile = () => {
                       value={formData.experience || ""}
                       onChange={handleChange}
                     />
-                  </>
+                    <label htmlFor="">Address:</label>
+                    <input
+                      type="text"
+                      name="location"
+                      value={formData.location || ""}
+                      onChange={handleChange}
+                    />
+
+                    <label htmlFor="">Job Type</label>
+                    <input
+                      type="text"
+                      name="jobtype"
+                      value={formData.jobtype || ""}
+                    />
+                  </div>
                 ) : null}
-              </>
+              </div>
               <button onClick={handleUpdate}>Save Changes</button>
               <button onClick={() => setEditMode(false)}>Cancel</button>
             </div>

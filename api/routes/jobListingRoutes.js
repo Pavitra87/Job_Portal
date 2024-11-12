@@ -29,7 +29,7 @@ router.get(
 router.get("/", authenticateToken, authorize("Job Seeker"), getJoblists);
 
 router.delete(
-  "/:id",
+  "/:jobId",
   authenticateToken,
   authorize("Job Provider"),
   deleteJoblist
@@ -41,6 +41,11 @@ router.get(
   authorize("Job Provider"),
   getapplyjobpostsapplicants
 );
-router.put("/:id", authenticateToken, authorize("Job Provider"), updateJoblist);
+router.put(
+  "/:jobId",
+  authenticateToken,
+  authorize("Job Provider"),
+  updateJoblist
+);
 
 module.exports = router;
