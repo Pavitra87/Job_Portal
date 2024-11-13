@@ -1,0 +1,75 @@
+.seeker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.skills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: 8px; /* Space between "Skills:" and the chips */
+}
+
+.chip {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+
+.seeker-applied-job h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: rgb(43, 1, 1);
+}
+
+.apply-job-details {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.apply-job-details th,
+.apply-job-details td {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.apply-job-details thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+  font-size: 15px;
+}
+
+.apply-job-details tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.apply-job-details tbody td {
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.apply-job-details .fas {
+  font-size: 18px;
+  cursor: pointer;
+  color: #007bff;
+  margin: auto;
+}
+
+.apply-job-details .fas:hover {
+  color: #0056b3;
+}

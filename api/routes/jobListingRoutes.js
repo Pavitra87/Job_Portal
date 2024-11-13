@@ -4,9 +4,9 @@ const {
   updateJoblist,
   getJoblists,
   deleteJoblist,
-  getJoblist,
+
   getJobPost,
-  getapplyjobpostsapplicants,
+  getjobapplicants,
 } = require("../controllers/job/jobListingCtrl");
 
 const {
@@ -34,18 +34,13 @@ router.delete(
   authorize("Job Provider"),
   deleteJoblist
 );
+router.put("/:id", authenticateToken, authorize("Job Provider"), updateJoblist);
 
 router.get(
-  "/applicants/:jobId",
+  "/:jobId/applicants",
   authenticateToken,
   authorize("Job Provider"),
-  getapplyjobpostsapplicants
-);
-router.put(
-  "/:jobId",
-  authenticateToken,
-  authorize("Job Provider"),
-  updateJoblist
+  getjobapplicants
 );
 
 module.exports = router;

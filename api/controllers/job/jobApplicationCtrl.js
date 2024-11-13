@@ -23,24 +23,6 @@ const createJobApplication = async (req, res) => {
       },
     });
 
-    // Create a notification in the database for the provider
-    const notification = await prisma.notification.create({
-      data: {
-        message: `A new application has been submitted for your job post "${jobListing.title}"`,
-        jobId: jobListing.id,
-        jobApplicationId: application.id,
-        providerId: jobListing.providerId,
-        isRead: false,
-      },
-    });
-
-    // Emit real-time notification to the job provider
-    // io.emit("newApplication", {
-    //   message: `A new application has been submitted for your job "${jobListing.title}"`,
-    //   jobId: jobListing.id,
-    //   applicationId: application.id,
-    // });
-
     res.status(200).json(application);
   } catch (error) {
     console.log(error);
@@ -48,39 +30,50 @@ const createJobApplication = async (req, res) => {
   }
 };
 
-// const getJobApplication = async (req, res) => {
-//   try {
-//     const seekerId = req.user.id;
+//seeker
+const getJobApplication = async (req, res) => {
+  try {
+    // Check if user is authenticated
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
 
-//     // Fetch all job applications for this seeker
-//     const applications = await prisma.jobApplication.findMany({
-//       where: { seekerId: seekerId },
-//       include: {
-//         jobListing: {
-//           // Use jobListing instead of job
-//           select: {
-//             id: true,
-//             title: true,
-//             description: true,
-//             location: true,
-//             salary_range: true,
-//           },
-//         },
-//       },
-//     });
+    const seekerId = req.user.id;
 
-//     if (applications.length === 0) {
-//       return res.status(404).json({ message: "No job applications found" });
-//     }
+    // Fetch all job applications for this seeker
+    const applications = await prisma.jobApplication.findMany({
+      where: { seekerId: seekerId },
+      include: {
+        jobListing: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            requirements: true,
+            preferredSkills: true,
+            address: true,
+            education: true,
+            experience: true,
+            salary_range: true,
+            posted_at: true,
+            expires_at: true,
+          },
+        },
+      },
+    });
 
-//     res.status(200).json(applications);
-//   } catch (error) {
-//     console.error("Error retrieving job applications:", error);
-//     res
-//       .status(500)
-//       .json({ message: "An error occurred while fetching job applications" });
-//   }
-// };
+    if (applications.length === 0) {
+      return res.status(404).json({ message: "No job applications found" });
+    }
+
+    res.status(200).json(applications);
+  } catch (error) {
+    console.error("Error retrieving job applications:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching job applications" });
+  }
+};
 
 const deleteApplication = async (req, res) => {
   const { id } = req.params;
@@ -94,4 +87,4 @@ const deleteApplication = async (req, res) => {
   }
 };
 
-module.exports = { createJobApplication, deleteApplication };
+module.exports = { createJobApplication, deleteApplication, getJobApplication };

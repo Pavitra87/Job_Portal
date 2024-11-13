@@ -19,12 +19,12 @@ router.post(
   createJobApplication
 );
 
-// router.get(
-//   "/getapply/:id",
-//   authenticateToken,
-//   authorize("Job Seeker"),
-//   getJobApplication
-// );
+router.get(
+  "/getapply/:id",
+  authenticateToken,
+  authorize("Job Seeker"),
+  getJobApplication
+);
 
 router.delete(
   "/:id",

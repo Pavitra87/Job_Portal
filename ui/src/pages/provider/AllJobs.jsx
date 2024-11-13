@@ -253,8 +253,8 @@ const AllJobs = () => {
                     {new Date(job.expires_at).toLocaleDateString()}
                   </p>
                   <button
-                  // onClick={() => applyForJob(job.id)}
-                  // disabled={appliedJobs.includes(job.id)}
+                    onClick={() => applyForJob(job.id)}
+                    disabled={appliedJobs.includes(job.id)}
                   >
                     Apply Job
                     {/* {appliedJobs.includes(job.id) ? "Applied" : "Apply for job"} */}
