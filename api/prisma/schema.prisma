@@ -8,89 +8,86 @@ datasource db {
 }
 
 model User {
-  id                            Int                @id @default(autoincrement())
-  email                         String             @unique
-  username                      String             @unique
-  password_hash                 String
-  role                          Role               @relation(fields: [roleId], references: [id])
-  roleId                        Int
-  profile_picture_url           String?            // Optional profile picture URL
-  profile                       Profile?
-  jobListing                    JobListing[]       // Job listings created by the user
-  jobApplication              JobApplication[]   // Applications made by the user
-  notifications                 Notification[]     // Notifications for this user
-  created_at                    DateTime           @default(now())
-  updated_at                    DateTime           @updatedAt
+  id                  Int              @id @default(autoincrement())
+  email               String           @unique
+  username            String           @unique
+  password_hash       String
+  roleId              Int
+  profile_picture_url String?
+  created_at          DateTime         @default(now())
+  updated_at          DateTime         @updatedAt
+  jobApplication      JobApplication[]
+  jobListing          JobListing[]
+  notifications       Notification[]
+  profile             Profile?
+  role                Role             @relation(fields: [roleId], references: [id])
 }
 
 model Role {
-  id                            Int      @id @default(autoincrement())
-  name                          String   @unique
-  createdAt                     DateTime @default(now())
-  updatedAt                     DateTime @updatedAt
-  users                         User[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
 }
 
 model Profile {
-  id                            Int                @id @default(autoincrement())
-  userId                        Int                @unique
-  description                   String?
-  location                      String?
-  skills                        Json?
-  education                     String?
-  phone_number                  String?
-  jobtitle                      String?
-  experience                    String?
-  jobtype                       String?
-  resume                        String?            // To store file paths or another format
-  user                  User               @relation(fields: [userId], references: [id], onDelete: Cascade) // Add onDelete: Cascade
-  jobListing                    JobListing[]       // Job listings associated with the profile
- 
-  createdAt                     DateTime           @default(now())
-  updatedAt                     DateTime           @updatedAt
+  id           Int          @id @default(autoincrement())
+  userId       Int          @unique
+  description  String?
+  location     String?
+  skills       Json?
+  education    String?
+  phone_number String?
+  jobtitle     String?
+  experience   String?
+  jobtype      String?
+  resume       String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  jobListing   JobListing[]
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
 model JobListing {
-  id                            Int                @id @default(autoincrement())
-  providerId                    Int
-   provider                     User   @relation(fields: [providerId], references: [id])  // Add onDelete: Cascade
-   title                         String
-  description                   String
-  requirements                  Json
-  preferredSkills               Json
-  address                    String
-  education                      String
-  experience                     String
-  salary_range                  String
-  posted_at                     DateTime           @default(now())
-  expires_at                    DateTime
-  created_at                    DateTime           @default(now())
-  updated_at                    DateTime           @updatedAt
-  jobApplication              JobApplication[]      @relation("JobApplication")
-  profile                       Profile?           @relation(fields: [profileId], references: [id])
-  profileId                     Int?                 
+  id              Int              @id @default(autoincrement())
+  providerId      Int
+  title           String
+  description     String
+  requirements    Json
+  preferredSkills Json
+  salary_range    String
+  posted_at       DateTime         @default(now())
+  expires_at      DateTime
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @updatedAt
+  address         String
+  education       String
+  experience      String
+  profileId       Int?
+  jobApplication  JobApplication[] @relation("JobApplication")
+  profile         Profile?         @relation(fields: [profileId], references: [id])
+  provider        User             @relation(fields: [providerId], references: [id])
 }
 
 model JobApplication {
-  id                            Int                @id @default(autoincrement())
-  jobId                         Int?
-  seekerId                      Int
-  seeker                        User               @relation(fields: [seekerId], references: [id])
-  jobListing                    JobListing?        @relation("JobApplication", fields: [jobId], references: [id])
-  applied_at                    DateTime           @default(now())
-  created_at                    DateTime           @default(now())
-  updated_at                    DateTime           @updatedAt
-  
+  id         Int         @id @default(autoincrement())
+  jobId      Int?
+  seekerId   Int
+  applied_at DateTime    @default(now())
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  jobListing JobListing? @relation("JobApplication", fields: [jobId], references: [id])
+  seeker     User        @relation(fields: [seekerId], references: [id])
 }
 
 model Notification {
-  id                            Int                @id @default(autoincrement())
-  message                       String             // Notification message
-  jobId                         Int                // Job listing related to the notification
-  jobApplicationId              Int                // Job application related to the notification
-  providerId                    Int                // Provider receiving the notification
-  provider                      User               @relation(fields: [providerId], references: [id])
-  isRead                        Boolean            @default(false) // Whether the notification has been read
-  created_at                    DateTime           @default(now())
+  id               Int      @id @default(autoincrement())
+  message          String
+  created_at       DateTime @default(now())
+  isRead           Boolean  @default(false)
+  jobApplicationId Int
+  jobId            Int
+  providerId       Int
+  provider         User     @relation(fields: [providerId], references: [id])
 }

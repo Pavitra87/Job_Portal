@@ -42,12 +42,210 @@
   font-size: 15px;
 }
 
-.job-details-table .fas {
-  font-size: 18px;
+.edit-modal .FaArrowLeft {
   cursor: pointer;
-  color: #007bff;
+  font-size: 24px;
+  color: #333;
 }
 
 .job-details-table .fas:hover {
   color: #0056b3;
+}
+/* Modal overlay to darken background */
+.edit-modal {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Modal content box */
+.edit-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* Scroll if content exceeds max height */
+  max-height: 80vh;
+}
+
+/* Form styling */
+.edit-modal-content form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.edit-modal-content h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 23px;
+}
+
+/* Label styling */
+.edit-modal-content .edit-content label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Input fields styling */
+.edit-modal-content .edit-content input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.fas.fa-arrow-left {
+  font-size: 20px; /* Adjust size */
+  color: #333; /* Change color */
+  cursor: pointer; /* Pointer on hover */
+  position: absolute; /* Positioning */
+  top: 10px;
+  left: 10px;
+}
+.edit-content {
+  display: flex;
+  flex-direction: column;
+}
+/* Submit button styling */
+.edit-modal-content button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit-modal-content button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Cancel button styling */
+.edit-modal-content button[type="button"] {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit-modal-content button[type="button"]:hover {
+  background-color: #d73833;
+}
+.arrow-mark {
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+
+/* -------------fetchapplicants----------------- */
+/* Container for the entire modal */
+.applicants-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Darkened background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Content inside the modal */
+.applicants-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Close button on the modal */
+.arrow-mark {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Modal heading */
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table for displaying applicants */
+.applicants-list {
+  margin-bottom: 20px;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+.applicants-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.applicants-table th,
+.applicants-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.applicants-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.applicants-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Close button inside the modal */
+.applicants-modal-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.applicants-modal-content button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .edit-modal-content {
+    padding: 15px;
+    width: 95%;
+  }
 }

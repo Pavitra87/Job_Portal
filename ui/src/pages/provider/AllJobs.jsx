@@ -262,7 +262,11 @@ const AllJobs = () => {
                 </li>
               ))
             ) : (
-              <img src={notfound} alt="No job listings found" />
+              <img
+                src={notfound}
+                alt="No job listings found"
+                className="notfound"
+              />
             )}
           </ul>
         </div>

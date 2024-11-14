@@ -161,6 +161,7 @@ const getProfile = async (req, res) => {
       id: user.id,
       email: user.email,
       username: user.username,
+      profile_picture_url: user.profile_picture_url,
       profile: user.profile,
       role: user.role.name,
     });

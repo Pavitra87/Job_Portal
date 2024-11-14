@@ -150,6 +150,7 @@
 
 .notfound {
   width: 100%;
-  text-align: center;
+  object-fit: cover;
+
   padding: 20px;
 }

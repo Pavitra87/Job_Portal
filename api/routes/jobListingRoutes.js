@@ -34,7 +34,12 @@ router.delete(
   authorize("Job Provider"),
   deleteJoblist
 );
-router.put("/:id", authenticateToken, authorize("Job Provider"), updateJoblist);
+router.put(
+  "/:jobId",
+  authenticateToken,
+  authorize("Job Provider"),
+  updateJoblist
+);
 
 router.get(
   "/:jobId/applicants",

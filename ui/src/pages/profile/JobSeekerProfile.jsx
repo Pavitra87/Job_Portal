@@ -9,10 +9,6 @@ const JobSeekerProfile = ({
   return (
     <div className="seeker-container">
       <div className="seeker-profile-details">
-        {/* <p>
-          <strong>Skills:</strong>
-          <span>{profileData.profile?.skills}</span>
-        </p> */}
         <p className="skills">
           <strong>Skills:</strong>
           <span className="chips">
