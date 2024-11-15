@@ -15,6 +15,7 @@ const Candidates = () => {
     jobtitle: "",
     experience: "",
     jobtype: "",
+    resume: null,
   });
 
   useEffect(() => {
@@ -177,12 +178,6 @@ const Candidates = () => {
                   </span>
                 </p>
 
-                {/* <p className="skills">
-                  <strong>Skills:</strong>
-                  <span className="chips">
-                    {jobSeeker.profile?.skills || "N/A"}
-                  </span>
-                </p> */}
                 <p>
                   <strong>Experience:</strong>
                   <span> {jobSeeker.profile?.experience || "N/A"}</span>
@@ -190,6 +185,27 @@ const Candidates = () => {
                 <p>
                   <strong>Job Type:</strong>
                   <span>{jobSeeker.profile?.jobtype || "N/A"}</span>
+                </p>
+                <p>
+                  <strong>Resume:</strong>
+                  {jobSeeker.profile?.resume ? (
+                    <>
+                      {console.log(
+                        "Resume seeker path:",
+                        jobSeeker.profile?.resume
+                      )}
+                      <a
+                        href={`http://localhost:5001/${jobSeeker.profile?.resume}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="resume-link"
+                      >
+                        View Resume
+                      </a>
+                    </>
+                  ) : (
+                    "No resume uploaded"
+                  )}
                 </p>
               </li>
             ))

@@ -62,3 +62,60 @@
 .job-provider-profile .message.error {
   color: #dc3545;
 }
+
+/* Container styling for applicants model */
+.applicats-model {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+.applicats-model h3 {
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Table styling */
+.applicats-model table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.applicats-model th,
+.applicats-model td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.applicats-model th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+.applicats-model td {
+  background-color: #fff;
+}
+
+/* Row styling */
+.applicats-model tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.applicats-model tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* No applicants message */
+.applicats-model td[colspan="2"] {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}

@@ -9,7 +9,6 @@ const Header = () => {
   const { user, logout } = useAuth();
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const [hasProfile, setHasProfile] = useState(false);
 
   const dropdownRef = useRef(null);
 
@@ -20,15 +19,10 @@ const Header = () => {
       );
     }
   }, [user]);
-
+  // console.log("Header Profile", user.profile_picture_url);
+  // const profilepicturl = `http://localhost:5001/${user.profilePicture}`;
   const storedUserRole = JSON.parse(localStorage.getItem("user"))?.role;
   const userRole = user?.role || storedUserRole;
-
-  const profilepictureurl = `http://localhost:5001/uploads/profile_picture_url-1731320300644-719501259.jpg
-`;
-
-  console.log("user", user);
-  // console.log("Profile picture URL:", user.profile_picture_url);
 
   const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
@@ -39,11 +33,6 @@ const Header = () => {
       setShowDropdown(false);
     }
   };
-  // useEffect(() => {
-  //   if (user) {
-  //     setHasProfile(user.profileComplete); // Adjust based on your user object
-  //   }
-  // }, [user]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -100,12 +89,7 @@ const Header = () => {
             {user ? (
               <div className="user-profile">
                 <img
-                  src={
-                    // profile
-                    user.profile_picture_url
-                      ? user.profile_picture_url
-                      : "/default-profile.png"
-                  }
+                  src={`http://localhost:5001/${user.profilePicture}`}
                   alt={user.name}
                   className="profile-picture"
                   onClick={toggleDropdown}

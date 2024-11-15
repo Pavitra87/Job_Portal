@@ -261,7 +261,17 @@ const getjobapplicants = async (req, res) => {
             id: true,
             email: true,
             username: true,
-            role: true, // Or any other relevant information you want to include about the seeker
+            profile: {
+              select: {
+                location: true,
+                phone_number: true,
+                skills: true,
+                education: true,
+                experience: true,
+                jobtype: true,
+                resume: true,
+              },
+            },
           },
         },
       },

@@ -61,6 +61,9 @@ const createJobSeekerProfile = async (req, res) => {
     experience,
     jobtype,
   } = req.body;
+
+  const resume = req.file ? req.file.path : null;
+
   if (
     !skills ||
     !location ||
@@ -103,6 +106,7 @@ const createJobSeekerProfile = async (req, res) => {
         jobtitle,
         experience,
         jobtype,
+        resume,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

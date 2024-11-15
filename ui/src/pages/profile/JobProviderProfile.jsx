@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./jobproviderprofile.css";
-import { useAuth } from "../../authenticated/AuthContext";
-
+import { RxCross2 } from "react-icons/rx";
 import { FaArrowLeft } from "react-icons/fa6";
 import axios from "axios";
 
 const JobProviderProfile = ({
   profileData,
   jobPosts,
-  // applicants,
+
   handleDeleteJob,
   handleUpdateJob,
 }) => {
-  const { user } = useAuth();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentJob, setCurrentJob] = useState(null);
   const [viewingApplicantsForJob, setViewingApplicantsForJob] = useState(null);
   const [applicants, setApplicants] = useState([]);
-  console.log("Applicants data:", applicants);
 
   useEffect(() => {
     const fetchApplicants = async (jobId) => {
@@ -94,6 +91,7 @@ const JobProviderProfile = ({
 
   const handleViewApplicants = (job) => {
     setViewingApplicantsForJob(job.id);
+    setCurrentJob(job); // Store full job details, including title
   };
 
   const handleCloseApplicants = () => {
@@ -130,6 +128,7 @@ const JobProviderProfile = ({
             <table className="job-details-table">
               <thead>
                 <tr>
+                  <th>id</th>
                   <th>Job Title</th>
                   <th>Description</th>
                   <th>Requirements</th>
@@ -144,10 +143,11 @@ const JobProviderProfile = ({
                 </tr>
               </thead>
               <tbody>
-                {jobPosts.map((job) => {
+                {jobPosts.map((job, index) => {
                   return (
                     <>
                       <tr key={job.id}>
+                        <td>{index + 1}</td>
                         <td>{job.title}</td>
                         <td>{job.description}</td>
                         <td>{job.requirements}</td>
@@ -189,24 +189,67 @@ const JobProviderProfile = ({
           <p>No job posts found.</p>
         )}
 
-        {/* ------------------------------ */}
+        {/* --------------getapplicants---------------- */}
 
-        {viewingApplicantsForJob && (
-          <div>
-            <h3>Applicants for Job ID: {viewingApplicantsForJob}</h3>
+        {viewingApplicantsForJob && currentJob && (
+          <div className="applicats-model">
+            <span>
+              {" "}
+              <RxCross2 onClick={handleCloseApplicants} />
+            </span>
+            <h3>
+              Applicants for Job: {currentJob.title || "Unknown Job Title"}
+            </h3>
+
             <table>
               <thead>
                 <tr>
+                  <th>id</th>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Skills</th>
+                  <th>Education</th>
+                  <th>Experience</th>
+                  <th>Location</th>
+                  <th>Job Type</th>
+                  <th>Resume</th>
                 </tr>
               </thead>
               <tbody>
                 {applicants.length > 0 ? (
-                  applicants.map((applicant) => (
+                  applicants.map((applicant, index) => (
                     <tr key={applicant.id}>
+                      <td>{index + 1}</td>
                       <td>{applicant.seeker?.username || "N/A"}</td>
                       <td>{applicant.seeker?.email || "N/A"}</td>
+                      <td>
+                        {applicant.seeker?.profile?.phone_number || "N/A"}
+                      </td>
+                      <td>{applicant.seeker?.profile?.skills || "N/A"}</td>
+                      <td>{applicant.seeker?.profile?.education || "N/A"}</td>
+                      <td>{applicant.seeker?.profile?.experience || "N/A"}</td>
+                      <td>{applicant.seeker?.profile?.location || "N/A"}</td>
+                      <td>{applicant.seeker?.profile?.jobtype || "N/A"}</td>
+                      <td>
+                        {applicant.seeker?.profile?.resume ? (
+                          <>
+                            {/* {console.log(
+                              "Resume applicants path:",
+                              applicant.seeker.profile.resume
+                            )} */}
+                            <a
+                              href={`http://localhost:5001/${applicant.seeker.profile.resume}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View Resume
+                            </a>
+                          </>
+                        ) : (
+                          "N/A"
+                        )}
+                      </td>
                     </tr>
                   ))
                 ) : (

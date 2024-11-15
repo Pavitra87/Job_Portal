@@ -8,8 +8,6 @@ const Register = async (req, res) => {
   console.log("Uploaded File:", req.file);
   const { email, username, password, roleName } = req.body;
 
-  const profile_picture_url = req.file ? `/uploads/${req.file.filename}` : null;
-
   if (!email || !username || !password || !roleName) {
     return res
       .status(400)
@@ -39,6 +37,8 @@ const Register = async (req, res) => {
         },
       });
     }
+    const profile_picture_url = req.file ? req.file.path : null;
+
     const user = await prisma.user.create({
       data: {
         email,

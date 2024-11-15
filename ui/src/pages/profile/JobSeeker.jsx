@@ -14,6 +14,7 @@ const JobSeeker = () => {
     jobtitle: "",
     experience: "",
     jobtype: "",
+    resume: null,
   });
 
   const [message, setMessage] = useState("");
@@ -22,6 +23,11 @@ const JobSeeker = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, resume: file }));
   };
 
   const handleSubmit = async (e) => {
@@ -33,8 +39,12 @@ const JobSeeker = () => {
         setMessage("Authorization token is missing. Please log in again.");
         return;
       }
+
       await axios.post("http://localhost:5001/api/auth/seeker", formData, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
       });
       setMessage("Profile created successfully!");
       navigate("/"); // Navigate to job seeker dashboard
@@ -68,7 +78,7 @@ const JobSeeker = () => {
           onChange={handleChange}
           required
         />
-        {/* <input type="file" name="resume" onChange={handleFileChange} required /> */}
+
         <input
           type="text"
           name="experience"
@@ -109,6 +119,13 @@ const JobSeeker = () => {
           onChange={handleChange}
           required
         />
+        <input
+          type="file"
+          name="resume"
+          accept="application/pdf"
+          onChange={handleFileChange}
+        />
+        {/* <button type="submit">Upload</button> */}
         <button type="submit">Create Profile</button>
       </form>
       {message && <p className="message">{message}</p>}

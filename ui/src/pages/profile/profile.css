@@ -83,32 +83,53 @@
 
 /* ---------------update profiles------------- */
 
+/* Container for the profile update section */
 .update-profiles {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.update-profile-contents,
-.update-profile-container {
+/* Style for the back arrow */
+.back-arrow-mark {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 20px;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
 }
 
+.back-arrow-mark svg {
+  transition: color 0.3s;
+}
+
+.back-arrow-mark:hover svg {
+  color: #007bff;
+}
+
+/* Section title */
+.update-profiles h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Input labels and containers */
 .update-profile-contents label,
 .update-provider-details label,
 .update-seeker-details label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: 15px;
 }
 
 .update-profile-contents input,
@@ -116,44 +137,64 @@
 .update-seeker-details input,
 .update-provider-details textarea,
 .update-seeker-details textarea {
+  width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
+  font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 100%;
-  font-size: 16px;
+  margin-top: 5px;
+}
+
+/* Specific styling for text areas */
+.update-provider-details textarea,
+.update-seeker-details textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+/* Layout for Job Provider and Job Seeker sections */
+.update-profile-container {
+  margin-top: 20px;
 }
 
 .update-provider-details,
 .update-seeker-details {
-  display: flex;
-  flex-direction: column;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
-.update-provider-details textarea,
-.update-seeker-details textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
+/* Buttons styling */
 .update-profiles button {
-  padding: 10px 20px;
-  margin: 10px 5px;
+  /* display: flex;
+  flex-direction: row; */
+  width: 25%;
+  padding: 10px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
-  color: #fff;
+  margin: 0 10px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
 }
 
 .update-profiles button:hover {
-  opacity: 0.9;
+  background-color: #0056b3;
 }
 
-.update-profiles button:first-of-type {
-  background-color: #4caf50; /* Save button */
+/* Cancel button styling */
+.update-profiles button:last-child {
+  background-color: #6c757d;
+  margin-top: 10px;
 }
 
-.update-profiles button:last-of-type {
-  background-color: #f44336; /* Cancel button */
+.update-profiles button:last-child:hover {
+  background-color: #495057;
 }

@@ -94,7 +94,7 @@ const Register = () => {
           type="file"
           name="profile_picture_url"
           onChange={handleFileChange}
-          accept="image/*"
+          accept="image/jpeg,image/png,image/jpg"
           className="profile"
         />
         <label className="upload-label" htmlFor="profileInput">

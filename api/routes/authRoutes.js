@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const upload = require("../config/multer");
 const { Register, Login } = require("../controllers/Auth/AuthController");
 
 const {
@@ -13,13 +14,16 @@ const {
   authenticateToken,
   authorize,
 } = require("../middleware/authenticateJwt");
-const upload = require("../server");
-
-router.post("/register", upload.single("profile_picture_url"), Register);
 
 router.post("/login", Login);
+router.post("/register", upload.single("profile_picture_url"), Register);
 
-router.post("/seeker", authenticateToken, createJobSeekerProfile);
+router.post(
+  "/seeker",
+  upload.single("resume"),
+  authenticateToken,
+  createJobSeekerProfile
+);
 router.post("/provider", authenticateToken, createJobProviderProfile);
 router.get(
   "/profiles",

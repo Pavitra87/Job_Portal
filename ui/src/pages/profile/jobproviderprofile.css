@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  align-items: center;
 }
 .provider-posts-job {
 }
@@ -154,98 +155,82 @@
 }
 
 /* -------------fetchapplicants----------------- */
-/* Container for the entire modal */
-.applicants-modal {
+.applicats-model {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Darkened background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 90%;
+  max-width: 1000px;
   z-index: 1000;
 }
 
-/* Content inside the modal */
-.applicants-modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 800px;
-  max-height: 80%;
-  overflow-y: auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Close button on the modal */
-.arrow-mark {
+.applicats-model span {
   position: absolute;
   top: 10px;
-  left: 10px;
-  font-size: 20px;
+  right: 10px;
+  font-size: 1.5rem;
   cursor: pointer;
   color: #333;
+  transition: color 0.3s;
 }
 
-/* Modal heading */
-h3 {
+.applicats-model span:hover {
+  color: #ff4d4d;
+}
+
+.applicats-model h3 {
   text-align: center;
+  font-size: 1.5rem;
   margin-bottom: 20px;
+  color: #c0c1df;
 }
 
-/* Table for displaying applicants */
-.applicants-list {
-  margin-bottom: 20px;
-  overflow-x: auto; /* Allows horizontal scrolling if needed */
-}
-
-.applicants-table {
+.applicats-model table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
-  font-family: Arial, sans-serif;
-}
-
-.applicants-table th,
-.applicants-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.applicants-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-.applicants-table tr:hover {
-  background-color: #f9f9f9;
-}
-
-/* Close button inside the modal */
-.applicants-modal-content button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
-  width: 100%;
   margin-top: 20px;
 }
 
-.applicants-modal-content button:hover {
-  background-color: #0056b3;
+.applicats-model table thead th {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #555;
+  border-bottom: 2px solid #ddd;
 }
 
-/* Responsive adjustments */
-@media (max-width: 500px) {
-  .edit-modal-content {
-    padding: 15px;
-    width: 95%;
-  }
+.applicats-model table tbody td {
+  padding: 10px;
+  font-size: 0.9rem;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+.applicats-model table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.applicats-model table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.applicats-model table tbody td:nth-child(1) {
+  text-align: center;
+  font-weight: bold;
+}
+
+.applicats-model table tbody td:nth-child(n + 2) {
+  text-align: left;
+}
+
+.applicats-model table tbody tr td[colspan] {
+  text-align: center;
+  font-size: 1rem;
+  color: #777;
 }

@@ -6,6 +6,10 @@ const JobSeekerProfile = ({
   appliedJobs,
   handleDeleteAppliedJob,
 }) => {
+  const resumeUrl = profileData.profile?.resume
+    ? `http://localhost:5001/${profileData.profile.resume}`
+    : null;
+
   return (
     <div className="seeker-container">
       <div className="seeker-profile-details">
@@ -44,6 +48,21 @@ const JobSeekerProfile = ({
         <p>
           <strong>Job Type:</strong>
           <span>{profileData.profile?.jobtype}</span>
+        </p>
+        <p>
+          <strong>Resume:</strong>
+          {profileData.profile?.resume ? (
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resume-link"
+            >
+              View Resume
+            </a>
+          ) : (
+            "No resume uploaded"
+          )}
         </p>
       </div>
 

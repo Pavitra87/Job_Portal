@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../authenticated/AuthContext";
 import JobProviderProfile from "./JobProviderProfile";
 import JobSeekerProfile from "./JobSeekerProfile";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -17,7 +18,6 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [jobPosts, setJobPosts] = useState([]);
   const [appliedJobs, setAppliedJobs] = useState([]);
-  const [applicants, setApplicants] = useState({});
 
   const navigate = useNavigate();
 
@@ -54,37 +54,6 @@ const Profile = () => {
           }
         );
         setJobPosts(jobPostsResponse.data.jobPosts);
-
-        // const applicantPromises = jobPostsResponse.data.jobPosts.map(
-        //   async (job) => {
-        //     const applicantResponse = await axios.get(
-        //       `http://localhost:5001/api/jobListing/${job.id}/applicants`,
-        //       {
-        //         headers: {
-        //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-        //         },
-        //       }
-        //     );
-        //     console.log(
-        //       `Applicants for Job ${job.id}:`,
-        //       applicantResponse.data
-        //     );
-        //     return { jobId: job.id, applicants: applicantResponse.data };
-        //   }
-        // );
-
-        // const allApplicants = await Promise.all(applicantPromises);
-        // console.log("Applicants Map:", applicantsMap);
-
-        // const applicantsMap = allApplicants.reduce(
-        //   (acc, { jobId, applicants }) => {
-        //     acc[jobId] = applicants;
-        //     return acc;
-        //   },
-        //   {}
-        // );
-        // setApplicants(applicantsMap);
-        // Log applicants map
       } catch (error) {
         console.error("Error fetching job posts:", error);
       }
@@ -243,6 +212,13 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      resume: e.target.files[0], // Handle the file selected
+    }));
+  };
+
   if (loading) return <p>Loading profile...</p>;
   if (error) return <p>{error}</p>;
 
@@ -282,7 +258,6 @@ const Profile = () => {
                     <JobProviderProfile
                       profileData={profileData}
                       jobPosts={jobPosts}
-                      // applicants={applicants}
                       handleEditJob={handleEditJob}
                       handleUpdateJob={handleUpdateJob}
                       handleDeleteJob={handleDeleteJob}
@@ -299,6 +274,10 @@ const Profile = () => {
             ) : (
               // -----------------update--------------------
               <div className="update-profiles">
+                <div className="back-arrow-mark">
+                  <FaArrowLeft onClick={() => setEditMode(false)} />
+                </div>
+                <h3>Edit Profile</h3>
                 <div className="update-profile-contents">
                   <label>Email:</label>
                   <input type="text" value={profileData.email} readOnly />
@@ -381,6 +360,13 @@ const Profile = () => {
                         type="text"
                         name="jobtype"
                         value={formData.jobtype || ""}
+                      />
+                      <label htmlFor="">Resume</label>
+                      <input
+                        type="file"
+                        name="resume"
+                        accept="application/pdf" // Restrict file types to PDF (optional)
+                        onChange={handleFileChange} // Handle file input change
                       />
                     </div>
                   ) : null}
