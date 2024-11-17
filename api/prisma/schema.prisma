@@ -14,6 +14,7 @@ model User {
   password_hash       String
   roleId              Int
   profile_picture_url String?
+  
   created_at          DateTime         @default(now())
   updated_at          DateTime         @updatedAt
   jobApplication      JobApplication[]
@@ -38,6 +39,7 @@ model Profile {
   location     String?
   skills       Json?
   education    String?
+  profileComplete     Boolean            @default(false) 
   phone_number String?
   jobtitle     String?
   experience   String?

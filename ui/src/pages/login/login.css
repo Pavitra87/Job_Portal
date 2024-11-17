@@ -6,6 +6,17 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background-color: #f5f5f5;
+  animation: fadeInScale 1s ease;
+}
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .login form {
@@ -18,6 +29,17 @@
   text-align: center;
   margin-bottom: 20px;
   color: #333;
+  animation: slideInFromTop 0.8s ease;
+}
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Input styling */
@@ -61,16 +83,27 @@
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #5a67d8;
+  background-color: #414141;
   color: #ffffff;
   font-size: 1rem;
   cursor: pointer;
   margin-top: 70px;
   transition: background-color 0.3s;
+  animation: zoomIn 1s ease;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .login button:hover {
-  background-color: #4c51bf;
+  background-color: #151515;
 }
 
 /* Message styling */
@@ -78,6 +111,15 @@
   text-align: center;
   color: #ff0000;
   margin-top: 10px;
+  animation: fadeIn 0.8s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Account links styling */
@@ -85,6 +127,17 @@
   display: flex;
   justify-content: center;
   margin-top: 15px;
+  animation: fadeInUp 1.2s ease;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .account-links .text {

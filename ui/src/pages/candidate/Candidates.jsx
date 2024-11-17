@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./candidate.css";
-import notfound from "../../assets/notfound.png";
+import notfound1 from "../../assets/notfound1.png";
 
 const Candidates = () => {
   const [jobSeekers, setJobSeekers] = useState([]);
@@ -159,7 +159,7 @@ const Candidates = () => {
                   <span> {jobSeeker.profile?.location || "N/A"}</span>
                 </p>
                 <p>
-                  <strong>Phone Number:</strong>
+                  <strong>Contact No:</strong>
                   <span> {jobSeeker.profile?.phone_number || "N/A"}</span>
                 </p>
 
@@ -199,6 +199,11 @@ const Candidates = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="resume-link"
+                        style={{
+                          color: "blue",
+                          textDecoration: "underline",
+                          fontSize: "13px",
+                        }}
                       >
                         View Resume
                       </a>
@@ -210,7 +215,11 @@ const Candidates = () => {
               </li>
             ))
           ) : (
-            <img src={notfound} alt="No job listings found" />
+            <img
+              src={notfound1}
+              alt="No job listings found"
+              className="notfound"
+            />
           )}
         </ul>
       </div>

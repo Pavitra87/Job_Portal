@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import { useAuth } from "../../authenticated/AuthContext";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 
 const Header = () => {
   const { user, logout } = useAuth();
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const dropdownRef = useRef(null);
 
@@ -19,8 +20,7 @@ const Header = () => {
       );
     }
   }, [user]);
-  // console.log("Header Profile", user.profile_picture_url);
-  // const profilepicturl = `http://localhost:5001/${user.profilePicture}`;
+
   const storedUserRole = JSON.parse(localStorage.getItem("user"))?.role;
   const userRole = user?.role || storedUserRole;
 
@@ -33,7 +33,9 @@ const Header = () => {
       setShowDropdown(false);
     }
   };
-
+  const toggleMenu = () => {
+    setShowMenu((prevShowMenu) => !prevShowMenu);
+  };
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -44,10 +46,24 @@ const Header = () => {
   return (
     <div className="navbar">
       <div className="nav">
-        <div className="icon">
-          <h1>JOB PORTAL</h1>
+        <div
+          className=""
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <div className="header-icons">
+            <div className="icon">
+              <h1>Lokal Hire</h1>
+            </div>
+            <button className="menu-icon" onClick={toggleMenu}>
+              {showMenu ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
         </div>
-        <div className="sidenav">
+        <div className={`sidenav ${showMenu ? "active" : ""}`}>
           <div className="middlenav">
             <ul>
               <li className="home">
@@ -59,11 +75,11 @@ const Header = () => {
               {userRole === "Job Seeker" && (
                 <>
                   <li>
-                    <Link to="/seeker">Create Profile</Link>
+                    <Link to="/jobs">Jobs</Link>
                   </li>
 
                   <li>
-                    <Link to="/jobs">Jobs</Link>
+                    <Link to="/seeker">Create Profile</Link>
                   </li>
                 </>
               )}
@@ -89,7 +105,7 @@ const Header = () => {
             {user ? (
               <div className="user-profile">
                 <img
-                  src={`http://localhost:5001/${user.profilePicture}`}
+                  src={`http://localhost:5001/${user.profile_picture_url}`}
                   alt={user.name}
                   className="profile-picture"
                   onClick={toggleDropdown}
@@ -99,7 +115,7 @@ const Header = () => {
                     borderRadius: "50%",
                   }}
                 />
-                {/* <p>{user.name}</p> */}
+
                 {showDropdown && (
                   <div className="dropdown" ref={dropdownRef}>
                     <Link to="/userprofile">

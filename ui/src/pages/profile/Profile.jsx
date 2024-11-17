@@ -34,7 +34,6 @@ const Profile = () => {
         );
         console.log("User Profile Data:", response.data);
         setProfileData(response.data);
-        // localStorage.setItem("profileData", JSON.stringify(response.data));
       } catch (err) {
         console.error("Error fetching profile:", err);
         setError("Could not load profile. Please try again.");
@@ -112,26 +111,27 @@ const Profile = () => {
   };
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete your profile? This action cannot be undone."
-    );
-    if (!confirmDelete) return;
-    try {
-      const response = await axios.delete(
-        `http://localhost:5001/api/auth/profile/${profileData.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setMessage(response.data.message);
-      localStorage.removeItem("profileData");
-      navigate("/");
-    } catch (error) {
-      setMessage("Error deleting profile. Please try again.");
-      console.error("Delete error:", error);
-    }
+    navigate("/");
+    // const confirmDelete = window.confirm(
+    //   "Are you sure you want to delete your profile? This action cannot be undone."
+    // );
+    // if (!confirmDelete) return;
+    // try {
+    //   const response = await axios.delete(
+    //     `http://localhost:5001/api/auth/profile/${profileData.id}`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //       },
+    //     }
+    //   );
+    //   setMessage(response.data.message);
+    //   localStorage.removeItem("profileData");
+    //   navigate("/");
+    // } catch (error) {
+    //   setMessage("Error deleting profile. Please try again.");
+    //   console.error("Delete error:", error);
+    // }
   };
 
   const handleDeleteJob = async (jobId) => {
@@ -224,161 +224,173 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <h1>
-        User Profile <span className="underline"></span>
-      </h1>
-      <div className="container">
-        <div className="profile-actions">
-          <i
-            className="fas fa-edit"
-            onClick={() => setEditMode(true)}
-            title="Edit Profile"
-          ></i>
-          <i
-            className="fas fa-trash"
-            onClick={handleDelete}
-            title="Delete Profile"
-          ></i>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          padding: "14px",
+          borderRadius: "5px",
+        }}
+      >
+        <div className="my-profile">
+          <h1>My Profile</h1>
+          <span className="underline"></span>
         </div>
-        {message && <p>{message}</p>}
-        {profileData ? (
-          <div className="profile-details">
-            {!editMode ? (
-              <div className="profiles">
-                <div className="profile-user-details">
-                  <div className="user-details">
-                    <h3>{profileData.username}</h3>
-                    <p>
-                      <strong>Email:</strong> <span>{profileData.email}</span>
-                    </p>
+        <div className="container">
+          <div className="profile-actions">
+            <i
+              className="fas fa-edit"
+              onClick={() => setEditMode(true)}
+              title="Edit Profile"
+            ></i>
+            <button onClick={handleDelete} style={{ padding: "3px 8px" }}>
+              back
+            </button>
+          </div>
+          {message && <p>{message}</p>}
+          {profileData ? (
+            <div className="profile-details">
+              {!editMode ? (
+                <div className="profiles">
+                  <div className="profile-user-details">
+                    <div className="profile-img">
+                      <img
+                        src={`http://localhost:5001/${profileData.profile_picture_url}`}
+                        alt={profileData.name}
+                      />
+                    </div>
+                    <div className="user-details">
+                      <h3>{profileData.username}</h3>
+                      <p>{profileData.email}</p>
+                    </div>
+                  </div>
+                  <div>
+                    {profileData.role === "Job Provider" ? (
+                      <JobProviderProfile
+                        profileData={profileData}
+                        jobPosts={jobPosts}
+                        handleEditJob={handleEditJob}
+                        handleUpdateJob={handleUpdateJob}
+                        handleDeleteJob={handleDeleteJob}
+                      />
+                    ) : profileData.role === "Job Seeker" ? (
+                      <JobSeekerProfile
+                        profileData={profileData}
+                        appliedJobs={appliedJobs}
+                        handleDeleteAppliedJob={handleDeleteAppliedJob}
+                      />
+                    ) : null}
                   </div>
                 </div>
-                <div>
-                  {profileData.role === "Job Provider" ? (
-                    <JobProviderProfile
-                      profileData={profileData}
-                      jobPosts={jobPosts}
-                      handleEditJob={handleEditJob}
-                      handleUpdateJob={handleUpdateJob}
-                      handleDeleteJob={handleDeleteJob}
-                    />
-                  ) : profileData.role === "Job Seeker" ? (
-                    <JobSeekerProfile
-                      profileData={profileData}
-                      appliedJobs={appliedJobs}
-                      handleDeleteAppliedJob={handleDeleteAppliedJob}
-                    />
-                  ) : null}
-                </div>
-              </div>
-            ) : (
-              // -----------------update--------------------
-              <div className="update-profiles">
-                <div className="back-arrow-mark">
-                  <FaArrowLeft onClick={() => setEditMode(false)} />
-                </div>
-                <h3>Edit Profile</h3>
-                <div className="update-profile-contents">
-                  <label>Email:</label>
-                  <input type="text" value={profileData.email} readOnly />
-                  <label>Username:</label>
-                  <input type="text" value={profileData.username} readOnly />
-                </div>
-                <div className="update-profile-container">
-                  {profileData.role === "Job Provider" ? (
-                    <div className="update-provider-details">
-                      <label>Location:</label>
-                      <input
-                        type="text"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleChange}
-                      />
-                      <label>Description:</label>
-                      <textarea
-                        name="description"
-                        value={formData.description || ""}
-                        onChange={handleChange}
-                      />
+              ) : (
+                // -----------------update--------------------
+                <div className="update-profiles">
+                  <div className="back-arrow-mark">
+                    <FaArrowLeft onClick={() => setEditMode(false)} />
+                  </div>
+                  <h3>Edit Profile</h3>
+                  <div className="update-profile-contents">
+                    <img src={profileData.profile_picture_url} alt="" />
+                    <label>Email:</label>
+                    <input type="text" value={profileData.email} readOnly />
+                    <label>Username:</label>
+                    <input type="text" value={profileData.username} />
+                  </div>
+                  <div className="update-profile-container">
+                    {profileData.role === "Job Provider" ? (
+                      <div className="update-provider-details">
+                        <label>Location:</label>
+                        <input
+                          type="text"
+                          name="location"
+                          value={formData.location}
+                          onChange={handleChange}
+                        />
+                        <label>Description:</label>
+                        <textarea
+                          name="description"
+                          value={formData.description || ""}
+                          onChange={handleChange}
+                        />
 
-                      <label>Phone Number:</label>
-                      <input
-                        type="text"
-                        name="phone_number"
-                        value={formData.phone_number || ""}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  ) : profileData.role === "Job Seeker" ? (
-                    <div className="update-seeker-details">
-                      <label htmlFor="">Job Title:</label>
-                      <input
-                        type="text"
-                        name="jobtitle"
-                        value={formData.jobtitle || ""}
-                        onChange={handleChange}
-                      />
-                      <label>Skills:</label>
-                      <input
-                        type="text"
-                        name="skills"
-                        value={formData.skills || ""}
-                        onChange={handleChange}
-                      />
+                        <label>Phone Number:</label>
+                        <input
+                          type="text"
+                          name="phone_number"
+                          value={formData.phone_number || ""}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    ) : profileData.role === "Job Seeker" ? (
+                      <div className="update-seeker-details">
+                        <label htmlFor="">Job Title:</label>
+                        <input
+                          type="text"
+                          name="jobtitle"
+                          value={formData.jobtitle || ""}
+                          onChange={handleChange}
+                        />
+                        <label>Skills:</label>
+                        <input
+                          type="text"
+                          name="skills"
+                          value={formData.skills || ""}
+                          onChange={handleChange}
+                        />
 
-                      <label>Education:</label>
-                      <input
-                        type="text"
-                        name="education"
-                        value={formData.education || ""}
-                        onChange={handleChange}
-                      />
-                      <label>Phone Number:</label>
-                      <input
-                        type="text"
-                        name="phone_number"
-                        value={formData.phone_number || ""}
-                        onChange={handleChange}
-                      />
-                      <label>Experience:</label>
-                      <input
-                        type="text"
-                        name="experience"
-                        value={formData.experience || ""}
-                        onChange={handleChange}
-                      />
-                      <label htmlFor="">Address:</label>
-                      <input
-                        type="text"
-                        name="location"
-                        value={formData.location || ""}
-                        onChange={handleChange}
-                      />
+                        <label>Education:</label>
+                        <input
+                          type="text"
+                          name="education"
+                          value={formData.education || ""}
+                          onChange={handleChange}
+                        />
+                        <label>Phone Number:</label>
+                        <input
+                          type="text"
+                          name="phone_number"
+                          value={formData.phone_number || ""}
+                          onChange={handleChange}
+                        />
+                        <label>Experience:</label>
+                        <input
+                          type="text"
+                          name="experience"
+                          value={formData.experience || ""}
+                          onChange={handleChange}
+                        />
+                        <label htmlFor="">Address:</label>
+                        <input
+                          type="text"
+                          name="location"
+                          value={formData.location || ""}
+                          onChange={handleChange}
+                        />
 
-                      <label htmlFor="">Job Type</label>
-                      <input
-                        type="text"
-                        name="jobtype"
-                        value={formData.jobtype || ""}
-                      />
-                      <label htmlFor="">Resume</label>
-                      <input
-                        type="file"
-                        name="resume"
-                        accept="application/pdf" // Restrict file types to PDF (optional)
-                        onChange={handleFileChange} // Handle file input change
-                      />
-                    </div>
-                  ) : null}
+                        <label htmlFor="">Job Type</label>
+                        <input
+                          type="text"
+                          name="jobtype"
+                          value={formData.jobtype || ""}
+                        />
+                        <label htmlFor="">Resume</label>
+                        <input
+                          type="file"
+                          name="resume"
+                          accept="application/pdf" // Restrict file types to PDF (optional)
+                          onChange={handleFileChange} // Handle file input change
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                  <button onClick={handleUpdate}>Save Changes</button>
+                  <button onClick={() => setEditMode(false)}>Cancel</button>
                 </div>
-                <button onClick={handleUpdate}>Save Changes</button>
-                <button onClick={() => setEditMode(false)}>Cancel</button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <p>No profile data found.</p>
-        )}
+              )}
+            </div>
+          ) : (
+            <p>No profile data found.</p>
+          )}
+        </div>
       </div>
     </div>
   );

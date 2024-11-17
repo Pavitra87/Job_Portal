@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./alljob.css";
-import notfound from "../../assets/notfound.png";
+import notfound1 from "../../assets/notfound1.png";
 import { useAuth } from "../../authenticated/AuthContext";
 
 const AllJobs = () => {
@@ -262,11 +262,13 @@ const AllJobs = () => {
                 </li>
               ))
             ) : (
-              <img
-                src={notfound}
-                alt="No job listings found"
-                className="notfound"
-              />
+              <div className="notfound-img">
+                <img
+                  src={notfound1}
+                  alt="No job listings found"
+                  className="notfound"
+                />
+              </div>
             )}
           </ul>
         </div>

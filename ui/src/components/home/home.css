@@ -4,7 +4,18 @@
   justify-content: center;
   padding: 40px 25px;
   background-color: #f5f5f5;
-  margin: auto;
+  margin: 10px auto;
+  animation: fadeInUp 1s ease-in;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .home_contain {
@@ -14,11 +25,33 @@
   max-width: 1200px;
   width: 100%;
   gap: 20px;
+  animation: slideIn 1.5s ease;
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .left {
   flex: 1;
   padding: 20px;
+  animation: fadeInLeft 1s ease-in-out;
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .title h1 {
@@ -27,6 +60,17 @@
   color: #333;
   line-height: 1.3;
   margin-bottom: 20px;
+  animation: zoomIn 1s ease;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .subtitle h2 {

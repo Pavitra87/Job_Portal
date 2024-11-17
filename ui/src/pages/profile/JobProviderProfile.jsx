@@ -116,13 +116,16 @@ const JobProviderProfile = ({
           <span>{profileData.profile.description}</span>
         </p>
         <p>
-          <strong>Phone Number:</strong>
+          <strong>Contact No:</strong>
           <span>{profileData.profile.phone_number}</span>
         </p>
       </div>
 
       <div className="provider-posts-job">
-        <h2>Your Job Posts</h2>
+        <div className="post-title">
+          <h2>Your Job Posts</h2>
+          <span className="underline"></span>
+        </div>
         {jobPosts.length > 0 ? (
           <div className="provider-posts-job-container">
             <table className="job-details-table">
@@ -193,72 +196,78 @@ const JobProviderProfile = ({
 
         {viewingApplicantsForJob && currentJob && (
           <div className="applicats-model">
-            <span>
-              {" "}
-              <RxCross2 onClick={handleCloseApplicants} />
-            </span>
-            <h3>
-              Applicants for Job: {currentJob.title || "Unknown Job Title"}
-            </h3>
+            <div className="applicant-model-content">
+              <span>
+                {" "}
+                <RxCross2 onClick={handleCloseApplicants} />
+              </span>
+              <div className="applicants-heading">
+                <h3 style={{ fontSize: "20px" }}>
+                  Applicants for Job: {currentJob.title || "Unknown Job Title"}
+                </h3>
+              </div>
 
-            <table>
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone Number</th>
-                  <th>Skills</th>
-                  <th>Education</th>
-                  <th>Experience</th>
-                  <th>Location</th>
-                  <th>Job Type</th>
-                  <th>Resume</th>
-                </tr>
-              </thead>
-              <tbody>
-                {applicants.length > 0 ? (
-                  applicants.map((applicant, index) => (
-                    <tr key={applicant.id}>
-                      <td>{index + 1}</td>
-                      <td>{applicant.seeker?.username || "N/A"}</td>
-                      <td>{applicant.seeker?.email || "N/A"}</td>
-                      <td>
-                        {applicant.seeker?.profile?.phone_number || "N/A"}
-                      </td>
-                      <td>{applicant.seeker?.profile?.skills || "N/A"}</td>
-                      <td>{applicant.seeker?.profile?.education || "N/A"}</td>
-                      <td>{applicant.seeker?.profile?.experience || "N/A"}</td>
-                      <td>{applicant.seeker?.profile?.location || "N/A"}</td>
-                      <td>{applicant.seeker?.profile?.jobtype || "N/A"}</td>
-                      <td>
-                        {applicant.seeker?.profile?.resume ? (
-                          <>
-                            {/* {console.log(
+              <table>
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact No</th>
+                    <th>Skills</th>
+                    <th>Education</th>
+                    <th>Experience</th>
+                    <th>Location</th>
+                    <th>Job Type</th>
+                    <th>Resume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {applicants.length > 0 ? (
+                    applicants.map((applicant, index) => (
+                      <tr key={applicant.id}>
+                        <td>{index + 1}</td>
+                        <td>{applicant.seeker?.username || "N/A"}</td>
+                        <td>{applicant.seeker?.email || "N/A"}</td>
+                        <td>
+                          {applicant.seeker?.profile?.phone_number || "N/A"}
+                        </td>
+                        <td>{applicant.seeker?.profile?.skills || "N/A"}</td>
+                        <td>{applicant.seeker?.profile?.education || "N/A"}</td>
+                        <td>
+                          {applicant.seeker?.profile?.experience || "N/A"}
+                        </td>
+                        <td>{applicant.seeker?.profile?.location || "N/A"}</td>
+                        <td>{applicant.seeker?.profile?.jobtype || "N/A"}</td>
+                        <td>
+                          {applicant.seeker?.profile?.resume ? (
+                            <>
+                              {/* {console.log(
                               "Resume applicants path:",
                               applicant.seeker.profile.resume
                             )} */}
-                            <a
-                              href={`http://localhost:5001/${applicant.seeker.profile.resume}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              View Resume
-                            </a>
-                          </>
-                        ) : (
-                          "N/A"
-                        )}
-                      </td>
+                              <a
+                                href={`http://localhost:5001/${applicant.seeker.profile.resume}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                View Resume
+                              </a>
+                            </>
+                          ) : (
+                            "N/A"
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="2">No applicants found.</td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="2">No applicants found.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

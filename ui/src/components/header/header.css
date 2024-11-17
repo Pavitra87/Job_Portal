@@ -14,11 +14,25 @@
   align-items: center;
   margin: auto 30px;
 }
+.menu-icon {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
 .sidenav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+  transition: all 0.3s ease;
+}
+.sidenav.active {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .icon h1 {
@@ -164,23 +178,157 @@
   object-fit: cover;
 }
 
-/* Mobile View */
-@media (max-width: 768px) {
+/* ----------------------------------------------------------- */
+@media (max-width: 900px) {
+  /* Flex direction for smaller screens */
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Hide sidenav by default */
+  .sidenav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #1d1d1d;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 1000;
+    padding: 15px 0;
+  }
+
+  /* Show sidenav when active */
+  .sidenav.active {
+    display: flex;
+  }
+
   .middlenav ul {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    gap: 15px;
+  }
+
+  .middlenav ul li {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .middlenav ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    color: white;
+  }
+
+  /* Menu icon for mobile */
+  .menu-icon {
+    display: block;
+    font-size: 28px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Rightnav for buttons */
+  .rightnav {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+  .btns a {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  /* Adjust profile dropdown position */
+  .dropdown {
+    top: 50px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* @media screen and (max-width: 900px) {
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .menu-icon {
+    display: block;
+  }
+
+
+  .sidenav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sidenav.active {
+    display: flex;
+    background-color: #1d1d1d;
+    padding: 10px;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .middlenav ul {
+    flex-direction: column;
+    width: 100%;
   }
 
   .middlenav ul li {
     margin: 10px 0;
   }
 
+  .btns {
+    flex-direction: column;
+  }
+
   .rightnav {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .btns a {
-    margin: 10px 0;
+    margin: 5px 0;
+    font-size: 14px;
   }
-}
+
+  .profile-picture {
+    width: 30px;
+    height: 30px;
+  }
+
+  .dropdown {
+    width: 100%;
+    right: auto;
+    text-align: left;
+  }
+
+  .dropdown a {
+    justify-content: flex-start;
+  }
+
+  .logout {
+    justify-content: flex-start;
+  }
+} */

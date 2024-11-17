@@ -1,15 +1,39 @@
 .job-listing-form {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
+  animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .job-listing-form h2 {
   text-align: center;
   margin-bottom: 20px;
+  animation: slideIn 1s ease-in-out; /* Slide-in animation */
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .job-listing-form input,
@@ -19,27 +43,46 @@
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth focus effect */
+}
+
+.job-listing-form input:focus,
+.job-listing-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .job-listing-form button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #414141;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hover and active effects */
+}
+
+.job-listing-form button:hover {
+  background-color: #151515;
+}
+
+.job-listing-form button:active {
+  transform: scale(0.95); /* Slightly shrink on click */
 }
 
 .job-listing-form button:disabled {
   background-color: #007bff80; /* Lighten the button when disabled */
+  cursor: not-allowed;
 }
 
 .error-message {
   color: red;
+  animation: fadeIn 0.5s ease-in; /* Error message animation */
 }
 
 .success-message {
   color: green;
+  animation: fadeIn 0.5s ease-in; /* Success message animation */
 }

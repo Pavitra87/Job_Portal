@@ -7,14 +7,35 @@
   background-color: #fff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  animation: fadeIn 1s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .register h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
+  animation: slideIn 1.2s ease;
 }
-
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 .register form {
   display: flex;
   flex-direction: column;
@@ -29,6 +50,15 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+  animation: inputFocusIn 0.5s ease;
+}
+@keyframes inputFocusIn {
+  from {
+    background-color: #f9f9f9;
+  }
+  to {
+    background-color: #fff;
+  }
 }
 .register .job-type {
   font-size: 10px;
@@ -54,7 +84,7 @@
 .register button {
   width: 100%;
   padding: 12px;
-  background-color: #5a67d8;
+  background-color: #414141;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -62,10 +92,21 @@
   font-size: 16px;
   margin-top: 15px;
   transition: 0.5s;
+  animation: zoomIn 1s ease;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .register button:hover {
-  background-color: #717eec;
+  background-color: #151515;
 }
 
 .upload-label {
@@ -74,6 +115,7 @@
   align-items: center;
   margin: 10px 0;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .profile {
@@ -90,6 +132,17 @@
   justify-content: center;
   font-size: 24px;
   color: #fff;
+  animation: fadeInScale 1.2s ease;
+}
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .profile-preview {

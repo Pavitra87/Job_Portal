@@ -3,6 +3,7 @@ import axios from "axios";
 import "./createjob.css";
 import { useAuth } from "../../authenticated/AuthContext";
 import { useNavigate } from "react-router-dom";
+import direction2 from "../../assets/direction2.jpg";
 
 const CreateJobApplication = () => {
   const { user } = useAuth();
@@ -80,6 +81,7 @@ const CreateJobApplication = () => {
       <h2>Create Job Listing</h2>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"

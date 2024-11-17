@@ -20,11 +20,6 @@ const Home = () => {
                 close to home.Your future is just around the corner!{" "}
               </h2>
             </div>
-            <div className="serch-btn">
-              <button>
-                <Link to="/jobs">Find Job</Link>
-              </button>
-            </div>
           </div>
 
           <div className="right">

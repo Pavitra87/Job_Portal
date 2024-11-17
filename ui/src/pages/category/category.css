@@ -6,6 +6,15 @@
   text-align: center;
   width: 90%;
   margin: 40px auto;
+  animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .category-contain {
@@ -43,6 +52,17 @@
   border-radius: 8px;
   text-align: center;
   transition: transform 0.3s ease;
+  animation: popIn 0.8s ease forwards;
+}
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .category-item h4 {

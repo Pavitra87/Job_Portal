@@ -1,5 +1,6 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
+
 const prisma = new PrismaClient();
 
 const createJobProviderProfile = async (req, res) => {
@@ -34,6 +35,7 @@ const createJobProviderProfile = async (req, res) => {
         userId: user.id,
         description,
         phone_number,
+
         location,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -214,7 +216,7 @@ const updateProfile = async (req, res) => {
         resume: resume || existingProfile.resume,
       },
       include: {
-        user: true, // Include user data if needed in response
+        user: true,
       },
     });
 

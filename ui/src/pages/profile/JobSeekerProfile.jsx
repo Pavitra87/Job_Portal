@@ -13,61 +13,70 @@ const JobSeekerProfile = ({
   return (
     <div className="seeker-container">
       <div className="seeker-profile-details">
-        <p className="skills">
-          <strong>Skills:</strong>
-          <span className="chips">
-            {profileData.profile?.skills
-              ? profileData.profile.skills.split(",").map((skill, index) => (
-                  <span key={index} className="chip">
-                    {skill.trim()}
-                  </span>
-                ))
-              : "N/A"}
-          </span>
-        </p>
-        <p>
-          <strong>Job Title:</strong>
-          <span>{profileData.profile?.jobtitle}</span>
-        </p>
-        <p>
-          <strong>Education:</strong>
-          <span>{profileData.profile?.education}</span>
-        </p>
-        <p>
-          <strong>Phone Number:</strong>
-          <span>{profileData.profile?.phone_number}</span>
-        </p>
-        <p>
-          <strong>Experience:</strong>
-          <span>{profileData.profile?.experience}</span>
-        </p>
-        <p>
-          <strong>Address:</strong>
-          <span>{profileData.profile?.location}</span>
-        </p>
-        <p>
-          <strong>Job Type:</strong>
-          <span>{profileData.profile?.jobtype}</span>
-        </p>
-        <p>
-          <strong>Resume:</strong>
-          {profileData.profile?.resume ? (
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="resume-link"
-            >
-              View Resume
-            </a>
-          ) : (
-            "No resume uploaded"
-          )}
-        </p>
+        <div>
+          <p>
+            <strong>Job Title:</strong>
+            <span>{profileData.profile?.jobtitle}</span>
+          </p>
+
+          <p>
+            <strong>Education:</strong>
+            <span>{profileData.profile?.education}</span>
+          </p>
+          <p>
+            <strong>Contact No:</strong>
+            <span>{profileData.profile?.phone_number}</span>
+          </p>
+          <p>
+            <strong>Experience:</strong>
+            <span>{profileData.profile?.experience}</span>
+          </p>
+
+          <p>
+            <strong>Address:</strong>
+            <span>{profileData.profile?.location}</span>
+          </p>
+          <p>
+            <strong>Job Type:</strong>
+            <span>{profileData.profile?.jobtype}</span>
+          </p>
+        </div>
+        <div>
+          <p className="skills">
+            <strong>Skills:</strong>
+            <span className="chips">
+              {profileData.profile?.skills
+                ? profileData.profile.skills.split(",").map((skill, index) => (
+                    <span key={index} className="chip">
+                      {skill.trim()}
+                    </span>
+                  ))
+                : "N/A"}
+            </span>
+          </p>
+          <p className="resume">
+            <strong>Resume:</strong>
+            {profileData.profile?.resume ? (
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="resume-link"
+              >
+                View Resume
+              </a>
+            ) : (
+              "No resume uploaded"
+            )}
+          </p>
+        </div>
       </div>
 
       <div className="seeker-applied-job">
-        <h2>Applied Jobs</h2>
+        <div className="apply-title">
+          <h2>Applied Jobs</h2>
+          <span className="underline"></span>
+        </div>
         {appliedJobs.length === 0 ? (
           <p>No job applications found</p>
         ) : (
