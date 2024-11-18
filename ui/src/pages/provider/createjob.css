@@ -86,3 +86,30 @@
   color: green;
   animation: fadeIn 0.5s ease-in; /* Success message animation */
 }
+@media (max-width: 675px) {
+  .job-listing-form {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .job-listing-form h2 {
+    font-size: 22px;
+  }
+
+  .job-listing-form input,
+  .job-listing-form textarea {
+    font-size: 14px;
+  }
+
+  .job-listing-form button {
+    font-size: 14px;
+  }
+}
+
+/* For smaller devices with max width 445px */
+@media (max-width: 445px) {
+  .job-listing-form {
+    max-width: 95%;
+    padding: 12px;
+  }
+}

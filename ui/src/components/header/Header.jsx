@@ -46,22 +46,14 @@ const Header = () => {
   return (
     <div className="navbar">
       <div className="nav">
-        <div
-          className=""
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <div className="header-icons">
-            <div className="icon">
-              <h1>Lokal Hire</h1>
-            </div>
-            <button className="menu-icon" onClick={toggleMenu}>
-              {showMenu ? <FaTimes /> : <FaBars />}
-            </button>
+        <div className="head-icon">
+          <div className="icon">
+            <h1>Lokal Hire</h1>
           </div>
+
+          <button className="menu-icon" onClick={toggleMenu}>
+            {showMenu ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
         <div className={`sidenav ${showMenu ? "active" : ""}`}>
           <div className="middlenav">

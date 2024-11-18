@@ -101,3 +101,88 @@
 .job-seeker-profile .message.error {
   color: #dc3545;
 }
+
+/* ---------------------------- */
+/* jobseeker.css */
+
+@media screen and (max-width: 578px) {
+  .job-seeker-profile {
+    max-width: 90%; /* Increase width to fit smaller screens */
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .job-seeker-profile h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .job-seeker-profile form {
+    gap: 12px;
+  }
+
+  .job-seeker-profile input[type="text"],
+  .job-seeker-profile input[type="file"],
+  .job-seeker-profile button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .job-seeker-profile .message {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .job-seeker-profile {
+    max-width: 90%;
+    padding: 12px;
+  }
+
+  .job-seeker-profile h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .job-seeker-profile form {
+    gap: 10px;
+  }
+
+  .job-seeker-profile input[type="text"],
+  .job-seeker-profile input[type="file"],
+  .job-seeker-profile button {
+    padding: 7px;
+    font-size: 13px;
+  }
+
+  .job-seeker-profile .message {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .job-seeker-profile {
+    max-width: 90%;
+    padding: 10px;
+  }
+
+  .job-seeker-profile h1 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .job-seeker-profile form {
+    gap: 8px;
+  }
+
+  .job-seeker-profile input[type="text"],
+  .job-seeker-profile input[type="file"],
+  .job-seeker-profile button {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .job-seeker-profile .message {
+    font-size: 12px;
+  }
+}

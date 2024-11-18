@@ -132,3 +132,65 @@
   font-style: italic;
   color: #888;
 }
+
+/* ----------------------------------------------- */
+@media (max-width: 568px) {
+  .job-provider-profile {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .job-provider-profile h1 {
+    font-size: 22px;
+  }
+
+  .job-provider-profile input,
+  .job-provider-profile textarea,
+  .job-provider-profile button {
+    font-size: 14px;
+  }
+
+  .applicats-model h3 {
+    font-size: 1.4em;
+  }
+
+  .applicats-model th,
+  .applicats-model td {
+    padding: 10px;
+  }
+
+  .applicats-model td[colspan="2"] {
+    font-size: 14px;
+  }
+}
+
+/* For mobile screens with max width 375px */
+@media (max-width: 375px) {
+  .job-provider-profile {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  .job-provider-profile h1 {
+    font-size: 20px;
+  }
+
+  .job-provider-profile input,
+  .job-provider-profile textarea,
+  .job-provider-profile button {
+    font-size: 12px;
+  }
+
+  .applicats-model h3 {
+    font-size: 1.2em;
+  }
+
+  .applicats-model th,
+  .applicats-model td {
+    padding: 8px;
+  }
+
+  .applicats-model td[colspan="2"] {
+    font-size: 12px;
+  }
+}

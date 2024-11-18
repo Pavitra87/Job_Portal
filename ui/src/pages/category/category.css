@@ -82,3 +82,105 @@
 .category-item:hover {
   transform: translateY(-5px);
 }
+
+/* ---------------------------- */
+@media (max-width: 900px) {
+  .category {
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .category-heading h1 {
+    font-size: 1.8rem; /* Slightly smaller heading */
+  }
+
+  .category-details {
+    gap: 15px; /* Adjust gap between items */
+  }
+
+  .category-item {
+    width: 130px; /* Smaller width for category items */
+    padding: 12px; /* Reduce padding inside items */
+  }
+
+  .category-item img {
+    width: 70px; /* Smaller icons/images */
+    height: 70px;
+    object-fit: cover;
+  }
+
+  .category-item h4 {
+    font-size: 0.9rem; /* Smaller font size */
+  }
+}
+@media (max-width: 645px) {
+  .category-heading h1 {
+    font-size: 1.6rem; /* Adjust heading size */
+  }
+
+  .category-details {
+    gap: 10px; /* Reduce spacing between items */
+  }
+
+  .category-item {
+    width: 110px; /* Smaller category items */
+    padding: 10px;
+  }
+
+  .category-item img {
+    width: 60px; /* Smaller images */
+    height: 60px;
+  }
+
+  .category-item h4 {
+    font-size: 0.8rem; /* Adjust text size */
+  }
+}
+@media (max-width: 450px) {
+  .category {
+    width: 95%; /* Use most of the available screen */
+    margin: 20px auto; /* Reduce margin */
+  }
+
+  .category-heading h1 {
+    font-size: 1.4rem; /* Smaller heading */
+  }
+
+  .category-item {
+    width: 100px; /* Compact items */
+    padding: 8px;
+  }
+
+  .category-item img {
+    width: 50px; /* Smaller images */
+    height: 50px;
+  }
+
+  .category-item h4 {
+    font-size: 0.7rem; /* Compact font size */
+  }
+}
+@media (max-width: 375px) {
+  .category-heading h1 {
+    font-size: 1.2rem; /* Compact heading */
+    margin-bottom: 15px; /* Adjust spacing */
+  }
+
+  .category-item {
+    width: 60%;
+
+    padding: 17px;
+  }
+
+  .category-item img {
+    width: 40px; /* Small icons */
+    height: 40px;
+  }
+
+  .category-item h4 {
+    font-size: 0.6rem; /* Adjust font size */
+  }
+
+  .category-details {
+    gap: 8px; /* Tighter spacing */
+  }
+}

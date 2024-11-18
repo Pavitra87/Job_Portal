@@ -165,3 +165,80 @@
   font-size: 12px;
   margin-bottom: 20px;
 }
+@media (max-width: 450px) {
+  .login {
+    padding: 15px;
+    margin: 30px auto;
+  }
+
+  .login input[type="email"],
+  .login input[type="password"],
+  .login button {
+    font-size: 0.85rem;
+  }
+
+  .login h1 {
+    font-size: 1.5rem;
+  }
+
+  .login button {
+    margin-top: 50px;
+  }
+
+  .forgot-password-link {
+    font-size: 10px;
+  }
+
+  .account-links {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .account-links .register-link {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 447px) {
+  .login {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .login input[type="email"],
+  .login input[type="password"] {
+    padding: 8px;
+    width: 90%;
+  }
+
+  .login button {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .login h1 {
+    font-size: 1.4rem;
+  }
+
+  .forgot-password-link {
+    font-size: 9px;
+  }
+
+  .account-links {
+    flex-direction: column;
+    margin-top: 5px;
+  }
+
+  .account-links .register-link {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+}
+@media (max-width: 447px) {
+  .login input[type="email"],
+  .login input[type="password"] {
+    padding: 8px;
+    width: 100%;
+  }
+}

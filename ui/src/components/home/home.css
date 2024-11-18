@@ -111,3 +111,98 @@
   height: auto;
   border-radius: 8px;
 }
+
+/* ------------------------------------------ */
+@media (max-width: 900px) {
+  .home_contain {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .right img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .left,
+  .right {
+    flex: none;
+    width: 90%; /* Take full width for better alignment */
+    /* padding: 10px; */
+  }
+
+  .title h1 {
+    font-size: 36px; /* Reduce title size */
+  }
+
+  .subtitle h2 {
+    font-size: 18px;
+  }
+
+  .serch-btn button {
+    width: 100%; /* Buttons adapt to screen width */
+    padding: 12px;
+  }
+}
+@media (max-width: 645px) {
+  .home_container {
+    padding: 20px 15px; /* Reduce padding */
+  }
+
+  .title h1 {
+    font-size: 28px; /* Adjust font size */
+  }
+
+  .subtitle h2 {
+    font-size: 16px;
+  }
+
+  .serch-btn button {
+    font-size: 12px; /* Smaller buttons */
+    padding: 10px;
+  }
+
+  .right img {
+    width: 90%; /* Shrink image size */
+  }
+}
+@media (max-width: 450px) {
+  .home_container {
+    width: 95%; /* Use most of the screen */
+  }
+
+  .title h1 {
+    font-size: 24px;
+    line-height: 1.2; /* Adjust line height */
+  }
+
+  .subtitle h2 {
+    font-size: 14px;
+  }
+
+  .serch-btn button {
+    padding: 8px 10px;
+  }
+
+  .right img {
+    width: 100%; /* Full-width images */
+  }
+}
+@media (max-width: 375px) {
+  .title h1 {
+    font-size: 20px;
+  }
+
+  .subtitle h2 {
+    font-size: 12px;
+  }
+
+  .serch-btn button {
+    font-size: 10px;
+    padding: 6px 8px; /* Compact buttons */
+  }
+
+  .home_contain {
+    gap: 20px; /* Tighter spacing */
+  }
+}

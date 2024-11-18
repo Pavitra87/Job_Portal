@@ -180,10 +180,24 @@
 
 /* ----------------------------------------------------------- */
 @media (max-width: 900px) {
-  /* Flex direction for smaller screens */
   .nav {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .head-icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+  }
+  .sidenav .btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: 0.5s;
   }
 
   /* Hide sidenav by default */
@@ -193,15 +207,18 @@
     width: 100%;
     background-color: #1d1d1d;
     position: absolute;
-    top: 60px;
+    top: 70px;
+    right: 0;
     left: 0;
     z-index: 1000;
     padding: 15px 0;
+    transform: translateZ(-3ch);
   }
 
   /* Show sidenav when active */
   .sidenav.active {
     display: flex;
+    transition: 0.5s;
   }
 
   .middlenav ul {
@@ -233,6 +250,7 @@
     background: none;
     border: none;
     cursor: pointer;
+    margin-left: 100px;
   }
 
   /* Rightnav for buttons */
@@ -251,84 +269,50 @@
 
   /* Adjust profile dropdown position */
   .dropdown {
-    top: 50px;
-    right: 50%;
+    left: 44px;
+    top: 0px;
     transform: translateX(50%);
+  }
+  .dropdown a {
+    font-size: 14px;
+    padding: 0px;
+  }
+}
+@media (max-width: 645px) {
+  .middlenav ul li a {
+    font-size: 16px;
+  }
+  .nav {
+    margin: 0;
   }
 }
 
-/* @media screen and (max-width: 900px) {
-  .navbar {
-    padding: 10px 20px;
-  }
-
-  .nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+@media (max-width: 450px) {
   .menu-icon {
-    display: block;
+    font-size: 24px;
   }
-
-
-  .sidenav {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .sidenav.active {
-    display: flex;
-    background-color: #1d1d1d;
-    padding: 10px;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-
-  .middlenav ul {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .middlenav ul li {
-    margin: 10px 0;
-  }
-
-  .btns {
-    flex-direction: column;
-  }
-
-  .rightnav {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .dropdown {
+    right: 10%;
+    transform: none;
   }
 
   .btns a {
-    margin: 5px 0;
-    font-size: 14px;
+    font-size: 16px;
   }
+}
 
+@media (max-width: 375px) {
   .profile-picture {
     width: 30px;
     height: 30px;
   }
-
-  .dropdown {
-    width: 100%;
-    right: auto;
-    text-align: left;
+  .icon h1 {
+    font-size: 18px;
   }
-
-  .dropdown a {
-    justify-content: flex-start;
+  .nav {
+    margin: 0;
   }
-
-  .logout {
-    justify-content: flex-start;
+  .navbar {
+    padding: 10px;
   }
-} */
+}

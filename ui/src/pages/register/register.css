@@ -178,3 +178,88 @@
   margin-top: 10px;
   font-weight: bold;
 }
+
+/* ------------------------------------------ */
+
+@media (max-width: 450px) {
+  .register {
+    max-width: 90%; /* Take up full width */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .register h1 {
+    font-size: 23px; /* Smaller heading */
+  }
+
+  .register input,
+  .register select,
+  .register textarea {
+    font-size: 13px; /* Smaller font size */
+    padding: 8px; /* Adjust input padding */
+  }
+
+  .register button {
+    font-size: 13px; /* Adjust button font size */
+    padding: 10px; /* Adjust button padding */
+  }
+
+  .default-avatar {
+    margin-top: 5px;
+    width: 70px;
+    height: 70px; /* Make avatar smaller */
+  }
+
+  .profile-preview {
+    width: 50px;
+    height: 50px; /* Adjust profile image size */
+  }
+
+  .account-links .text {
+    font-size: 12px; /* Smaller text size */
+  }
+
+  .login-link {
+    font-size: 12px; /* Adjust login link font size */
+  }
+}
+@media (max-width: 375px) {
+  .register {
+    max-width: 90%; /* Full width form */
+    padding: 8px; /* Reduce padding */
+  }
+
+  .register h1 {
+    font-size: 20px;
+    margin-bottom: 7px; /* Very small heading size */
+  }
+
+  .register input,
+  .register select,
+  .register textarea {
+    font-size: 12px; /* Reduce input font size */
+    padding: 6px; /* Minimized padding */
+  }
+
+  .register button {
+    font-size: 12px; /* Smaller button text */
+    padding: 8px; /* Minimized padding for the button */
+  }
+
+  .default-avatar {
+    width: 60px;
+    height: 60px; /* Very small avatar */
+  }
+
+  .profile-preview {
+    width: 40px;
+    height: 40px; /* Adjust profile image size */
+  }
+
+  .account-links .text {
+    font-size: 11px; /* Small text size */
+  }
+
+  .login-link {
+    font-size: 11px; /* Smaller login link font */
+  }
+}

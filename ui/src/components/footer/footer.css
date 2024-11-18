@@ -37,3 +37,94 @@
 .join-btn button a {
   font-size: 16px;
 }
+/* ---------------------------------- */
+@media (max-width: 900px) {
+  .footer {
+    padding: 30px; /* Reduce padding on medium screens */
+  }
+
+  .heding h1 {
+    font-size: 40px; /* Slightly smaller heading */
+  }
+
+  .small p {
+    font-size: 16px; /* Adjust font size */
+  }
+
+  .join-btn button {
+    padding: 10px 12px; /* Adjust button padding */
+  }
+
+  .join-btn button a {
+    font-size: 14px; /* Slightly smaller text for button */
+  }
+}
+@media (max-width: 645px) {
+  .footer {
+    padding: 25px; /* Reduce padding for smaller screens */
+  }
+
+  .heding h1 {
+    font-size: 30px; /* Further reduce heading size */
+  }
+
+  .small p {
+    font-size: 14px; /* Adjust paragraph font size */
+    line-height: 1.5; /* Improved readability */
+  }
+
+  .join-btn button {
+    padding: 10px 12px; /* Keep button size reasonable */
+  }
+
+  .join-btn button a {
+    font-size: 14px; /* Adjust button font size */
+  }
+}
+@media (max-width: 450px) {
+  .footer {
+    padding: 20px; /* Reduce padding even more */
+    width: 100%; /* Ensure the footer takes full width */
+  }
+
+  .heding h1 {
+    font-size: 24px; /* Smaller heading size for compact view */
+  }
+
+  .small p {
+    font-size: 13px; /* Smaller text for paragraph */
+    line-height: 1.4;
+  }
+
+  .join-btn button {
+    padding: 8px 10px; /* Smaller button padding */
+    font-size: 14px; /* Keep button text readable */
+  }
+
+  .join-btn button a {
+    font-size: 13px; /* Smaller text for button */
+  }
+}
+@media (max-width: 375px) {
+  .footer {
+    padding: 15px; /* Keep the footer compact */
+  }
+
+  .heding h1 {
+    font-size: 22px; /* Further reduce heading size */
+    margin-bottom: 15px; /* Adjust margin to fit */
+  }
+
+  .small p {
+    font-size: 12px; /* Smaller font size for text */
+    line-height: 1.4;
+  }
+
+  .join-btn button {
+    padding: 8px 10px; /* Maintain small button size */
+  }
+
+  .join-btn button a {
+    font-size: 12px; /* Ensure button text stays compact */
+  }
+}

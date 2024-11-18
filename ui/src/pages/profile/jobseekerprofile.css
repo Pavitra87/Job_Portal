@@ -126,3 +126,85 @@
 .apply-job-details .fas:hover {
   color: #0056b3;
 }
+
+/* --------------------------------- */
+/* For screen width <= 900px */
+@media (max-width: 900px) {
+  .seeker-profile-details {
+    flex-direction: column; /* Stack details vertically */
+    gap: 20px;
+  }
+  .apply-title h2 {
+    font-size: 18px; /* Reduce title font size */
+  }
+}
+
+/* For screen width <= 765px */
+@media (max-width: 765px) {
+  .seeker-profile-details {
+    gap: 15px;
+  }
+  .chips {
+    gap: 5px;
+    margin-left: 5px; /* Adjust chip spacing */
+  }
+  .chip {
+    padding: 4px 8px; /* Smaller padding for chips */
+    font-size: 0.8rem;
+  }
+  .apply-job-details th,
+  .apply-job-details td {
+    padding: 8px 10px; /* Adjust table padding */
+  }
+}
+
+/* For screen width <= 645px */
+@media (max-width: 645px) {
+  .apply-title {
+    flex-direction: column; /* Stack title and underline */
+    align-items: flex-start; /* Align left */
+    gap: 5px;
+  }
+  .apply-title h2 {
+    font-size: 16px;
+  }
+  .apply-title .underline {
+    width: 100%; /* Full width underline */
+  }
+}
+
+/* For screen width <= 450px */
+@media (max-width: 450px) {
+  .seeker-profile-details .resume {
+    flex-direction: column; /* Stack resume content */
+    align-items: flex-start;
+  }
+  .seeker-profile-details p {
+    font-size: 13px; /* Reduce paragraph font size */
+  }
+  .apply-job-details th,
+  .apply-job-details td {
+    font-size: 13px; /* Smaller table text */
+  }
+}
+
+/* For screen width <= 375px */
+@media (max-width: 375px) {
+  .seeker-container {
+    gap: 20px; /* Reduce container gap */
+  }
+  .seeker-profile-details div {
+    gap: 3px; /* Adjust details gap */
+  }
+  .chip {
+    padding: 3px 6px; /* Minimal chip padding */
+    font-size: 0.7rem; /* Smaller chip font */
+  }
+  .apply-title h2 {
+    font-size: 15px; /* Reduce title size */
+  }
+  .apply-job-details th,
+  .apply-job-details td {
+    font-size: 12px; /* Smallest table font size */
+  }
+}

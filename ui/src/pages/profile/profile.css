@@ -111,7 +111,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for the back arrow */
 .back-arrow-mark {
   display: flex;
   align-items: center;
@@ -129,7 +128,6 @@
   color: #007bff;
 }
 
-/* Section title */
 .update-profiles h3 {
   font-size: 1.8rem;
   font-weight: bold;
@@ -138,7 +136,6 @@
   text-align: center;
 }
 
-/* Input labels and containers */
 .update-profile-contents label,
 .update-provider-details label,
 .update-seeker-details label {
@@ -162,14 +159,12 @@
   margin-top: 5px;
 }
 
-/* Specific styling for text areas */
 .update-provider-details textarea,
 .update-seeker-details textarea {
   height: 80px;
   resize: vertical;
 }
 
-/* Layout for Job Provider and Job Seeker sections */
 .update-profile-container {
   margin-top: 20px;
 }
@@ -183,7 +178,6 @@
   margin-bottom: 15px;
 }
 
-/* Buttons styling */
 .update-profiles button {
   width: 25%;
   padding: 10px;
@@ -205,7 +199,6 @@
   color: #fff;
 }
 
-/* Cancel button styling */
 .update-profiles button:last-child {
   background-color: #0b0b0b;
   color: #fff;
@@ -216,4 +209,117 @@
   background-color: #ffffff;
   border: 1px solid #010101;
   color: #0d0d0d;
+}
+/* ------------------------ */
+/* Responsive Design */
+
+/* 900px and below */
+
+@media (max-width: 900px) {
+  .profile-container {
+    padding: 15px;
+  }
+  .profile-user-details img {
+    width: 80px;
+    height: 80px;
+  }
+  .user-details h3 {
+    font-size: 18px;
+  }
+  .update-profiles button {
+    width: 40%;
+    font-size: 0.9rem;
+  }
+}
+
+/* 765px and below */
+@media (max-width: 765px) {
+  .profile-user-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .profile-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .provider-profile-details p,
+  .seeker-profile-details p {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .update-profiles {
+    max-width: 500px;
+    padding: 15px;
+  }
+  .update-profiles button {
+    width: 50%;
+  }
+}
+
+/* 640px and below */
+@media (max-width: 640px) {
+  .profile-container {
+    padding: 10px;
+  }
+  .my-profile h1 {
+    font-size: 22px;
+  }
+  .profile-user-details img {
+    width: 70px;
+    height: 70px;
+  }
+  .user-details h3 {
+    font-size: 16px;
+  }
+  .update-profiles {
+    max-width: 100%;
+  }
+  .update-profiles button {
+    width: 60%;
+    padding: 10px;
+  }
+}
+
+/* 450px and below */
+@media (max-width: 450px) {
+  .profile-user-details img {
+    width: 60px;
+    height: 60px;
+  }
+  .my-profile h1 {
+    font-size: 20px;
+  }
+  .user-details h3 {
+    font-size: 15px;
+  }
+  .update-profiles button {
+    font-size: 0.8rem;
+    width: 70%;
+  }
+  .update-profile-container {
+    margin-top: 10px;
+  }
+}
+
+/* 375px and below */
+@media (max-width: 375px) {
+  .profile-user-details img {
+    width: 50px;
+    height: 50px;
+  }
+  .my-profile h1 {
+    font-size: 18px;
+  }
+  .user-details h3 {
+    font-size: 14px;
+  }
+  .update-profiles button {
+    font-size: 0.7rem;
+    width: 80%;
+    padding: 8px;
+  }
+  .update-profile-container {
+    margin-top: 5px;
+  }
 }
