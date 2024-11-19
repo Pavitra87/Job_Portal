@@ -1,0 +1,109 @@
+{
+  "title": "Lokal Hire",
+  "navbar": {
+    "home": "Home",
+    "category": "Category",
+    "jobs": "Jobs",
+    "createProfileSeeker": "Create Profile",
+    "createProfileProvider": "Create Profile",
+    "postJob": "Post Job",
+    "candidates": "Candidates",
+    "register": "Register",
+    "login": "Login",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "register": {
+    "title": "Register",
+    "username": "Enter your Name",
+    "email": "Enter your Email",
+    "password": "Enter your Password",
+    "role": "Select Role",
+    "jobSeeker": "Job Seeker",
+    "jobProvider": "Job Provider",
+    "registerButton": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "LogIn",
+    "messageError": "Error registering user. Please try again."
+  },
+  "login": {
+    "title": "Login",
+    "emailPlaceholder": "Enter your Email",
+    "passwordPlaceholder": "Enter your Password",
+    "loginButton": "Login",
+    "registerLink": "Register",
+    "accountText": "Don't have an account?",
+    "messageSuccess": "Login successful!",
+    "messageError": "Error logging in. Please check your credentials."
+  },
+  "providerProfile": {
+    "jobProviderProfile": "Job Provider Profile",
+    "description": "Description",
+    "location": "Location",
+    "contactNumber": "Contact Number",
+    "createProfile": "Create Profile",
+    "profileCreatedSuccess": "Profile created successfully!",
+    "profileCreationError": "Error creating profile. Please try again.",
+    "missingAuthorizationToken": "Authorization token is missing. Please log in again.",
+    "loading": "Loading..."
+  },
+  "createjoblist": {
+    "alljobtitle": "Job Lists",
+    "createJobListing": "Create Job Listing",
+    "jobTitle": "Job Title",
+    "jobDescription": "Job Description",
+    "requirements": "Requirements",
+    "preferredSkills": "Preferred Skills",
+    "address": "Address",
+    "education": "Education",
+    "experience": "Experience",
+    "salaryRange": "Salary Range",
+    "postedAt": "Posted At",
+    "expiresAt": "Expires At",
+    "submit": "Submit",
+    "errorCreatingJob": "Error creating job listing: ",
+    "jobListingSuccess": "Job listing created successfully!",
+    "applyjob": "Apply Job"
+  },
+  "candidates": {
+    "heading": "Job Seeker Profiles",
+    "filters": {
+      "job_title": "Job Title:",
+      "skills": "Skills:",
+      "education": "Education:",
+      "experience": "Experience:"
+    },
+    "profile_details": {
+      "name": "Name:",
+      "email": "Email:",
+      "education": "Education:",
+      "skills": "Skills:",
+      "contactNumber": "Contact No",
+      "experience": "Experience:",
+      "resume": "Resume:",
+      "jobtype": "jobtype",
+      "no_resume": "No resume uploaded"
+    },
+    "messages": {
+      "loading": "Loading job seekers...",
+      "error": "Could not fetch job seekers. Please try again.",
+      "no_results": "No job seekers found."
+    }
+  },
+  "jobSeekerProfile": {
+    "jobSeekerProfile": "Job Seeker Profile",
+    "jobTitle": "Job Title",
+    "skills": "Skills",
+    "experience": "Experience",
+    "location": "Location",
+    "education": "Education",
+    "phoneNumber": "Phone Number",
+    "jobType": "Job Type",
+    "upload": "Upload",
+    "createProfile": "Create Profile",
+    "authorizationMissing": "Authorization token is missing. Please log in again.",
+    "profileCreated": "Profile created successfully!",
+    "profileError": "Error creating profile. Please try again.",
+    "loading": "Loading..."
+  }
+}

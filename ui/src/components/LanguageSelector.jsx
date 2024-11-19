@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import "./langselector.css";
 
 const languages = [
   { code: "en", lang: "English" },
@@ -8,27 +9,33 @@ const languages = [
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
+  const [isKannada, setIsKannada] = useState(i18n.language === "ka");
 
   const changeLanguage = (lng) => {
+    console.log(`Switching to ${lng}`);
     i18n.changeLanguage(lng);
+    setIsKannada(lng === "ka");
   };
+
   useEffect(() => {
     document.body.dir = i18n.dir();
-  }, [i18n, i18n.language]);
+  }, [i18n.language]);
 
   return (
-    <div className="btn-container">
-      {languages.map((lng) => {
-        return (
-          <button
-            className={lng.code === i18n.language ? "selected" : ""}
-            key={lng.code}
-            onClick={() => changeLanguage(lng.code)}
-          >
-            {lng.lang}
-          </button>
-        );
-      })}
+    <div className="lang-selector">
+      <div
+        className="btn-container"
+        onClick={() => changeLanguage(isKannada ? "en" : "ka")}
+      >
+        <span
+          style={{
+            transform: isKannada ? "translateX(20px)" : "translateX(0)",
+          }}
+        ></span>
+      </div>
+      <div className="language-label">
+        <span>{isKannada ? "Ka" : "En"}</span>
+      </div>
     </div>
   );
 };

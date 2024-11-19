@@ -5,8 +5,10 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../authenticated/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -62,11 +64,11 @@ const Login = () => {
   return (
     <div className="login">
       <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
+        <h1>{t("login.title")}</h1>
         <input
           type="email"
           name="email"
-          placeholder="Enter your Email"
+          placeholder={t("login.emailPlaceholder")}
           value={formData.email}
           onChange={handleChange}
           required
@@ -75,7 +77,7 @@ const Login = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            placeholder="Enter your Password"
+            placeholder={t("login.passwordPlaceholder")}
             value={formData.password}
             onChange={handleChange}
             required
@@ -87,13 +89,13 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">{t("login.loginButton")}</button>
         <div className="account-links">
           <p className="text">
-            Don't have an account?
+            {t("login.accountText")}
             <span>
               <Link className="register-link" to="/register">
-                Register
+                {t("login.registerLink")}
               </Link>
             </span>
           </p>

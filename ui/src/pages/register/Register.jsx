@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
+  const { t } = useTranslation(); // Use translation hook to access translated strings
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -73,7 +76,7 @@ const Register = () => {
       setProfilePicture(null);
       navigate("/login");
     } catch (error) {
-      setMessage("Error registering user. Please try again.");
+      setMessage(t("register.messageError")); // Use translated error message
       console.error("Registration error:", error);
     }
   };
@@ -85,10 +88,11 @@ const Register = () => {
       }
     };
   }, [profilePreview]);
+
   return (
     <div className="register">
       <form onSubmit={handleSubmit}>
-        <h1>Register</h1>
+        <h1>{t("register.title")}</h1> {/* Translated title */}
         <input
           id="profileInput"
           type="file"
@@ -108,11 +112,10 @@ const Register = () => {
             <div className="default-avatar">+</div>
           )}
         </label>
-
         <input
           type="text"
           name="username"
-          placeholder="Enter your Name"
+          placeholder={t("register.username")} // Translated placeholder
           value={formData.username}
           onChange={handleChange}
           required
@@ -120,7 +123,7 @@ const Register = () => {
         <input
           type="email"
           name="email"
-          placeholder="Enter your Email"
+          placeholder={t("register.email")} // Translated placeholder
           value={formData.email}
           onChange={handleChange}
           required
@@ -129,7 +132,7 @@ const Register = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            placeholder="Enter your Password"
+            placeholder={t("register.password")} // Translated placeholder
             value={formData.password}
             onChange={handleChange}
             required
@@ -146,18 +149,19 @@ const Register = () => {
           onChange={handleChange}
           required
         >
-          <option value="Job Seeker">Job Seeker</option>
-          <option value="Job Provider">Job Provider</option>
+          <option value="Job Seeker">{t("register.jobSeeker")}</option>{" "}
+          {/* Translated option */}
+          <option value="Job Provider">{t("register.jobProvider")}</option>{" "}
+          {/* Translated option */}
         </select>
-
-        <button type="submit">Register</button>
-
+        <button type="submit">{t("register.registerButton")}</button>{" "}
+        {/* Translated button text */}
         <div className="account-links">
           <p className="text">
-            Already have an account? &nbsp;
+            {t("register.alreadyHaveAccount")} &nbsp;
             <span>
               <Link className="login-link" to="/login">
-                LogIn
+                {t("register.loginLink")}
               </Link>
             </span>
           </p>

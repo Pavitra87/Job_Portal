@@ -42,17 +42,17 @@
   flex: 1;
 }
 
-.seeker-profile-details p .resume-link {
+.seeker-profile-details div p .resume-link {
   border: 0.5px solid #000000;
   padding: 6px;
   border-radius: 3px;
 }
-.seeker-profile-details p strong {
+.seeker-profile-details div p strong {
   color: #797979;
   font-weight: 500;
   font-family: "Nunito Sans", sans-serif;
 }
-.seeker-profile-details p span {
+.seeker-profile-details div p span {
   color: #1e1e1e;
   font-family: "Nunito Sans", sans-serif;
 }
@@ -143,6 +143,10 @@
 @media (max-width: 765px) {
   .seeker-profile-details {
     gap: 15px;
+  }
+  .seeker-profile-details div p {
+    display: flex;
+    flex-direction: row;
   }
   .chips {
     gap: 5px;

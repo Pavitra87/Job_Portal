@@ -3,8 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./jobseeker.css";
 import { useAuth } from "../../authenticated/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const JobSeeker = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     location: "",
@@ -60,12 +62,12 @@ const JobSeeker = () => {
 
   return (
     <div className="job-seeker-profile">
-      <h1>Job Seeker Profile</h1>
+      <h1>{t("jobSeekerProfile.jobSeekerProfile")}</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="jobtitle"
-          placeholder="Job Title"
+          placeholder={t("jobSeekerProfile.jobTitle")}
           value={formData.jobtitle}
           onChange={handleChange}
           required
@@ -73,7 +75,7 @@ const JobSeeker = () => {
         <input
           type="text"
           name="skills"
-          placeholder="Skills"
+          placeholder={t("jobSeekerProfile.skills")}
           value={formData.skills}
           onChange={handleChange}
           required
@@ -82,7 +84,7 @@ const JobSeeker = () => {
         <input
           type="text"
           name="experience"
-          placeholder="Experience"
+          placeholder={t("jobSeekerProfile.experience")}
           value={formData.experience}
           onChange={handleChange}
           required
@@ -90,7 +92,7 @@ const JobSeeker = () => {
         <input
           type="text"
           name="location"
-          placeholder="Location"
+          placeholder={t("jobSeekerProfile.location")}
           value={formData.location}
           onChange={handleChange}
           required
@@ -98,7 +100,7 @@ const JobSeeker = () => {
         <input
           type="text"
           name="education"
-          placeholder="Education"
+          placeholder={t("jobSeekerProfile.education")}
           value={formData.education}
           onChange={handleChange}
           required
@@ -106,7 +108,7 @@ const JobSeeker = () => {
         <input
           type="text"
           name="phone_number"
-          placeholder="Phone Number"
+          placeholder={t("jobSeekerProfile.phoneNumber")}
           value={formData.phone_number}
           onChange={handleChange}
           required
@@ -114,7 +116,7 @@ const JobSeeker = () => {
         <input
           type="text"
           name="jobtype"
-          placeholder="jobtype"
+          placeholder={t("jobSeekerProfile.jobType")}
           value={formData.jobtype}
           onChange={handleChange}
           required
@@ -126,7 +128,7 @@ const JobSeeker = () => {
           onChange={handleFileChange}
         />
         {/* <button type="submit">Upload</button> */}
-        <button type="submit">Create Profile</button>
+        <button type="submit">{t("jobSeekerProfile.createProfile")}</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>

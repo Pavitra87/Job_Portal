@@ -3,8 +3,10 @@ import axios from "axios";
 import "./alljob.css";
 import notfound1 from "../../assets/notfound1.png";
 import { useAuth } from "../../authenticated/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const AllJobs = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [jobListings, setJobListings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -117,18 +119,20 @@ const AllJobs = () => {
   return (
     <>
       <div className="jobs-container">
-        <h2>Job Listings</h2>
+        <h2>{t("createjoblist.alljobtitle")}</h2>
         <div className="filter-contains-jobs">
           <div className="filter-container">
             <div className="filter-contain-sticky">
               <h4>Find Your Job</h4>
               <form className="filter-form">
                 <div className="filter-field">
-                  <label htmlFor="jobtitle">Job Title:</label>
+                  <label htmlFor="jobtitle">
+                    {t("createjoblist.jobTitle")}:
+                  </label>
                   <input
                     id="jobtitle"
                     type="text"
-                    placeholder="Filter Job Title"
+                    placeholder={t("createjoblist.jobTitle")}
                     value={filters.title}
                     onChange={(e) =>
                       setFilters({ ...filters, title: e.target.value })
@@ -137,10 +141,12 @@ const AllJobs = () => {
                 </div>
 
                 <div className="filter-field">
-                  <label htmlFor="jobtitle">Skills:</label>
+                  <label htmlFor="jobtitle">
+                    {t("createjoblist.preferredSkills")}:
+                  </label>
                   <input
                     type="text"
-                    placeholder="Filter Preferred Skills"
+                    placeholder={t("createjoblist.preferredSkills")}
                     value={filters.preferredSkills}
                     onChange={(e) =>
                       setFilters({
@@ -152,11 +158,13 @@ const AllJobs = () => {
                 </div>
 
                 <div className="filter-field">
-                  <label htmlFor="education">Education:</label>
+                  <label htmlFor="education">
+                    {t("createjoblist.education")}:
+                  </label>
                   <input
                     id="education"
                     type="text"
-                    placeholder="Filter Education"
+                    placeholder={t("createjoblist.education")}
                     value={filters.education}
                     onChange={(e) =>
                       setFilters({ ...filters, education: e.target.value })
@@ -165,11 +173,13 @@ const AllJobs = () => {
                 </div>
 
                 <div className="filter-field">
-                  <label htmlFor="experience">Experience:</label>
+                  <label htmlFor="experience">
+                    {t("createjoblist.experience")}:
+                  </label>
                   <input
                     id="experience"
                     type="text"
-                    placeholder="Filter Experience"
+                    placeholder={t("createjoblist.experience")}
                     value={filters.experience}
                     onChange={(e) =>
                       setFilters({ ...filters, experience: e.target.value })
@@ -178,11 +188,11 @@ const AllJobs = () => {
                 </div>
 
                 <div className="filter-field">
-                  <label htmlFor="address">Address:</label>
+                  <label htmlFor="address">{t("createjoblist.address")}:</label>
                   <input
                     id="address"
                     type="text"
-                    placeholder="Filter Location"
+                    placeholder={t("createjoblist.address")}
                     value={filters.address}
                     onChange={(e) =>
                       setFilters({ ...filters, address: e.target.value })
@@ -191,10 +201,12 @@ const AllJobs = () => {
                 </div>
 
                 <div className="filter-field">
-                  <label htmlFor="salary">Salary:</label>
+                  <label htmlFor="salary">
+                    {t("createjoblist.salaryRange")}:
+                  </label>
                   <input
                     type="text"
-                    placeholder="Filter Salary"
+                    placeholder={t("createjoblist.salaryRange")}
                     value={filters.salary_range}
                     onChange={(e) =>
                       setFilters({ ...filters, salary_range: e.target.value })
@@ -210,26 +222,27 @@ const AllJobs = () => {
                 <li key={job.id}>
                   <h3>{job.title}</h3>
                   <p>
-                    <strong>Description:</strong>
+                    <strong>{t("createjoblist.jobDescription")}:</strong>
                     <span>{job.description}</span>
                   </p>
                   <p>
-                    <strong>Address:</strong> <span>{job.address}</span>
+                    <strong>{t("createjoblist.address")}:</strong>{" "}
+                    <span>{job.address}</span>
                   </p>
                   <p>
-                    <strong>Education:</strong>
+                    <strong>{t("createjoblist.education")}:</strong>
                     <span>{job.education}</span>
                   </p>
                   <p>
-                    <strong>Experience:</strong>
+                    <strong>{t("createjoblist.experience")}:</strong>
                     <span>{job.experience}</span>
                   </p>
                   <p>
-                    <strong>Requirements:</strong>
+                    <strong>{t("createjoblist.requirements")}:</strong>
                     <span>{job.requirements}</span>
                   </p>
                   <p className="skills">
-                    <strong>Skills:</strong>
+                    <strong>{t("createjoblist.preferredSkills")}:</strong>
                     <span className="chips">
                       {job.preferredSkills
                         ? job.preferredSkills.split(",").map((skill, index) => (
@@ -241,22 +254,22 @@ const AllJobs = () => {
                     </span>
                   </p>
                   <p>
-                    <strong>Salary Range:</strong>{" "}
+                    <strong>{t("createjoblist.salaryRange")}:</strong>{" "}
                     <span>{job.salary_range}</span>
                   </p>
                   <p>
-                    <strong>Posted At:</strong>{" "}
+                    <strong>{t("createjoblist.postedAt")}:</strong>{" "}
                     {new Date(job.posted_at).toLocaleDateString()}
                   </p>
                   <p>
-                    <strong>Expires At:</strong>{" "}
+                    <strong>{t("createjoblist.expiresAt")}:</strong>{" "}
                     {new Date(job.expires_at).toLocaleDateString()}
                   </p>
                   <button
                     onClick={() => applyForJob(job.id)}
                     disabled={appliedJobs.includes(job.id)}
                   >
-                    Apply Job
+                    {t("createjoblist.applyjob")}
                     {/* {appliedJobs.includes(job.id) ? "Applied" : "Apply for job"} */}
                   </button>
                 </li>

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./jobseekerprofile.css";
 import Table from "../../components/Table/Table";
+import { useTranslation } from "react-i18next";
 
 const JobSeekerProfile = ({
   profileData,
   appliedJobs,
   handleDeleteAppliedJob,
 }) => {
+  const { t } = useTranslation();
   const resumeUrl = profileData.profile?.resume
     ? `http://localhost:5001/${profileData.profile.resume}`
     : null;

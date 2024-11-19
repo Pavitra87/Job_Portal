@@ -269,13 +269,7 @@
   .my-profile h1 {
     font-size: 22px;
   }
-  /* .profile-user-details img {
-    width: 70px;
-    height: 70px;
-  }
-  .user-details h3 {
-    font-size: 16px;
-  } */
+
   .update-profiles {
     max-width: 100%;
   }
@@ -307,6 +301,9 @@
 
 /* 375px and below */
 @media (max-width: 375px) {
+  .profile-container {
+    padding: 0px;
+  }
   .profile-user-details {
     gap: 10px;
   }

@@ -299,8 +299,9 @@
 /* General Responsive Adjustments */
 
 /* Breakpoint at 865px */
-@media (max-width: 752px) {
+@media (max-width: 765px) {
   .provider-profile-details p {
     display: flex;
+    flex-direction: row;
   }
 }

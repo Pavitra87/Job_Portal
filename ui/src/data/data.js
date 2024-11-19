@@ -10,6 +10,7 @@ import plumbing from "../assets/category/plumbing.png";
 import sales from "../assets/category/sales.png";
 import teaching from "../assets/category/teaching.png";
 import travelling from "../assets/category/travelling.png";
+import { useTranslation } from "react-i18next";
 
 const data = [
   {

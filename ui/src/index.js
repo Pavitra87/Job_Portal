@@ -10,7 +10,7 @@ import "./i18n";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <React.Suspense fallback="loading....">
+    <React.Suspense fallback={<div>Loading translations...</div>}>
       <AuthProvider>
         <App />
       </AuthProvider>

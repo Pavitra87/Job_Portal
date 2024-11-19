@@ -1,0 +1,109 @@
+{
+  "title": "ಲೋಕಲ್ ಹೈರ್",
+  "navbar": {
+    "home": "ಮನೆ",
+    "category": "ವರ್ಗ",
+    "jobs": "ಉದ್ಯೋಗಗಳು",
+    "createProfileSeeker": "ಪ್ರೊಫೈಲ್ ರಚಿಸಿ",
+    "createProfileProvider": "ಪ್ರೊಫೈಲ್ ರಚಿಸಿ",
+    "postJob": "ಉದ್ಯೋಗ ಪೋಸ್ಟ್ ಮಾಡಿ",
+    "candidates": "ಅಭ್ಯರ್ಥಿಗಳು",
+    "register": "ನೋಂದಣಿ",
+    "login": "ಲಾಗಿನ್",
+    "profile": "ಪ್ರೊಫೈಲ್",
+    "logout": "ಲಾಗ್ ಔಟ್"
+  },
+  "register": {
+    "title": "ರಿಜಿಸ್ಟರ್",
+    "username": "ನಿಮ್ಮ ಹೆಸರು ನಮೂದಿಸಿ",
+    "email": "ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ",
+    "password": "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+    "role": "ರೋಲ್ ಆಯ್ಕೆಮಾಡಿ",
+    "jobSeeker": "ಹುಡುಕಾಟಗಾರ",
+    "jobProvider": "ಕೆಲಸ ಒದಗಿಸುವವನು",
+    "registerButton": "ರಿಜಿಸ್ಟರ್ ಮಾಡಿ",
+    "alreadyHaveAccount": "ಇದ್ದೇ ಎಕ್ಸಕೌಂಟ್ ಇದೆಯೇ?",
+    "loginLink": "ಲಾಗಿನ್ ಮಾಡಿ",
+    "messageError": "ಬಳಕೆದಾರರನ್ನು ನೋಂದಾಯಿಸುವಲ್ಲಿ ದೋಷವಾಯಿತು. ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "login": {
+    "title": "ಲಾಗಿನ್",
+    "emailPlaceholder": "ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ",
+    "passwordPlaceholder": "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
+    "loginButton": "ಲಾಗಿನ್ ಮಾಡಿ",
+    "registerLink": "ನೋಂದಣಿ",
+    "accountText": "ಖಾತೆ ಇಲ್ಲವೇ?",
+    "messageSuccess": "ಲಾಗಿನ್ ಯಶಸ್ವಿಯಾಗಿದೆ!",
+    "messageError": "ಲಾಗಿನ್ ಮಾಡಲು ದೋಷವಾಯಿತು. ದಯವಿಟ್ಟು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."
+  },
+  "providerProfile": {
+    "jobProviderProfile": "ಕಾಮಗಾರಿಯ ಪೂರೈಕೆದಾರರ ಪ್ರೊಫೈಲ್",
+    "description": "ವಿವರಣೆ",
+    "location": "ಸ್ಥಳ",
+    "contactNumber": "ಸಂಪರ್ಕ ಸಂಖ್ಯೆ",
+    "createProfile": "ಪ್ರೊಫೈಲ್ ರಚಿಸಿ",
+    "profileCreatedSuccess": "ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ರಚನೆಯಾಯಿತು!",
+    "profileCreationError": "ಪ್ರೊಫೈಲ್ ರಚನೆಯಲ್ಲಿ ದೋಷ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "missingAuthorizationToken": "ಪ್ರಾಧಿಕಾರ ಟೋಕನ್ ಕಣ್ಮರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಲಾಗಿನ್ ಮಾಡಿ.",
+    "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ..."
+  },
+  "createjoblist": {
+    "alljobtitle": "ಜಾಬ್ ಲಿಸ್ಟಿಂಗ್ ",
+    "createJobListing": "ಜಾಬ್ ಲಿಸ್ಟಿಂಗ್ ರಚಿಸಿ",
+    "jobTitle": "ಕೆಲಸದ ಶೀರ್ಷಿಕೆ",
+    "jobDescription": "ಕೆಲಸದ ವಿವರಣೆ",
+    "requirements": "ಅಗತ್ಯವಿರುವ ವಿಷಯಗಳು",
+    "preferredSkills": "ಆಗತ್ಯ ಕೌಶಲ್ಯಗಳು",
+    "address": "ವಿಳಾಸ",
+    "education": "ಶಿಕ್ಷಣ",
+    "experience": "ಅನುಭವ",
+    "salaryRange": "ಸಂಬಳದ ವ್ಯಾಪ್ತಿ",
+    "postedAt": "ಹೊಂದಿಸಿದ ದಿನಾಂಕ",
+    "expiresAt": "ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ",
+    "submit": "ಸಲ್ಲಿಸು",
+    "errorCreatingJob": "ಜಾಬ್ ಲಿಸ್ಟಿಂಗ್ ರಚನೆ ತೊಂದರೆ: ",
+    "jobListingSuccess": "ಜಾಬ್ ಲಿಸ್ಟಿಂಗ್ ಯಶಸ್ವಿಯಾಗಿ ರಚನೆಯಾಯಿತು!",
+    "applyjob": "ಅರ್ಜಿಸಲ್ಲಿಸು"
+  },
+  "candidates": {
+    "heading": "ಕೆಲಸ ಹುಡುಕುವವರ ಪ್ರೊಫೈಲ್‌ಗಳು",
+    "filters": {
+      "job_title": "ಕೆಲಸದ ಶೀರ್ಷಿಕೆ:",
+      "skills": "ಜ್ಞಾನ:",
+      "education": "ಶಿಕ್ಷಣ:",
+      "experience": "ಅನುಭವ:"
+    },
+    "profile_details": {
+      "name": "ಹೆಸರು:",
+      "email": "ಇಮೇಲ್:",
+      "education": "ಶಿಕ್ಷಣ:",
+      "skills": "ಜ್ಞಾನ:",
+      "contactNumber": "ಸಂಪರ್ಕ ಸಂಖ್ಯೆ",
+      "experience": "ಅನುಭವ:",
+      "resume": "ರೆಸ್ಯೂಮ್:",
+      "jobtype": "ಕೆಲಸದ ಪ್ರಕಾರ",
+      "no_resume": "ರೆಸ್ಯೂಮ್ ಅಪ್ಲೋಡ್ ಮಾಡಿಲ್ಲ"
+    },
+    "messages": {
+      "loading": "ಕೆಲಸ ಹುಡುಕುವವರನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+      "error": "ಕೆಲಸ ಹುಡುಕುವವರನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+      "no_results": "ಯಾವುದೇ ಕೆಲಸ ಹುಡುಕುವವರು ಕಂಡುಬಂದಿಲ್ಲ."
+    }
+  },
+  "jobSeekerProfile": {
+    "jobSeekerProfile": "ಕೆಲಸದ ಹುಡುಕುವವರ ಪ್ರೊಫೈಲ್",
+    "jobTitle": "ಕೆಲಸದ ಶೀರ್ಷಿಕೆ",
+    "skills": "ಹುಣರುಗಳು",
+    "experience": "ಅನುಭವ",
+    "location": "ಸ್ಥಳ",
+    "education": "ಶಿಕ್ಷಣ",
+    "phoneNumber": "ಫೋನ್ ಸಂಖ್ಯೆ",
+    "jobType": "ಕೆಲಸದ ಪ್ರಕಾರ",
+    "upload": "ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+    "createProfile": "ಪ್ರೊಫೈಲ್ ರಚಿಸಿ",
+    "authorizationMissing": "ಅಧಿಕೃತಪಡಿಸುವ ಟೋಕೆನ್ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಲಾಗಿನ್ ಮಾಡಿ.",
+    "profileCreated": "ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ!",
+    "profileError": "ಪ್ರೊಫೈಲ್ ರಚಿಸಲು ದೋಷ ಉಂಟಾಗಿದೆ. ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.",
+    "loading": "ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ..."
+  }
+}

@@ -30,7 +30,6 @@ const JobProviderProfile = ({
   useEffect(() => {
     const fetchApplicants = async (jobId) => {
       try {
-        // Retrieve the token from localStorage or other storage method
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -38,7 +37,6 @@ const JobProviderProfile = ({
           return;
         }
 
-        // Make the request with the Authorization header
         const response = await axios.get(
           `http://localhost:5001/api/jobListing/${jobId}/applicants`,
           {
@@ -78,11 +76,10 @@ const JobProviderProfile = ({
 
   const handleViewApplicants = (job) => {
     setViewingApplicantsForJob(job.id);
-    setCurrentJob(job); // Store full job details, including title
+    setCurrentJob(job);
   };
   useEffect(() => {
     const handleResize = () => {
-      // Check if window width is less than 1100px
       setIsSmallScreen(window.innerWidth < 1100);
     };
 

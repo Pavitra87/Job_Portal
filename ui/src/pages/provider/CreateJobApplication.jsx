@@ -3,9 +3,10 @@ import axios from "axios";
 import "./createjob.css";
 import { useAuth } from "../../authenticated/AuthContext";
 import { useNavigate } from "react-router-dom";
-import direction2 from "../../assets/direction2.jpg";
+import { useTranslation } from "react-i18next";
 
 const CreateJobApplication = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -78,7 +79,7 @@ const CreateJobApplication = () => {
 
   return (
     <div className="job-listing-form">
-      <h2>Create Job Listing</h2>
+      <h2>{t("createjoblist.createJobListing")}</h2>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
 
@@ -86,27 +87,27 @@ const CreateJobApplication = () => {
         <input
           type="text"
           name="title"
-          placeholder="Job Title"
+          placeholder={t("createjoblist.jobTitle")}
           value={formData.title}
           onChange={handleChange}
           required
         />
         <textarea
           name="description"
-          placeholder="Job Description"
+          placeholder={t("createjoblist.jobDescription")}
           value={formData.description}
           onChange={handleChange}
           required
         />
         <textarea
           name="requirements"
-          placeholder="Requirements"
+          placeholder={t("createjoblist.requirements")}
           value={formData.requirements}
           onChange={handleChange}
         />
         <input
           name="preferredSkills"
-          placeholder="Preferred Skills"
+          placeholder={t("createjoblist.preferredSkills")}
           value={formData.preferredSkills}
           onChange={handleChange}
           required
@@ -114,28 +115,28 @@ const CreateJobApplication = () => {
         <input
           type="text"
           name="address"
-          placeholder="Address"
+          placeholder={t("createjoblist.address")}
           value={formData.address}
           onChange={handleChange}
         />
         <input
           type="text"
           name="education"
-          placeholder="Education"
+          placeholder={t("createjoblist.education")}
           value={formData.education}
           onChange={handleChange}
         />
         <input
           type="text"
           name="experience"
-          placeholder="Experience"
+          placeholder={t("createjoblist.experience")}
           value={formData.experience}
           onChange={handleChange}
         />
         <input
           type="text"
           name="salary_range"
-          placeholder="Salary Range"
+          placeholder={t("createjoblist.salaryRange")}
           value={formData.salary_range}
           onChange={handleChange}
         />
@@ -143,19 +144,19 @@ const CreateJobApplication = () => {
         <input
           type="date"
           name="posted_at"
-          placeholder="Posted At"
+          placeholder={t("createjoblist.postedAt")}
           value={formData.posted_at}
           onChange={handleChange}
         />
         <input
           type="date"
           name="expires_at"
-          placeholder="Expires At"
+          placeholder={t("createjoblist.expiresAt")}
           value={formData.expires_at}
           onChange={handleChange}
         />
         <button type="submit" disabled={loading}>
-          Submit
+          {t("createjoblist.submit")}
         </button>
       </form>
     </div>

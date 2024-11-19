@@ -3,8 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./jobprovider.css";
 import { useAuth } from "../../authenticated/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const JobProvider = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     description: "",
@@ -47,11 +49,11 @@ const JobProvider = () => {
 
   return (
     <div className="job-provider-profile">
-      <h1>Job Provider Profile</h1>
+      <h1>{t("providerProfile.jobProviderProfile")}</h1>
       <form onSubmit={handleSubmit}>
         <textarea
           name="description"
-          placeholder="Description"
+          placeholder={t("providerProfile.description")}
           value={formData.description}
           onChange={handleChange}
           required
@@ -59,7 +61,7 @@ const JobProvider = () => {
         <input
           type="text"
           name="location"
-          placeholder="Location"
+          placeholder={t("providerProfile.location")}
           value={formData.location}
           onChange={handleChange}
           required
@@ -67,12 +69,12 @@ const JobProvider = () => {
         <input
           type="text"
           name="phone_number"
-          placeholder="Contact Number"
+          placeholder={t("providerProfile.contactNumber")}
           value={formData.phone_number}
           onChange={handleChange}
           required
         />
-        <button type="submit">Create Profile</button>
+        <button type="submit">{t("providerProfile.createProfile")}</button>
       </form>
       {message && <p className="message">{message}</p>}
     </div>

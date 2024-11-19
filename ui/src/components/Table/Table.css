@@ -92,29 +92,3 @@
 .table_box .fas.fa-trash:hover {
   color: #c82333;
 }
-
-/* .table_box {
-  border: 1px solid grey;
-  box-shadow: rgba(0 0 0 /0.2) 0 0 12px;
-  border-radius: 5px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.table_box_container {
-  display: flex;
- 
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-}
-.table_box_head {
-  font-weight: 600;
-  font-size: 15px;
-}
-.table_box_des {
-  text-align: center;
-  font-size: 15px;
-  flex: start;
-} */

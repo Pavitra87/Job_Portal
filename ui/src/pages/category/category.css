@@ -122,7 +122,7 @@
   }
 
   .category-item {
-    width: 110px; /* Smaller category items */
+    width: 130px; /* Smaller category items */
     padding: 10px;
   }
 
@@ -132,7 +132,7 @@
   }
 
   .category-item h4 {
-    font-size: 0.8rem; /* Adjust text size */
+    font-size: 0.9rem; /* Adjust text size */
   }
 }
 @media (max-width: 450px) {
@@ -172,12 +172,12 @@
   }
 
   .category-item img {
-    width: 40px; /* Small icons */
-    height: 40px;
+    width: 50px; /* Small icons */
+    height: 50px;
   }
 
   .category-item h4 {
-    font-size: 0.6rem; /* Adjust font size */
+    font-size: 0.9rem; /* Adjust font size */
   }
 
   .category-details {
