@@ -45,7 +45,7 @@
   margin-bottom: 10px;
   color: rgb(43, 1, 1);
 }
-
+/* ---------------------table---------------------------------------- */
 .job-details-table {
   width: 100%;
   margin: auto;
@@ -65,7 +65,8 @@
   background-color: #f2f2f2;
   font-weight: bold;
   color: #333;
-  font-size: 16px;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .job-details-table tbody tr:nth-child(even) {
@@ -74,7 +75,7 @@
 
 .job-details-table tbody td {
   background-color: #fff;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .edit-modal .FaArrowLeft {
@@ -86,6 +87,7 @@
 .job-details-table .fas:hover {
   color: #0056b3;
 }
+/* -------------------------------------------------------- */
 /* Modal overlay to darken background */
 .edit-modal {
   position: fixed;
@@ -295,80 +297,10 @@
   padding: 20px;
 }
 /* General Responsive Adjustments */
-@media (max-width: 900px) {
-  .provider-container {
-    gap: 20px;
-  }
-  .post-title h2 {
-    font-size: 18px;
-  }
-  .job-details-table th,
-  .job-details-table td {
-    padding: 8px;
-  }
-}
 
-@media (max-width: 765px) {
-  .provider-container {
-    gap: 15px;
-  }
-  .post-title h2 {
-    font-size: 16px;
-  }
-  .edit-modal-content {
-    width: 95%;
-  }
-  .job-details-table th,
-  .job-details-table td {
-    padding: 6px;
-  }
-}
-
-@media (max-width: 645px) {
+/* Breakpoint at 865px */
+@media (max-width: 752px) {
   .provider-profile-details p {
-    font-size: 12px;
-  }
-  .edit-modal-content h3 {
-    font-size: 20px;
-  }
-  .edit-modal-content form {
-    gap: 10px;
-  }
-}
-
-@media (max-width: 450px) {
-  .provider-container {
-    gap: 10px;
-  }
-  .post-title h2 {
-    font-size: 14px;
-  }
-  .job-details-table th,
-  .job-details-table td {
-    font-size: 13px;
-    padding: 5px;
-  }
-  .applicant-model-content table tbody td {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 375px) {
-  .edit-modal-content {
-    padding: 15px;
-  }
-  .edit-modal-content form {
-    gap: 8px;
-  }
-  .job-details-table th,
-  .job-details-table td {
-    font-size: 12px;
-  }
-  .provider-profile-details p strong,
-  .provider-profile-details p span {
-    font-size: 12px;
-  }
-  .applicants-heading h3 {
-    font-size: 20px;
+    display: flex;
   }
 }

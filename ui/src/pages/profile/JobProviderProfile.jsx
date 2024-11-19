@@ -3,6 +3,7 @@ import "./jobproviderprofile.css";
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowLeft } from "react-icons/fa6";
 import axios from "axios";
+import Table from "../../components/Table/Table";
 
 const JobProviderProfile = ({
   profileData,
@@ -11,11 +12,21 @@ const JobProviderProfile = ({
   handleDeleteJob,
   handleUpdateJob,
 }) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth > 1100);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentJob, setCurrentJob] = useState(null);
   const [viewingApplicantsForJob, setViewingApplicantsForJob] = useState(null);
   const [applicants, setApplicants] = useState([]);
-
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    requirements: "",
+    preferredSkills: "",
+    education: "",
+    experience: "",
+    address: "",
+    salary_range: "",
+  });
   useEffect(() => {
     const fetchApplicants = async (jobId) => {
       try {
@@ -49,17 +60,6 @@ const JobProviderProfile = ({
     }
   }, [viewingApplicantsForJob]);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    requirements: "",
-    preferredSkills: "",
-    education: "",
-    experience: "",
-    address: "",
-    salary_range: "",
-  });
-
   const handleOpenEditModal = (job) => {
     setCurrentJob(job);
 
@@ -76,6 +76,28 @@ const JobProviderProfile = ({
     setIsEditModalOpen(true);
   };
 
+  const handleViewApplicants = (job) => {
+    setViewingApplicantsForJob(job.id);
+    setCurrentJob(job); // Store full job details, including title
+  };
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if window width is less than 1100px
+      setIsSmallScreen(window.innerWidth < 1100);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Initial check when the component mounts
+    handleResize();
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isSmallScreen]);
+
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
     setCurrentJob(null);
@@ -87,11 +109,6 @@ const JobProviderProfile = ({
       ...prev,
       [name]: value,
     }));
-  };
-
-  const handleViewApplicants = (job) => {
-    setViewingApplicantsForJob(job.id);
-    setCurrentJob(job); // Store full job details, including title
   };
 
   const handleCloseApplicants = () => {
@@ -109,15 +126,15 @@ const JobProviderProfile = ({
       <div className="provider-profile-details">
         <p>
           <strong>Location:</strong>
-          <span>{profileData.profile.location}</span>
+          <span>{profileData.profile?.location}</span>
         </p>
         <p>
           <strong>Description:</strong>
-          <span>{profileData.profile.description}</span>
+          <span>{profileData.profile?.description}</span>
         </p>
         <p>
           <strong>Contact No:</strong>
-          <span>{profileData.profile.phone_number}</span>
+          <span>{profileData.profile?.phone_number}</span>
         </p>
       </div>
 
@@ -128,65 +145,75 @@ const JobProviderProfile = ({
         </div>
         {jobPosts.length > 0 ? (
           <div className="provider-posts-job-container">
-            <table className="job-details-table">
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>Job Title</th>
-                  <th>Description</th>
-                  <th>Requirements</th>
-                  <th>Skills</th>
-                  <th>Education</th>
-                  <th>Experience</th>
-                  <th>Location</th>
-                  <th>Salary Range</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
-                  <th>View Applicants</th>
-                </tr>
-              </thead>
-              <tbody>
-                {jobPosts.map((job, index) => {
-                  return (
-                    <>
-                      <tr key={job.id}>
-                        <td>{index + 1}</td>
-                        <td>{job.title}</td>
-                        <td>{job.description}</td>
-                        <td>{job.requirements}</td>
-                        <td>{job.preferredSkills}</td>
-                        <td>{job.education}</td>
-                        <td>{job.experience}</td>
-                        <td>{job.address}</td>
-                        <td>{job.salary_range}</td>
-                        <td>
-                          <i
-                            className="fas fa-edit"
-                            onClick={() => handleOpenEditModal(job)}
-                            title="Edit Job"
-                          ></i>
-                        </td>
-                        <td>
-                          <i
-                            className="fas fa-trash"
-                            onClick={() => {
-                              console.log("Job ID:", job.id);
-                              handleDeleteJob(job.id);
-                            }}
-                            title="Delete Job"
-                          ></i>
-                        </td>
-                        <td>
-                          <button onClick={() => handleViewApplicants(job)}>
-                            View Applicants
-                          </button>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
-              </tbody>
-            </table>
+            {!isSmallScreen ? (
+              <table className="job-details-table">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Requirements</th>
+                    <th>Skills</th>
+                    <th>Education</th>
+                    <th>Experience</th>
+                    <th>Location</th>
+                    <th>Salary Range</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>View Applicants</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {jobPosts.map((job, index) => {
+                    return (
+                      <>
+                        <tr key={job.id}>
+                          <td>{index + 1}</td>
+                          <td>{job.title}</td>
+                          <td>{job.description}</td>
+                          <td>{job.requirements}</td>
+                          <td>{job.preferredSkills}</td>
+                          <td>{job.education}</td>
+                          <td>{job.experience}</td>
+                          <td>{job.address}</td>
+                          <td>{job.salary_range}</td>
+                          <td>
+                            <i
+                              className="fas fa-edit"
+                              onClick={() => handleOpenEditModal(job)}
+                              title="Edit Job"
+                            ></i>
+                          </td>
+                          <td>
+                            <i
+                              className="fas fa-trash"
+                              onClick={() => {
+                                console.log("Job ID:", job.id);
+                                handleDeleteJob(job.id);
+                              }}
+                              title="Delete Job"
+                            ></i>
+                          </td>
+                          <td>
+                            <button onClick={() => handleViewApplicants(job)}>
+                              View Applicants
+                            </button>
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <Table
+                data={jobPosts}
+                type={"job post"}
+                handleDeleteJob={handleDeleteJob}
+                handleOpenEditModal={handleOpenEditModal}
+                handleViewApplicants={handleViewApplicants}
+              />
+            )}
           </div>
         ) : (
           <p>No job posts found.</p>
@@ -207,66 +234,74 @@ const JobProviderProfile = ({
                 </h3>
               </div>
 
-              <table>
-                <thead>
-                  <tr>
-                    <th>id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Contact No</th>
-                    <th>Skills</th>
-                    <th>Education</th>
-                    <th>Experience</th>
-                    <th>Location</th>
-                    <th>Job Type</th>
-                    <th>Resume</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applicants.length > 0 ? (
-                    applicants.map((applicant, index) => (
-                      <tr key={applicant.id}>
-                        <td>{index + 1}</td>
-                        <td>{applicant.seeker?.username || "N/A"}</td>
-                        <td>{applicant.seeker?.email || "N/A"}</td>
-                        <td>
-                          {applicant.seeker?.profile?.phone_number || "N/A"}
-                        </td>
-                        <td>{applicant.seeker?.profile?.skills || "N/A"}</td>
-                        <td>{applicant.seeker?.profile?.education || "N/A"}</td>
-                        <td>
-                          {applicant.seeker?.profile?.experience || "N/A"}
-                        </td>
-                        <td>{applicant.seeker?.profile?.location || "N/A"}</td>
-                        <td>{applicant.seeker?.profile?.jobtype || "N/A"}</td>
-                        <td>
-                          {applicant.seeker?.profile?.resume ? (
-                            <>
-                              {/* {console.log(
+              {!isSmallScreen ? (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Contact No</th>
+                      <th>Skills</th>
+                      <th>Education</th>
+                      <th>Experience</th>
+                      <th>Location</th>
+                      <th>Job Type</th>
+                      <th>Resume</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {applicants.length > 0 ? (
+                      applicants.map((applicant, index) => (
+                        <tr key={applicant.id}>
+                          <td>{index + 1}</td>
+                          <td>{applicant.seeker?.username || "N/A"}</td>
+                          <td>{applicant.seeker?.email || "N/A"}</td>
+                          <td>
+                            {applicant.seeker?.profile?.phone_number || "N/A"}
+                          </td>
+                          <td>{applicant.seeker?.profile?.skills || "N/A"}</td>
+                          <td>
+                            {applicant.seeker?.profile?.education || "N/A"}
+                          </td>
+                          <td>
+                            {applicant.seeker?.profile?.experience || "N/A"}
+                          </td>
+                          <td>
+                            {applicant.seeker?.profile?.location || "N/A"}
+                          </td>
+                          <td>{applicant.seeker?.profile?.jobtype || "N/A"}</td>
+                          <td>
+                            {applicant.seeker?.profile?.resume ? (
+                              <>
+                                {/* {console.log(
                               "Resume applicants path:",
                               applicant.seeker.profile.resume
                             )} */}
-                              <a
-                                href={`http://localhost:5001/${applicant.seeker.profile.resume}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                View Resume
-                              </a>
-                            </>
-                          ) : (
-                            "N/A"
-                          )}
-                        </td>
+                                <a
+                                  href={`http://localhost:5001/${applicant.seeker.profile.resume}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  View Resume
+                                </a>
+                              </>
+                            ) : (
+                              "N/A"
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="2">No applicants found.</td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="2">No applicants found.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    )}
+                  </tbody>
+                </table>
+              ) : (
+                <Table data={applicants} />
+              )}
             </div>
           </div>
         )}

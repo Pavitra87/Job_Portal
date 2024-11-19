@@ -112,26 +112,6 @@ const Profile = () => {
 
   const handleDelete = async () => {
     navigate("/");
-    // const confirmDelete = window.confirm(
-    //   "Are you sure you want to delete your profile? This action cannot be undone."
-    // );
-    // if (!confirmDelete) return;
-    // try {
-    //   const response = await axios.delete(
-    //     `http://localhost:5001/api/auth/profile/${profileData.id}`,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //       },
-    //     }
-    //   );
-    //   setMessage(response.data.message);
-    //   localStorage.removeItem("profileData");
-    //   navigate("/");
-    // } catch (error) {
-    //   setMessage("Error deleting profile. Please try again.");
-    //   console.error("Delete error:", error);
-    // }
   };
 
   const handleDeleteJob = async (jobId) => {
@@ -242,9 +222,7 @@ const Profile = () => {
               onClick={() => setEditMode(true)}
               title="Edit Profile"
             ></i>
-            <button onClick={handleDelete} style={{ padding: "3px 8px" }}>
-              back
-            </button>
+            <i class="fa-solid fa-arrow-right-long" onClick={handleDelete}></i>
           </div>
           {message && <p>{message}</p>}
           {profileData ? (
@@ -289,7 +267,7 @@ const Profile = () => {
                   </div>
                   <h3>Edit Profile</h3>
                   <div className="update-profile-contents">
-                    <img src={profileData.profile_picture_url} alt="" />
+                    {/* <img src={profileData.profile_picture_url} alt="" /> */}
                     <label>Email:</label>
                     <input type="text" value={profileData.email} readOnly />
                     <label>Username:</label>

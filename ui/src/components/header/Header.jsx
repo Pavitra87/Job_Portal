@@ -4,6 +4,8 @@ import "./header.css";
 import { useAuth } from "../../authenticated/AuthContext";
 import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
+import LanguageSelector from "../LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -45,6 +47,7 @@ const Header = () => {
 
   return (
     <div className="navbar">
+      <LanguageSelector />
       <div className="nav">
         <div className="head-icon">
           <div className="icon">

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./jobseekerprofile.css";
+import Table from "../../components/Table/Table";
 
 const JobSeekerProfile = ({
   profileData,
@@ -9,6 +10,26 @@ const JobSeekerProfile = ({
   const resumeUrl = profileData.profile?.resume
     ? `http://localhost:5001/${profileData.profile.resume}`
     : null;
+
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth > 1100);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if window width is less than 1100px
+      setIsSmallScreen(window.innerWidth < 1100);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Initial check when the component mounts
+    handleResize();
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isSmallScreen]);
 
   return (
     <div className="seeker-container">
@@ -46,7 +67,7 @@ const JobSeekerProfile = ({
             <strong>Skills:</strong>
             <span className="chips">
               {profileData.profile?.skills
-                ? profileData.profile.skills.split(",").map((skill, index) => (
+                ? profileData.profile?.skills.split(",").map((skill, index) => (
                     <span key={index} className="chip">
                       {skill.trim()}
                     </span>
@@ -81,43 +102,51 @@ const JobSeekerProfile = ({
           <p>No job applications found</p>
         ) : (
           <div className="seeker-apply-job-container">
-            <table className="apply-job-details">
-              <thead>
-                <tr>
-                  <th>Job Title</th>
-                  <th>Description</th>
-                  <th>Requirements</th>
-                  <th>Skills</th>
-                  <th>Education</th>
-                  <th>Experience</th>
-                  <th>Location</th>
-                  <th>Salary Range</th>
+            {!isSmallScreen ? (
+              <table className="apply-job-details">
+                <thead>
+                  <tr>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Requirements</th>
+                    <th>Skills</th>
+                    <th>Education</th>
+                    <th>Experience</th>
+                    <th>Location</th>
+                    <th>Salary Range</th>
 
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {appliedJobs.map((applyjob) => (
-                  <tr key={applyjob.id}>
-                    <td>{applyjob.jobListing.title}</td>
-                    <td>{applyjob.jobListing.description}</td>
-                    <td>{applyjob.jobListing.requirements}</td>
-                    <td>{applyjob.jobListing.preferredSkills}</td>
-                    <td>{applyjob.jobListing.address}</td>
-                    <td>{applyjob.jobListing.education}</td>
-                    <td>{applyjob.jobListing.experience}</td>
-                    <td>{applyjob.jobListing.salary_range}</td>
-                    <td>
-                      <i
-                        className="fas fa-trash"
-                        onClick={() => handleDeleteAppliedJob(applyjob.id)}
-                        title="Delete Application"
-                      ></i>
-                    </td>
+                    <th>Delete</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {appliedJobs.map((applyjob) => (
+                    <tr key={applyjob.id}>
+                      <td>{applyjob.jobListing?.title}</td>
+                      <td>{applyjob.jobListing?.description || "N/A"}</td>
+                      <td>{applyjob.jobListing?.requirements || "N/A"}</td>
+                      <td>{applyjob.jobListing?.preferredSkills || "N/A"}</td>
+                      <td>{applyjob.jobListing?.address || "N/A"}</td>
+                      <td>{applyjob.jobListing?.education || "N/A"}</td>
+                      <td>{applyjob.jobListing?.experience || "N/A"}</td>
+                      <td>{applyjob.jobListing?.salary_range || "N/A"}</td>
+                      <td>
+                        <i
+                          className="fas fa-trash"
+                          onClick={() => handleDeleteAppliedJob(applyjob.id)}
+                          title="Delete Application"
+                        ></i>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <Table
+                data={appliedJobs}
+                handleDeleteAppliedJob={handleDeleteAppliedJob}
+                type={"job applied"}
+              />
+            )}
           </div>
         )}
       </div>
