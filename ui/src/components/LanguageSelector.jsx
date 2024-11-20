@@ -34,7 +34,7 @@ const LanguageSelector = () => {
         ></span>
       </div>
       <div className="language-label">
-        <span>{isKannada ? "Ka" : "En"}</span>
+        <span>{isKannada ? "ಕ" : "en"}</span>
       </div>
     </div>
   );

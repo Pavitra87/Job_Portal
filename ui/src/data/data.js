@@ -12,53 +12,103 @@ import teaching from "../assets/category/teaching.png";
 import travelling from "../assets/category/travelling.png";
 import { useTranslation } from "react-i18next";
 
+// const data = [
+//   {
+//     name: "category.list.finance",
+//     img: accounting,
+//   },
+//   {
+//     name: "category.list.Healthcare & Medicine",
+//     img: healthcare,
+//   },
+//   {
+//     name: "category.list.Sales & Marketing",
+//     img: sales,
+//   },
+//   {
+//     name: "category.list.Education & Training",
+//     img: teaching,
+//   },
+//   {
+//     name: "category.list.Transportation & Logistics",
+//     img: travelling,
+//   },
+//   {
+//     name: "category.list.Creative & Media",
+//     img: media,
+//   },
+//   {
+//     name: "category.list.Cleaning Services",
+//     img: cleaning,
+//   },
+//   {
+//     name: "category.list.Plumbing & Electrical Services",
+//     img: plumbing,
+//   },
+//   {
+//     name: "category.list.Painting & Home Décor",
+//     img: painting,
+//   },
+//   {
+//     name: "category.list.Event Catering & cooking",
+//     img: cooking,
+//   },
+//   {
+//     name: "category.list.Care taker",
+//     img: care,
+//   },
+//   {
+//     name: "category.list.others",
+//     img: others,
+//   },
+// ];
 const data = [
   {
-    name: "Finance & Accounting",
+    name: "category.list.finance", // Translation key
     img: accounting,
   },
   {
-    name: "Healthcare & Medicine",
+    name: "category.list.healthcare",
     img: healthcare,
   },
   {
-    name: "Sales & Marketing",
+    name: "category.list.sales",
     img: sales,
   },
   {
-    name: "Education & Training",
+    name: "category.list.education",
     img: teaching,
   },
   {
-    name: "Transportation & Logistics",
+    name: "category.list.transportation",
     img: travelling,
   },
   {
-    name: "Creative & Media",
+    name: "category.list.creative",
     img: media,
   },
   {
-    name: "Cleaning Services",
+    name: "category.list.cleaning",
     img: cleaning,
   },
   {
-    name: "Plumbing & Electrical Services",
+    name: "category.list.plumbing",
     img: plumbing,
   },
   {
-    name: "Painting & Home Décor",
+    name: "category.list.painting",
     img: painting,
   },
   {
-    name: "Event Catering & cooking",
+    name: "category.list.cooking",
     img: cooking,
   },
   {
-    name: "Care taker",
+    name: "category.list.caretaker",
     img: care,
   },
   {
-    name: "others",
+    name: "category.list.others",
     img: others,
   },
 ];

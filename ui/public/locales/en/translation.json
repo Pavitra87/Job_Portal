@@ -105,5 +105,23 @@
     "profileCreated": "Profile created successfully!",
     "profileError": "Error creating profile. Please try again.",
     "loading": "Loading..."
+  },
+  "category": {
+    "title": "Category",
+    "list": {
+      "finance": "Finance & Accounting",
+      "healthcare": "Healthcare & Medicine",
+      "sales": "Sales & Marketing",
+      "education": "Education & Training",
+      "transportation": "Transportation & Logistics",
+      "creative": "Creative & Media",
+      "cleaning": "Cleaning Services",
+      "plumbing": "Plumbing & Electrical Services",
+      "cooking": "cooking",
+      "painting": "Painting & Home Décor",
+      "catering": "Event Catering & Cooking",
+      "caretaker": "Care Taker",
+      "others": "Others"
+    }
   }
 }
