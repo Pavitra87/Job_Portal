@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 const JobSeeker = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, handleForData } = useAuth();
   const [formData, setFormData] = useState({
     location: "",
     skills: "",
@@ -49,7 +49,8 @@ const JobSeeker = () => {
         },
       });
       setMessage("Profile created successfully!");
-      navigate("/"); // Navigate to job seeker dashboard
+      navigate("/");
+      handleForData(formData);
     } catch (error) {
       setMessage("Error creating profile. Please try again.");
       console.error("Profile error:", error);

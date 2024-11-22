@@ -17,9 +17,14 @@ import JobSeeker from "./pages/profile/JobSeeker";
 import JobProvider from "./pages/profile/JobProvider";
 
 function App() {
+  const [refreshHeader, setRefreshHeader] = useState(false);
+
+  const refreshProfile = () => {
+    setRefreshHeader(!refreshHeader);
+  };
   return (
     <div>
-      <Header />
+      <Header key={refreshHeader} refreshProfile={refreshProfile} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />

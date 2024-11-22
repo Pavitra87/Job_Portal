@@ -8,10 +8,8 @@ import JobSeekerProfile from "./JobSeekerProfile";
 import { FaArrowLeft } from "react-icons/fa6";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, profileData, loading, logout, fetchProfile } = useAuth();
 
-  const [profileData, setProfileData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState("");
@@ -22,26 +20,6 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5001/api/auth/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        console.log("User Profile Data:", response.data);
-        setProfileData(response.data);
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        setError("Could not load profile. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     const fetchJobPosts = async () => {
       try {
         const jobPostsResponse = await axios.get(
@@ -73,11 +51,10 @@ const Profile = () => {
         console.error("Error fetching applied jobs:", err);
       }
     };
+    fetchProfile();
 
     fetchApplications();
     fetchJobPosts();
-
-    fetchProfile();
   }, [user]);
 
   const handleUpdate = async () => {
@@ -92,18 +69,9 @@ const Profile = () => {
         }
       );
 
-      // Merge updated data into profileData
-      setProfileData((prevProfileData) => ({
-        ...prevProfileData,
-        profile: { ...prevProfileData.profile, ...formData },
-      }));
-
-      // localStorage.setItem("profileData", JSON.stringify(response.data.user));
-      setMessage("Profile updated successfully!");
-
-      // Exit edit mode and clear success message after a delay
+      fetchProfile(); // Refresh profile data
+      // setMessage("Profile updated successfully!");
       setEditMode(false);
-      setTimeout(() => setMessage(""), 1000);
     } catch (error) {
       setMessage("Error updating profile. Please try again.");
       console.error("Update error:", error);
@@ -163,7 +131,7 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      // Update the jobPosts state after a successful update
+
       setJobPosts((prevJobPosts) =>
         prevJobPosts.map((job) =>
           job.id === jobId ? { ...job, ...updatedData } : job

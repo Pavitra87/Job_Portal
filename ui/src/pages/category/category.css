@@ -32,8 +32,10 @@
 .category-details {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 20px;
   justify-content: center;
+  padding: 15px;
 }
 
 .category-title {
@@ -46,10 +48,11 @@
 
 .category-item {
   width: 150px;
-  padding: 15px;
+
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  background-color: linear-gradient(rgba(0, 0, 0, 0.7));
   text-align: center;
   transition: transform 0.3s ease;
   animation: popIn 0.8s ease forwards;
@@ -68,13 +71,14 @@
 .category-item h4 {
   font-size: 1rem;
   color: #333;
-  margin-top: 10px;
+  margin-top: 10px; /* Keeps your existing margin-top */
+  padding: 15px; /* Adds inner whitespace */
 }
 
 .category-item img {
   margin-top: 8px;
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -98,13 +102,13 @@
   }
 
   .category-item {
-    width: 130px; /* Smaller width for category items */
+    width: 150px; /* Smaller width for category items */
     padding: 12px; /* Reduce padding inside items */
   }
 
   .category-item img {
-    width: 70px; /* Smaller icons/images */
-    height: 70px;
+    width: 100px; /* Smaller icons/images */
+    height: 100px;
     object-fit: cover;
   }
 

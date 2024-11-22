@@ -12,7 +12,6 @@ const LanguageSelector = () => {
   const [isKannada, setIsKannada] = useState(i18n.language === "ka");
 
   const changeLanguage = (lng) => {
-    console.log(`Switching to ${lng}`);
     i18n.changeLanguage(lng);
     setIsKannada(lng === "ka");
   };
@@ -23,18 +22,23 @@ const LanguageSelector = () => {
 
   return (
     <div className="lang-selector">
-      <div
-        className="btn-container"
-        onClick={() => changeLanguage(isKannada ? "en" : "ka")}
-      >
-        <span
-          style={{
-            transform: isKannada ? "translateX(20px)" : "translateX(0)",
-          }}
-        ></span>
-      </div>
-      <div className="language-label">
-        <span>{isKannada ? "ಕ" : "en"}</span>
+      <p>
+        <span>Lang</span>/<span>ಭಾಷೆ</span>
+      </p>
+      <div className="lang">
+        <div
+          className="btn-container"
+          onClick={() => changeLanguage(isKannada ? "en" : "ka")}
+        >
+          <span
+            style={{
+              transform: isKannada ? "translateX(15px)" : "translateX(0)",
+            }}
+          ></span>
+        </div>
+        <div className="language-label">
+          <span>{isKannada ? "ಕ" : "en"}</span>
+        </div>
       </div>
     </div>
   );

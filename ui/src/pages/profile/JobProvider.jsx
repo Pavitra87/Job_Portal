@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./jobprovider.css";
@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 const JobProvider = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, handleForData } = useAuth();
   const [formData, setFormData] = useState({
     description: "",
     location: "",
@@ -36,6 +36,7 @@ const JobProvider = () => {
       });
       setMessage("Profile created successfully!");
       navigate("/"); // Redirect to provider dashboard or home page
+      handleForData(formData);
     } catch (error) {
       setMessage("Error creating profile. Please try again.");
       console.error("Profile error:", error);

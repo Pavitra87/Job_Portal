@@ -6,63 +6,19 @@ import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import LanguageSelector from "../LanguageSelector";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, loading, forData } = useAuth();
   const { t } = useTranslation();
-  const [profileData, setProfileData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const createProfile = profileData?.profile || null;
-
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
+  console.log("formdata", forData?.location);
+
   const dropdownRef = useRef(null);
-  const [hasProfile, setHasProfile] = useState(
-    JSON.parse(localStorage.getItem("hasProfile")) || false
-  );
-
-  const fetchProfile = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5001/api/auth/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log("User Profile Data:", response.data);
-      setProfileData(response.data);
-      // If profile exists, update localStorage
-      if (response.data?.profile) {
-        setHasProfile(true);
-        localStorage.setItem("hasProfile", JSON.stringify(true));
-      } else {
-        setHasProfile(false);
-        localStorage.setItem("hasProfile", JSON.stringify(false));
-      }
-    } catch (err) {
-      console.error("Error fetching profile:", err);
-      setError("Could not load profile. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProfile();
-    // if (user && !user.role) {
-    //   console.warn(
-    //     "User role is undefined. Please check user role assignment."
-    //   );
-    // }
-  }, [user]);
 
   const storedUserRole = JSON.parse(localStorage.getItem("user"))?.role;
+
   const userRole = user?.role || storedUserRole;
 
   const toggleDropdown = () => {
@@ -112,7 +68,7 @@ const Header = () => {
               </li>
               {userRole === "Job Seeker" && (
                 <>
-                  {hasProfile ? (
+                  {forData?.skills ? (
                     <li>
                       <Link to="/jobs">{t("navbar.jobs")}</Link>
                     </li>
@@ -127,13 +83,7 @@ const Header = () => {
               )}
               {userRole === "Job Provider" && (
                 <>
-                  {!hasProfile ? (
-                    <li>
-                      <Link to="/provider">
-                        {t("navbar.createProfileProvider")}
-                      </Link>
-                    </li>
-                  ) : (
+                  {forData?.location ? (
                     <>
                       <li>
                         <Link to="/post-job">{t("navbar.postJob")}</Link>
@@ -144,6 +94,12 @@ const Header = () => {
                         </Link>
                       </li>
                     </>
+                  ) : (
+                    <li>
+                      <Link to="/provider">
+                        {t("navbar.createProfileProvider")}
+                      </Link>
+                    </li>
                   )}
                 </>
               )}
@@ -166,12 +122,11 @@ const Header = () => {
 
                 {showDropdown && (
                   <div className="dropdown" ref={dropdownRef}>
-                    {hasProfile && (
-                      <Link to="/userprofile">
-                        <FaRegUser />
-                        <span>{t("navbar.profile")}</span>
-                      </Link>
-                    )}
+                    <Link to="/userprofile">
+                      <FaRegUser />
+                      <span>{t("navbar.profile")}</span>
+                    </Link>
+
                     <button onClick={logout} className="logout">
                       <MdOutlineLogout />
                       <span>{t("navbar.logout")}</span>

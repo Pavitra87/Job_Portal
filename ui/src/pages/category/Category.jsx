@@ -15,7 +15,7 @@ const Category = () => {
           <div className="category-title">
             {category.map((categ, index) => (
               <div key={index} className="category-item">
-                <h4>{t(categ.name)}</h4>
+                {/* <h4>{t(categ.name)}</h4> */}
                 <img src={categ.img} alt={categ.name} />
               </div>
             ))}

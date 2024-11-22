@@ -10,8 +10,11 @@
   gap: 20px;
   padding: 40px;
   margin: auto;
-  /* width: 70%; */
-  background: linear-gradient(to bottom, rgb(50, 50, 50), rgb(162, 162, 162));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url("../../assets/footer.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .heding h1 {
   font-size: 50px;
@@ -30,6 +33,9 @@
   padding: 13px 15px;
   border-radius: 2px;
   border: none;
+}
+.join-btn button a {
+  color: black;
 }
 .join-btn button:hover {
   background-color: #e3e3e3;

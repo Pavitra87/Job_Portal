@@ -1,67 +1,17 @@
-import accounting from "../assets/category/accounting.png";
-import care from "../assets/category/care.png";
-import cleaning from "../assets/category/cleaning.png";
-import cooking from "../assets/category/cooking.png";
-import healthcare from "../assets/category/healthcare.png";
-import media from "../assets/category/media.png";
-import others from "../assets/category/others.png";
-import painting from "../assets/category/painting.png";
-import plumbing from "../assets/category/plumbing.png";
-import sales from "../assets/category/sales.png";
-import teaching from "../assets/category/teaching.png";
-import travelling from "../assets/category/travelling.png";
-import { useTranslation } from "react-i18next";
+import accounting from "../assets/category/accounting1.webp";
+import care from "../assets/category/care11.webp";
+import cleaning from "../assets/category/cleanin1g.webp";
+import cooking from "../assets/category/cooking1.webp";
+import healthcare from "../assets/category/care1.webp";
+import media from "../assets/category/media1.webp";
+import others from "../assets/category/others1.webp";
 
-// const data = [
-//   {
-//     name: "category.list.finance",
-//     img: accounting,
-//   },
-//   {
-//     name: "category.list.Healthcare & Medicine",
-//     img: healthcare,
-//   },
-//   {
-//     name: "category.list.Sales & Marketing",
-//     img: sales,
-//   },
-//   {
-//     name: "category.list.Education & Training",
-//     img: teaching,
-//   },
-//   {
-//     name: "category.list.Transportation & Logistics",
-//     img: travelling,
-//   },
-//   {
-//     name: "category.list.Creative & Media",
-//     img: media,
-//   },
-//   {
-//     name: "category.list.Cleaning Services",
-//     img: cleaning,
-//   },
-//   {
-//     name: "category.list.Plumbing & Electrical Services",
-//     img: plumbing,
-//   },
-//   {
-//     name: "category.list.Painting & Home Décor",
-//     img: painting,
-//   },
-//   {
-//     name: "category.list.Event Catering & cooking",
-//     img: cooking,
-//   },
-//   {
-//     name: "category.list.Care taker",
-//     img: care,
-//   },
-//   {
-//     name: "category.list.others",
-//     img: others,
-//   },
-// ];
+import painting from "../assets/category/painting1.webp";
+import plumbing from "../assets/category/plumbing1.webp";
+import sales from "../assets/category/sales1.webp";
+import teaching from "../assets/category/teaching1.webp";
+import travelling from "../assets/category/travelling1.webp";
+
 const data = [
   {
     name: "category.list.finance", // Translation key
