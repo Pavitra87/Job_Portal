@@ -7,6 +7,10 @@
   background-color: #f9f9f9;
   animation: fadeIn 1s ease-in-out; /* Fade-in animation */
 }
+.job-listing-form h2 {
+  color: #000000;
+  font-size: 24px;
+}
 
 @keyframes fadeIn {
   from {
@@ -55,7 +59,7 @@
 .job-listing-form button {
   width: 100%;
   padding: 10px;
-  background-color: #414141;
+  background-color: #0052b0;
   color: white;
   border: none;
   border-radius: 4px;
@@ -65,7 +69,7 @@
 }
 
 .job-listing-form button:hover {
-  background-color: #151515;
+  background-color: #00489b;
 }
 
 .job-listing-form button:active {

@@ -46,11 +46,11 @@
   cursor: pointer;
   margin-left: 10px;
   font-size: 1.5em;
-  color: #010101;
+  color: #0052b0;
 }
 
 .profile-actions i:hover {
-  color: #0056b3;
+  color: #022c5a;
 }
 .profiles {
   padding: 0 30px;
@@ -76,7 +76,7 @@
 }
 .user-details h3 {
   font-size: 20px;
-  color: #292929;
+  color: #0052b0;
   font-family: "Nunito Sans", sans-serif;
 }
 .user-details p {

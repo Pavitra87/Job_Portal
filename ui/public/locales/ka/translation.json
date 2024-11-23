@@ -2,7 +2,7 @@
   "title": "ಲೋಕಲ್ ಹೈರ್",
   "navbar": {
     "home": "ಹೋಂ",
-    "category": "ವರ್ಗ",
+    "category": "ಕೆಟಗರಿ",
     "jobs": "ಉದ್ಯೋಗಗಳು",
     "createProfileSeeker": "ಪ್ರೊಫೈಲ್ ರಚಿಸಿ",
     "createProfileProvider": "ಪ್ರೊಫೈಲ್ ರಚಿಸಿ",
@@ -80,6 +80,7 @@
       "skills": "ಜ್ಞಾನ:",
       "contactNumber": "ಸಂಪರ್ಕ ಸಂಖ್ಯೆ",
       "experience": "ಅನುಭವ:",
+      "location": "ವಿಳಾಸ:",
       "resume": "ರೆಸ್ಯೂಮ್:",
       "jobtype": "ಕೆಲಸದ ಪ್ರಕಾರ",
       "no_resume": "ರೆಸ್ಯೂಮ್ ಅಪ್ಲೋಡ್ ಮಾಡಿಲ್ಲ"

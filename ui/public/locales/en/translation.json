@@ -49,7 +49,7 @@
   },
   "createjoblist": {
     "alljobtitle": "Job Lists",
-    "createJobListing": "Create Job Listing",
+    "createJobListing": "Create Post Job",
     "jobTitle": "Job Title",
     "jobDescription": "Job Description",
     "requirements": "Requirements",
@@ -78,10 +78,11 @@
       "email": "Email:",
       "education": "Education:",
       "skills": "Skills:",
-      "contactNumber": "Contact No",
+      "location": "Address:",
+      "contactNumber": "Contact No:",
       "experience": "Experience:",
       "resume": "Resume:",
-      "jobtype": "jobtype",
+      "jobtype": "jobtype:",
       "no_resume": "No resume uploaded"
     },
     "messages": {

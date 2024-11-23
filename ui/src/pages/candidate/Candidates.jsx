@@ -162,7 +162,7 @@ const Candidates = () => {
                   <span> {jobSeeker.profile?.education || "N/A"}</span>
                 </p>
                 <p>
-                  <strong>{t("candidates.profile_details.name")}</strong>
+                  <strong>{t("candidates.profile_details.location")}</strong>
                   <span> {jobSeeker.profile?.location || "N/A"}</span>
                 </p>
                 <p>

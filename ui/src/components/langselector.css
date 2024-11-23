@@ -1,58 +1,50 @@
 .lang-selector {
+  position: relative;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.lang-selector-header {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
   gap: 8px;
-}
-.lang-selector p {
-  font-size: 11px;
-}
-.lang {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.btn-container {
-  width: 30px;
-  height: 15px;
-  border-radius: 20px;
-  background-color: #f0f0f0;
-  position: relative;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 8px 12px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.btn-container:hover {
-  background-color: #e0e0e0;
-}
-
-.btn-container span {
+.lang-dropdown {
   position: absolute;
-  top: 0%;
-  left: 0px; /* Adjusted for smaller button size */
-  width: 15px; /* Adjusted for smaller toggle */
-  height: 15px;
-  right: 20px; /* Adjusted for smaller toggle */
-  background-color: #4caf50;
-  border-radius: 50%;
-  transform: translateY(20px);
-  transition: transform 0.3s ease;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  width: 100%;
 }
 
-.language-label {
-  margin-left: 10px;
-  font-size: 12px;
+.lang-dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.lang-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.lang-dropdown li.active {
   font-weight: bold;
-  color: #ffffff;
+  background-color: #e6e6e6;
 }
 
-.lang-selector .btn-container span {
-  transform: translateX(0);
-}
-
-.lang-selector .btn-container span {
-  transform: translateX(20px); /* Adjusted for smaller size */
+.lang-dropdown li.active:hover {
+  background-color: #dcdcdc;
 }

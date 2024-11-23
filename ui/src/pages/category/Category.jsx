@@ -9,14 +9,16 @@ const Category = () => {
     <div className="category" id="category">
       <div className="category-contain">
         <div className="category-heading">
+          <span className="line1"></span>
           <h1>{t("category.title")}</h1>
+          <span className="line2"> </span>
         </div>
         <div className="category-details">
           <div className="category-title">
             {category.map((categ, index) => (
               <div key={index} className="category-item">
-                {/* <h4>{t(categ.name)}</h4> */}
                 <img src={categ.img} alt={categ.name} />
+                <h4>{t(categ.name)}</h4>
               </div>
             ))}
           </div>

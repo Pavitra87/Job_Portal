@@ -6,6 +6,7 @@ import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import LanguageSelector from "../LanguageSelector";
 import { useTranslation } from "react-i18next";
+import logo from "../../assets/logo.jpg";
 
 const Header = () => {
   const { user, logout, loading, forData } = useAuth();
@@ -50,6 +51,7 @@ const Header = () => {
       <div className="nav">
         <div className="head-icon">
           <div className="icon">
+            <img src={logo} alt="" />
             <h1>{t("title")}</h1>
           </div>
 

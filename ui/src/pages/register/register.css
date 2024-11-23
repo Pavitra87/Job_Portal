@@ -84,7 +84,7 @@
 .register button {
   width: 100%;
   padding: 12px;
-  background-color: #414141;
+  background-color: #0052b0;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -106,7 +106,7 @@
 }
 
 .register button:hover {
-  background-color: #151515;
+  background-color: #053367;
 }
 
 .upload-label {

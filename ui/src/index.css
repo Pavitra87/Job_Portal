@@ -13,5 +13,19 @@ li {
   list-style: none;
 }
 body {
-  background-color: rgb(220, 220, 220);
+  background-color: #ebebed;
+}
+p::first-letter,
+h1::first-letter,
+h2::first-letter,
+h3::first-letter,
+h4::first-letter,
+span::first-letter {
+  text-transform: uppercase;
+}
+input::placeholder {
+  text-transform: capitalize;
+}
+input[type="email"] {
+  text-transform: none;
 }

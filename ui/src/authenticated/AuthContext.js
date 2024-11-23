@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     const updatedUser = {
       ...userData,
       profile_picture_url:
-        userData.profile_picture_url || "/default-profile.png", // Ensure profile URL
+        userData.profile_picture_url || "/default-profile.png",
     };
     setUser(updatedUser);
     setToken(localStorage.getItem("token"));

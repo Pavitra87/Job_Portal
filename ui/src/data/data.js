@@ -50,7 +50,7 @@ const data = [
     img: painting,
   },
   {
-    name: "category.list.cooking",
+    name: "category.list.catering",
     img: cooking,
   },
   {

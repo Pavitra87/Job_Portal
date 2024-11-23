@@ -82,7 +82,7 @@
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #414141;
+  background-color: #0052b0;
   color: #ffffff;
   font-size: 1rem;
   cursor: pointer;
@@ -102,7 +102,7 @@
 }
 
 .login button:hover {
-  background-color: #151515;
+  background-color: #003470;
 }
 
 /* Message styling */

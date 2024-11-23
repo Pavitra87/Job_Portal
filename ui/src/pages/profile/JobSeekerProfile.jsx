@@ -120,7 +120,7 @@ const JobSeekerProfile = ({
                     <th>Delete</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ textTransform: "capitalize" }}>
                   {appliedJobs.map((applyjob) => (
                     <tr key={applyjob.id}>
                       <td>{applyjob.jobListing?.title}</td>
@@ -133,6 +133,7 @@ const JobSeekerProfile = ({
                       <td>{applyjob.jobListing?.salary_range || "N/A"}</td>
                       <td>
                         <i
+                          style={{ color: " #0052b0" }}
                           className="fas fa-trash"
                           onClick={() => handleDeleteAppliedJob(applyjob.id)}
                           title="Delete Application"

@@ -56,7 +56,7 @@
 .filter-container h4 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: #333;
+  color: #0052b0;
 }
 .filter-form {
   display: flex;
@@ -108,7 +108,7 @@
 
 .job-details li h3 {
   font-size: 20px;
-  color: #222;
+  color: #0052b0;
   margin-bottom: 10px;
 }
 
@@ -136,21 +136,21 @@
   margin-left: 8px; /* Space between "Skills:" and the chips */
 }
 
-.chip {
+.job-details .chips .chip {
   display: inline-block;
   padding: 5px 10px;
   font-size: 0.9rem;
   background-color: #f0f0f0;
   color: #333;
   border-radius: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #0052b0;
 }
 
 .job-details button {
   padding: 10px 0px;
   font-size: 14px;
   color: #ffffff;
-  background-color: #1c1c1c;
+  background-color: #0052b0;
   border: 1px solid #f9f9f9;
   border-radius: 5px;
   cursor: pointer;
@@ -158,8 +158,8 @@
 }
 
 .job-details button:hover {
-  background-color: #ffffff;
-  color: #1c1c1c;
+  background-color: #003572;
+  color: #fff;
   border: 1px solid #000;
 }
 
@@ -169,11 +169,9 @@
   margin-top: 20px;
 }
 
-.job-details .notfound-img {
-  width: 100%;
-}
 .job-details .notfound-img img {
   width: 100%;
+  max-width: 700px;
   object-fit: cover;
 }
 @media (max-width: 768px) {

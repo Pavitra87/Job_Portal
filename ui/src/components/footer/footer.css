@@ -1,5 +1,4 @@
 .footer-section {
-  /* background-color: #f5f5f5; */
   width: 90%;
   margin: 10px auto;
 }
@@ -35,7 +34,7 @@
   border: none;
 }
 .join-btn button a {
-  color: black;
+  color: #0052b0;
 }
 .join-btn button:hover {
   background-color: #e3e3e3;
@@ -46,91 +45,91 @@
 /* ---------------------------------- */
 @media (max-width: 900px) {
   .footer {
-    padding: 30px; /* Reduce padding on medium screens */
+    padding: 30px;
   }
 
   .heding h1 {
-    font-size: 40px; /* Slightly smaller heading */
+    font-size: 40px;
   }
 
   .small p {
-    font-size: 16px; /* Adjust font size */
+    font-size: 16px;
   }
 
   .join-btn button {
-    padding: 10px 12px; /* Adjust button padding */
+    padding: 10px 12px;
   }
 
   .join-btn button a {
-    font-size: 14px; /* Slightly smaller text for button */
+    font-size: 14px;
   }
 }
 @media (max-width: 645px) {
   .footer {
-    padding: 25px; /* Reduce padding for smaller screens */
+    padding: 25px;
   }
 
   .heding h1 {
-    font-size: 30px; /* Further reduce heading size */
+    font-size: 30px;
   }
 
   .small p {
-    font-size: 14px; /* Adjust paragraph font size */
-    line-height: 1.5; /* Improved readability */
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .join-btn button {
-    padding: 10px 12px; /* Keep button size reasonable */
+    padding: 10px 12px;
   }
 
   .join-btn button a {
-    font-size: 14px; /* Adjust button font size */
+    font-size: 14px;
   }
 }
 @media (max-width: 450px) {
   .footer {
-    padding: 20px; /* Reduce padding even more */
-    width: 100%; /* Ensure the footer takes full width */
+    padding: 20px;
+    width: 100%;
   }
 
   .heding h1 {
-    font-size: 24px; /* Smaller heading size for compact view */
+    font-size: 24px;
   }
 
   .small p {
-    font-size: 13px; /* Smaller text for paragraph */
+    font-size: 13px;
     line-height: 1.4;
   }
 
   .join-btn button {
-    padding: 8px 10px; /* Smaller button padding */
-    font-size: 14px; /* Keep button text readable */
+    padding: 8px 10px;
+    font-size: 14px;
   }
 
   .join-btn button a {
-    font-size: 13px; /* Smaller text for button */
+    font-size: 13px;
   }
 }
 @media (max-width: 375px) {
   .footer {
-    padding: 15px; /* Keep the footer compact */
+    padding: 15px;
   }
 
   .heding h1 {
-    font-size: 22px; /* Further reduce heading size */
-    margin-bottom: 15px; /* Adjust margin to fit */
+    font-size: 22px;
+    margin-bottom: 15px;
   }
 
   .small p {
-    font-size: 12px; /* Smaller font size for text */
+    font-size: 12px;
     line-height: 1.4;
   }
 
   .join-btn button {
-    padding: 8px 10px; /* Maintain small button size */
+    padding: 8px 10px;
   }
 
   .join-btn button a {
-    font-size: 12px; /* Ensure button text stays compact */
+    font-size: 12px;
   }
 }

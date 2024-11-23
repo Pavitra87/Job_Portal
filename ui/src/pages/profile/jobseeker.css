@@ -86,7 +86,7 @@
   color: #28a745;
   margin-top: 10px;
   opacity: 0;
-  animation: fadeInMessage 0.6s ease-out 1s forwards; /* Delay animation for the message */
+  animation: fadeInMessage 0.6s ease-out 1s forwards;
 }
 
 @keyframes fadeInMessage {
@@ -107,7 +107,7 @@
 
 @media screen and (max-width: 578px) {
   .job-seeker-profile {
-    max-width: 90%; /* Increase width to fit smaller screens */
+    max-width: 90%;
     margin: 20px auto;
     padding: 15px;
   }

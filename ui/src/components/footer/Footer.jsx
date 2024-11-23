@@ -22,4 +22,3 @@ const Footer = () => {
 };
 
 export default Footer;
-// const profilePictureUrl = user?.profile_picture_url || "/default-profile.png";//

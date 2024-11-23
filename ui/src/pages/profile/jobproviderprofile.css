@@ -12,7 +12,7 @@
   align-items: center;
 }
 .post-title h2 {
-  color: #111111;
+  color: #0052b0;
   font-size: 20px;
   font-family: "Nunito Sans", sans-serif;
 }
@@ -43,7 +43,7 @@
 .provider-posts-job h2 {
   text-align: center;
   margin-bottom: 10px;
-  color: rgb(43, 1, 1);
+  color: #0052b0;
 }
 /* ---------------------table---------------------------------------- */
 .job-details-table {
@@ -81,11 +81,11 @@
 .edit-modal .FaArrowLeft {
   cursor: pointer;
   font-size: 24px;
-  color: #333;
+  color: #0052b0;
 }
 
 .job-details-table .fas:hover {
-  color: #0056b3;
+  color: #00438a;
 }
 /* -------------------------------------------------------- */
 /* Modal overlay to darken background */
@@ -236,6 +236,9 @@
 .applicants-heading {
   text-align: center;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .applicants-heading h3 {
@@ -253,13 +256,14 @@
 
 .applicant-model-content table thead {
   background: #f4f4f4;
+  white-space: nowrap;
 }
 
 .applicant-model-content table thead th {
   text-align: left;
   padding: 10px;
   border: 1px solid #ddd;
-  font-size: 16px;
+  font-size: 14px;
   color: #333;
 }
 
